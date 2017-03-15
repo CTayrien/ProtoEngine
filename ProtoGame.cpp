@@ -9,7 +9,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 // If dozens of game objects are used, framerate may begin to drop below 60fps on modern hardware.
 
 // Example Directions
-// 1) Create a VS project with the engine code & external libs and project settings.
+// 1) Create a VS project. Install GLEW, GLFW, FreeImage and GLM. Add additional linker dependencies: glew32.lib, opengl32.lib, glfw3.lib, FreeImage.lib. Add include directory: $(ProjectDir)engine.
 
 // 2) Add a scene.cpp and include engine.h.
 #include "engine/engine.h"
