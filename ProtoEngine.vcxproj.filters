@@ -80,6 +80,9 @@
     <ClInclude Include="objecta\objecta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="builder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -131,6 +134,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ProtoGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="builder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

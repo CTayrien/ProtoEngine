@@ -23,6 +23,11 @@ model mod("engine/models/sphere.obj");
 texture tex("engine/textures/earth.png");
 objecta myobja(&mod, &tex);
 
+#include "builder.h"
+model ant("builder/ant.obj");
+texture blacktex("engine/textures/black.png");
+builder builder1(&ant, &blacktex);
+
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
 	if (!engine::start()) return 1;
@@ -30,6 +35,9 @@ int main() {
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
 	if (!mod.load()) return 1;
 	if (!tex.load()) return 1;
+
+	if (!ant.load()) return 1;
+	if (!blacktex.load()) return 1;
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
@@ -39,9 +47,11 @@ int main() {
 		
 		// 9) Update all objects
 		myobja.update();
+		builder1.update();
 
 		// 10) Render all objects
 		myobja.render();
+		builder1.render();
 	}
 	
 	// 11) Unload all assets

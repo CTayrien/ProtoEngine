@@ -23,6 +23,7 @@
     <None Include="engine\shaders\vshader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="builder.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\fileio.h" />
@@ -41,6 +42,7 @@
     <ClInclude Include="objecta\objecta.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="builder.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\fileio.cpp" />
