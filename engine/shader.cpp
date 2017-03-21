@@ -88,7 +88,7 @@ bool shader::compile(GLenum shaderType)
 	return false;
 }
 
-bool shader::use()
+void shader::use()
 {	
 	glUseProgram(id);
 }

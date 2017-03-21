@@ -22,6 +22,6 @@ public:
 	
 	bool load();
 	bool compile(GLenum shaderType);
-	bool use();
+	void use();
 	void unload();
 };

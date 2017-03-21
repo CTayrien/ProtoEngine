@@ -17,8 +17,7 @@ bool renderer::start()
 	glClearColor(.45f, .45f, .9f, 1.f);
 
 	if (!theshader.load()) return false;
-
-	if (!theshader.use()) return false;
+	theshader.use();
 
 	thematerial.use();
 
