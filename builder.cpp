@@ -34,6 +34,7 @@ builder::~builder()
 
 void builder::update()
 {
+	findNearestRes();
 	// init static data, how does a normal design pattern do this
 	// move toward nearest resource with max velocity.
 	// ????
