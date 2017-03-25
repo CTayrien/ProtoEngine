@@ -51,4 +51,5 @@ void texture::use()
 void texture::unload()
 {
 	glDeleteTextures(1, &id);
+	id = 0;
 }

@@ -10,7 +10,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class model
 {
 private:
-	uint32_t vao = -1, vbo = -1, nverts = 0;
+	uint32_t vao = 0, vbo = 0, nverts = 0;
 
 public:
 	std::string filename = "default model";

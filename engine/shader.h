@@ -14,7 +14,7 @@ public:
 	string filenamev = "engine/shaders/vshader.glsl";
 	string filenamef = "engine/shaders/fshader.glsl";
 
-	uint32_t id = -1, vid = -1, fid = -1;
+	uint32_t id = 0, vid = 0, fid = 0;
 
 	shader();
 	shader(string filenamev, string filenamef);

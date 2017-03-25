@@ -99,5 +99,5 @@ void shader::unload()
 	glDeleteShader(vid);
 	glDeleteShader(fid);
 	
-	id = vid = fid = -1;
+	id = vid = fid = 0;
 }

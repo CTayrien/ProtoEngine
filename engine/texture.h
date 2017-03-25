@@ -8,7 +8,7 @@ class texture
 {
 private:
 	std::string filename;
-	uint32_t id = -1;
+	uint32_t id = 0;
 public:
 	texture(std::string filename);
 	~texture();

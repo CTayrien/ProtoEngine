@@ -8,15 +8,9 @@
 layout (location = 0) in vec3 modelLoc;
 layout (location = 1) in vec2 modelUV;
 layout (location = 2) in vec3 modelNorm;
-//layout (location = 0) in struct Vertex {
-//	vec3 loc;
-//	vec2 uv;
-//	vec3 norm;
-//} vertex;
 
 // Model-world-view transforms
 layout (location = 3) uniform mat4 modelWorld;
-
 layout (location = 4) uniform mat4 worldView;
 
 // World space
@@ -30,10 +24,6 @@ void main()
 	worldLoc = (modelWorld * vec4(modelLoc, 1)).xyz;
 	uv = modelUV;
 	worldNorm = normalize((transpose(inverse(modelWorld)) * vec4(modelNorm, 0)).xyz);
-	
-	//worldLoc = (modelWorld * vec4(vertex.loc, 1)).xyz;
-	//uv = vertex.uv;
-	//worldNorm = normalize((transpose(inverse(modelWorld)) * vec4(vertex.norm, 0)).xyz);
 
 	// Transform from world space into view space
 	gl_Position = worldView * vec4(worldLoc, 1);
