@@ -124,14 +124,18 @@ bool model::load()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), 0);
-
+	
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (void*)sizeof(vec3));
-
+	
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (void*)(sizeof(vec3) + sizeof(vec2)));
+
+	//glEnableVertexAttribArray(0);
+	//glVertexAttribPointer(0, 8, GL_FLOAT, GL_FALSE,
+	//	sizeof(Vertex), 0);
 
 	// Unbind
 	glBindVertexArray(0);
