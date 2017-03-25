@@ -10,18 +10,15 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine.h"
 
 // 2) Inherit obj publicly
-class objecta :
+class planet :
 	public object
 {
-private:
-	float ticker = 0;
-
 public:
 	// 3) Create a constructor that initializes the obj member data "string tag" and "model"
-	objecta(model* mod, texture* tex);
+	planet(model* mod, texture* tex);
 
 	// 4) Override the destructor. If c'tor allocates memory, d'tor deallocates it.
-	~objecta() override;
+	~planet() override;
 
 	// 5) Override the update method with game logic. May access members of physics:: and input:: and call rigidbody.update
 	void update() override;

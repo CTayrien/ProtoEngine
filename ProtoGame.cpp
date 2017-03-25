@@ -15,13 +15,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine/engine.h"
 
 // 3) Develop assets (models and textures) for game objects, put their behavior in a new obj, and include the object's header.
-#include "objecta/objecta.h"
 
 // 4) Declare assets and objects globally, on the stack, or on the heap.
 //		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.
+#include "planet/planet.h"
 model sphereMod("engine/models/sphere.obj");
 texture earthTex("engine/textures/earth.png");
-objecta earth(&sphereMod, &earthTex);
+planet earth(&sphereMod, &earthTex);
 
 #include "builder/builder.h"
 model antMod("builder/ant.obj");

@@ -77,10 +77,10 @@
     <ClInclude Include="engine\window.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="objecta\objecta.h">
+    <ClInclude Include="builder\builder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="builder\builder.h">
+    <ClInclude Include="planet\planet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -130,13 +130,13 @@
     <ClCompile Include="engine\window.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="objecta\objecta.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ProtoGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="builder\builder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="planet\planet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
