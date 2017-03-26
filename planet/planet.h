@@ -6,6 +6,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #pragma once
 
+#include <vector>
+
 // 1) Include engine header
 #include "engine.h"
 
@@ -13,7 +15,11 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class planet :
 	public object
 {
+private:
+	object** objs;
+	int n;
 public:
+	void copyobjs(object* objs, int n);
 	// 3) Create a constructor that initializes the obj member data "string tag" and "model"
 	planet(model* mod, texture* tex);
 

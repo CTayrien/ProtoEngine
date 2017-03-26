@@ -20,6 +20,10 @@ object * builder::findNearestRes()
 	return nearest;
 }
 
+builder::builder()
+{
+}
+
 builder::builder(model * mod, texture * tex)
 {
 	this->mod = mod;

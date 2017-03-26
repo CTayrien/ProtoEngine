@@ -7,6 +7,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <iostream>
 
+void planet::copyobjs(object * objs, int n)
+{
+	//if (this->objs) delete[] this->objs;
+	//this->n = n;
+	//this->objs = new (object*)[n];
+}
+
 // c'tor
 planet::planet(model * mod, texture * tex)
 {

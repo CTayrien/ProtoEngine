@@ -13,6 +13,7 @@ public:
 
 	object* findNearestRes();
 
+	builder();
 	builder(model* mod, texture* tex);
 
 	~builder() override;

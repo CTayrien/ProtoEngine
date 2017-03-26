@@ -17,16 +17,32 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 // 3) Develop assets (models and textures) for game objects, put their behavior in a new obj, and include the object's header.
 
 // 4) Declare assets and objects globally, on the stack, or on the heap.
-//		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.
+//		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.  
 #include "planet/planet.h"
 model sphereMod("engine/models/sphere.obj");
 texture earthTex("engine/textures/earth.png");
 planet earth(&sphereMod, &earthTex);
 
+//void earthinit(object* objs, int n) {
+//	memccpy(earth->objs, objs, 0, n * 4);
+//};
+
 #include "builder/builder.h"
 model antMod("builder/ant.obj");
 texture blackTex("engine/textures/black.png");
-builder builder1(&antMod, &blackTex);
+int nbuilders = 0;
+const int maxbuilders = 10;
+builder builders[maxbuilders];
+
+void spawnbuilder() {
+	if (nbuilders >= maxbuilders)
+		return;
+
+	int i = nbuilders++;
+	
+	builders[i] = builder(&antMod, &blackTex);
+	builders[i].tform.vel.z = 1;
+}
 
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
@@ -39,6 +55,8 @@ int main() {
 	if (!antMod.load()) return 1;
 	if (!blackTex.load()) return 1;
 
+	spawnbuilder();
+
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
 	{
@@ -47,11 +65,15 @@ int main() {
 		
 		// 9) Update all objects
 		earth.update();
-		builder1.update();
+		for (int i = 0; i < nbuilders; i++) {
+			builders[i].update();
+		}
 
 		// 10) Render all objects
 		earth.render();
-		builder1.render();
+		for (int i = 0; i < nbuilders; i++) {
+			builders[i].render();
+		}
 	}
 	
 	// 11) Unload all assets
