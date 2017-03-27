@@ -22,12 +22,15 @@ object * builder::findNearestRes()
 
 builder::builder()
 {
+	tform.scale *= 4;
+	tform.loc = { .5, 0, 0 };
 }
 
 builder::builder(model * mod, texture * tex)
 {
 	this->mod = mod;
 	this->tex = tex;
+
 	tform.scale *= 4;
 	tform.loc = { .5, 0, 0 };
 }
@@ -38,7 +41,9 @@ builder::~builder()
 
 void builder::update()
 {
-	findNearestRes();
+	tform.update();
+
+	//findNearestRes();
 	// init static data, how does a normal design pattern do this
 	// move toward nearest resource with max velocity.
 	// ????

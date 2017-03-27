@@ -33,6 +33,8 @@ void skybox::update()
 {
 	// Or should I move the camera to the box, render, and move it back?
 	tform.loc = engine::cam.tform.loc;
+	
+	tform.update();
 }
 
 void skybox::render()

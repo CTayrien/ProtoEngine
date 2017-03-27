@@ -16,10 +16,10 @@ class planet :
 	public object
 {
 private:
-	object** objs;
-	int n;
+	float G = .1f;
+	std::vector<object*> objs;
 public:
-	void copyobjs(object* objs, int n);
+	void push(object* objs);
 	// 3) Create a constructor that initializes the obj member data "string tag" and "model"
 	planet(model* mod, texture* tex);
 

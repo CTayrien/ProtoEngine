@@ -23,10 +23,6 @@ model sphereMod("engine/models/sphere.obj");
 texture earthTex("engine/textures/earth.png");
 planet earth(&sphereMod, &earthTex);
 
-//void earthinit(object* objs, int n) {
-//	memccpy(earth->objs, objs, 0, n * 4);
-//};
-
 #include "builder/builder.h"
 model antMod("builder/ant.obj");
 texture blackTex("engine/textures/black.png");
@@ -40,8 +36,13 @@ void spawnbuilder() {
 
 	int i = nbuilders++;
 	
-	builders[i] = builder(&antMod, &blackTex);
-	builders[i].tform.vel.z = 1;
+	builders[i].mod = &antMod;
+	builders[i].tex = &blackTex;
+
+	if (i > 0) {
+		builders[i].tform = builders[i-1].tform;
+		builders[i].tform.loc.z += .05;
+	}
 }
 
 int main() {
@@ -55,8 +56,17 @@ int main() {
 	if (!antMod.load()) return 1;
 	if (!blackTex.load()) return 1;
 
-	spawnbuilder();
+	for (int i = 0; i < 10; i++) {
+		spawnbuilder();
+	}
 
+	for (int i = 0; i < 10; i++) {
+		earth.push(builders+i);
+	}
+
+	//earth.push(&engine::cam);
+
+	engine::time.dt = 0;
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
 	{

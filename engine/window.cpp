@@ -20,12 +20,6 @@ bool window::start()
 {
 	//ptr = glfwCreateWindow(w, h, title.c_str(), glfwGetPrimaryMonitor(), NULL);
 	ptr = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
-
-	//w = 800;
-	//h = 450;
-	//window::halfw = window::w / 2;
-	//window::halfh = window::h / 2;
-	//ptr = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
 	
 	if (nullptr == ptr) return false;
 	glfwMakeContextCurrent(ptr);

@@ -9,6 +9,7 @@ class transform
 public:
 	glm::vec3 loc, rot, scale;
 	glm::mat3 R;
+	glm::mat4 rotation;
 	glm::mat4 modelWorld;
 
 	glm::vec3 vel, force;
@@ -19,6 +20,9 @@ public:
 
 	transform();
 	~transform();
+
+	glm::vec3 forward();
+	glm::vec3 up();
 
 	void update();
 	void render();

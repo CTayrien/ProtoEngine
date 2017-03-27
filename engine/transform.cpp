@@ -23,6 +23,16 @@ transform::~transform()
 {
 }
 
+glm::vec3 transform::forward()
+{
+	return -R[2];
+}
+
+glm::vec3 transform::up()
+{
+	return R[1];
+}
+
 void transform::update()
 {
 	vel += force / mass * engine::time.dt;
@@ -31,20 +41,16 @@ void transform::update()
 
 	rotvel += torque / moment * engine::time.dt;
 	rot += rotvel * engine::time.dt;
-	torque = { 0, 0, 0 };
+	torque = {0, 0, 0};
 
-	glm::mat4 rotation = glm::yawPitchRoll(rot.y, rot.x, rot.z);
+	rotation = glm::yawPitchRoll(rot.y, rot.x, rot.z);
+	
 	R = (glm::mat3)rotation;
-	modelWorld = glm::translate(loc)
-		* rotation
-		* glm::scale(scale);
+
+	modelWorld = glm::translate(loc) * rotation	* glm::scale(scale);
 }
 
 void transform::render()
 {
-	glm::mat4 tform = glm::translate(loc)
-		* glm::yawPitchRoll(rot.y, rot.x, rot.z)
-		* glm::scale(scale);
-
-	glUniformMatrix4fv(3, 1, GL_FALSE, &tform[0][0]);
+	glUniformMatrix4fv(3, 1, GL_FALSE, &modelWorld[0][0]);
 }

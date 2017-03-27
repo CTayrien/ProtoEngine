@@ -8,6 +8,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GLFW/glfw3.h>
 
 // static member data constructor call (ish)
+float engine::pi = glm::pi<float>();
 timer engine::time;
 camera engine::cam;
 light engine::light;

@@ -17,6 +17,8 @@ class engine
 private:
 
 public:
+	static float pi;
+
 	static timer time;
 	
 	static camera cam;

@@ -11,11 +11,9 @@ class camera :
 	public object
 {
 private:
-	std::string varname = "worldView";
-	int id = 4;
+	glm::mat4 worldView;
 
-	//float aspect = 800.f / 600.f;	//(float)windowSize.x / (float)windowSize.y,
-	float fov = glm::pi<float>() * .4f;
+	float fov = engine::pi * .4f;
 	float aspect = (float)window::w / (float)window::h;
 	float zNear = .01f;
 	float zFar = 1000.f;
@@ -23,13 +21,6 @@ private:
 	const float maxvel = 2.f;
 	const float sens = .005f;
 	
-	glm::vec3 eye;
-	glm::vec3 center;
-	glm::vec3 up;
-
-	glm::mat3 R;
-	glm::mat4 worldView;
-
 public:
 	camera();
 	~camera() override;

@@ -37,27 +37,21 @@ bool camera::start()
 
 void camera::update()
 {
-	// Update & upload rotation data and transformation matrix
-	R = (glm::mat3)glm::yawPitchRoll(tform.rot.y, tform.rot.x, tform.rot.z);
+	tform.update();
 
 	move();
 	
-	tform.update();
-	
 	turn();
 
-	eye = tform.loc;
-	center = tform.loc + R * glm::vec3(0, 0, -1);
-	up = R * glm::vec3(0, 1, 0);
-
-	worldView = glm::perspective(fov, aspect, zNear, zFar) * glm::lookAt(eye, center, up);	// why do i need to use eye instead of loc? 
+	worldView = glm::perspective(fov, aspect, zNear, zFar) 
+		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
 
 	upload();
 }
 
 void camera::upload()
 {
-	glUniformMatrix4fv(id, 1, GL_FALSE, &worldView[0][0]);
+	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
 
 	// for lighting
 	glUniform3fv(6, 1, &tform.loc[0]);
@@ -73,17 +67,19 @@ void camera::move()
 	if (input::isDown(GLFW_KEY_UP))    v.z -= 1;
 	if (input::isDown(GLFW_KEY_DOWN))  v.z += 1;
 
-	// if v is 0, do not normalize it.
-	tform.vel = (v != glm::vec3()) ? R * glm::normalize(v) * maxvel : glm::vec3();
+	tform.vel = (v == glm::vec3()) ? glm::vec3() : tform.R * glm::normalize(v) * maxvel;	// velocity-based move
+	//tform.force += (v != glm::vec3()) ? R * glm::normalize(v) * maxvel : glm::vec3();	// force-based move
 }
 
 void camera::turn()
 {
-	// Yaw (y-axis) and pitch (x-axis) (pitch clamped to +/- 90 deg.)
-	tform.rot.y += sens * ((float)window::halfw - (float)window::cursorx);
-	tform.rot.x += sens * ((float)window::halfh - (float)window::cursory);
-	tform.rot.x = glm::clamp(tform.rot.x, -.5f * glm::pi<float>(), .5f * glm::pi<float>());
+	// Yaw 
+	tform.rot.y += sens * (window::halfw - window::cursorx);
 
+	// Pitch (clamped to +/- 90 deg)
+	tform.rot.x += sens * (window::halfh - window::cursory);
+	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
+	
 	// Move cursor to center screen so user stops turning, unless they move mouse again.
 	glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
 }

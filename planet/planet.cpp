@@ -7,11 +7,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <iostream>
 
-void planet::copyobjs(object * objs, int n)
+void planet::push(object * obj)
 {
-	//if (this->objs) delete[] this->objs;
-	//this->n = n;
-	//this->objs = new (object*)[n];
+	objs.push_back(obj);
 }
 
 // c'tor
@@ -38,5 +36,20 @@ void planet::update()
 	if (collides<SPHERE>(engine::cam)) {
 		system("cls");
 		printf("Collision.\n");
+	}
+
+	for(object* obj : objs){
+		glm::vec3 r = obj->tform.loc - tform.loc;
+		glm::vec3 dir = glm::normalize(r);
+		float rsqrd = glm::dot(r, r);
+		
+		// f = g mm/rr
+		obj->tform.force -= dir * G / rsqrd * (obj->tform.mass * tform.mass);
+
+		// f = vm/r	-> v = f / m * r
+		float vmag = glm::length(obj->tform.force) / obj->tform.mass * (glm::length(r));
+		glm::vec3 vdir = glm::cross(glm::vec3(0, 1, 0), dir);
+
+		obj->tform.vel = vdir * vmag;
 	}
 }
