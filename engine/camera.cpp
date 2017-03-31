@@ -10,6 +10,7 @@ camera::camera()
 	mod = new model("engine/models/camera.obj");
 	tex = new texture("engine/textures/black.png");
 	tform.loc.z = 1.5;
+	fov = engine::pi * .4f;
 }
 
 camera::~camera()

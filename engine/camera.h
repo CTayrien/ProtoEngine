@@ -4,7 +4,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
 #include "window.h"
-
 #include <string>
 
 class camera :
@@ -13,7 +12,7 @@ class camera :
 private:
 	glm::mat4 worldView;
 
-	float fov = engine::pi * .4f;
+	float fov; //fov init in ctor
 	float aspect = (float)window::w / (float)window::h;
 	float zNear = .01f;
 	float zFar = 1000.f;
