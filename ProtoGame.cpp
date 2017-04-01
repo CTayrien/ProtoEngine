@@ -13,6 +13,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // 2) Add a scene.cpp and include engine.h.
 #include "engine/engine.h"
+#include <thread>
 
 // 3) Develop assets (models and textures) for game objects, put their behavior in a new obj, and include the object's header.
 
@@ -69,11 +70,7 @@ void spawnbuilder() {
 	}
 }
 
-int main() {
-	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
-	if (!engine::start()) return 1;
-
-	// 6) Load all assets. (Load each asset only once and reuse each when possible)
+void loadassets() {
 	sphereMod.load();
 	earthTex.load();
 
@@ -83,6 +80,27 @@ int main() {
 
 	antMod.load();
 	blackTex.load();
+}
+
+void unloadassets() {
+	sphereMod.unload();
+	earthTex.unload();
+
+	moonTex.unload();
+
+	spacecraftMod.unload();
+
+	antMod.unload();
+	blackTex.unload();
+}
+
+int main() {
+	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
+	if (!engine::start()) return 1;
+
+	// 6) Load all assets. (Load each asset only once and reuse each when possible)
+	//std::thread loader(loadassets);
+	loadassets();
 
 	spawnMoons();
 
@@ -124,10 +142,8 @@ int main() {
 	}
 	
 	// 11) Unload all assets
-	sphereMod.unload();
-	earthTex.unload();
-	antMod.unload();
-	blackTex.unload();
+	//loader.join();
+	unloadassets();
 	
 	// 12) Stop the engine
 	engine::stop();
