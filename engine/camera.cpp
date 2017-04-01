@@ -9,7 +9,8 @@ camera::camera()
 	tag = "camera";
 	mod = new model("engine/models/camera.obj");
 	tex = new texture("engine/textures/black.png");
-	tform.loc.z = 1.5;
+	tform.loc.y = 2;
+	tform.rot.x = -engine::pi / 2;
 	fov = engine::pi * .4f;
 }
 
@@ -61,28 +62,25 @@ void camera::upload()
 void camera::move()
 {
 	// Move
-	glm::vec3 v;
+	glm::vec3 d;
 
-	if (input::isDown(GLFW_KEY_LEFT))  v.x -= 1;
-	if (input::isDown(GLFW_KEY_RIGHT)) v.x += 1;
-	if (input::isDown(GLFW_KEY_UP))    v.z -= 1;
-	if (input::isDown(GLFW_KEY_DOWN))  v.z += 1;
+	if (input::isDown(input_left))  d.x -= 1;
+	if (input::isDown(input_right)) d.x += 1;
+	if (input::isDown(input_up))    d.z -= 1;
+	if (input::isDown(input_down))  d.z += 1;
 
-	tform.vel = (v == glm::vec3()) ? glm::vec3() : tform.R * glm::normalize(v) * maxvel;	// velocity-based move
-	//tform.force += (v != glm::vec3()) ? R * glm::normalize(v) * maxvel : glm::vec3();	// force-based move
+	float d2 = glm::dot(d, d);
+	if (d2 != 0) d /= d2;
+	
+	tform.vel = tform.R * d * maxspeed;
 }
 
 void camera::turn()
 {
-	// Yaw 
-	tform.rot.y += sens * (window::halfw - window::cursorx);
-
-	// Pitch (clamped to +/- 90 deg)
-	tform.rot.x += sens * (window::halfh - window::cursory);
+	// Yaw & Pitch (pitch clamped to +/- 90 deg)
+	tform.rot.y -= sens * window::dx;
+	tform.rot.x -= sens * window::dy;
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
-	
-	// Move cursor to center screen so user stops turning, unless they move mouse again.
-	glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
 }
 
 void camera::stop()

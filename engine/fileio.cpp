@@ -5,13 +5,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <fstream>
 
-std::mutex fileio::mut;
-
 char * fileio::read(const char * filename)
 {
-	// Lock
-	std::unique_lock<std::mutex> lck(mut);
-
 	// Open
 	std::ifstream is(filename, std::ios::binary);
 	if (!is.is_open()) return 0;
@@ -26,6 +21,6 @@ char * fileio::read(const char * filename)
 	bytes[length] = 0;
 	is.read(bytes, length);
 	is.close();
-	
+
 	return bytes;
 }

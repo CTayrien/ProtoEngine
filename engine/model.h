@@ -26,6 +26,7 @@ public:
 
 	// Load before rendering, after engine starts
 	bool load();
+	static void loadFunc(model* _this, std::string filename);
 
 	// Render after loading
 	void render();

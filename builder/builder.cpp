@@ -1,5 +1,4 @@
 #include "builder.h"
-#include <glm\glm.hpp>
 
 object * builder::findNearestRes()
 {

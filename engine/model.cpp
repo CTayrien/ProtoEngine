@@ -3,6 +3,7 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "model.h"
 #include "fileio.h"
+#include "engine.h"
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -87,6 +88,20 @@ bool model::load()
 		}
 	}
 
+	// Recenter model
+	glm::vec3 min, max, c;
+	min = max = locs[0];
+	for (uint32_t i = 1; i < locs.size(); i++) {
+		for (int j = 0; j < 3; j++) {
+			if (locs[i][j] < min[j]) min[j] = locs[i][j];
+			if (locs[i][j] > max[j]) max[j] = locs[i][j];
+		}
+	}
+	c = (min + max) / 2.f;
+	for (uint32_t i = 0; i < locs.size(); i++) {
+		locs[i] -= c;
+	}
+
 	// Get max extremeties (needed for collision checks)
 	for (uint32_t i = 0; i < locs.size(); i++) {
 		glm::vec3 sqrd = locs[i] * locs[i];
@@ -124,11 +139,11 @@ bool model::load()
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), 0);
-	
+
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (void*)sizeof(vec3));
-	
+
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (void*)(sizeof(vec3) + sizeof(vec2)));

@@ -3,15 +3,9 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 
-#include <mutex>
-
 class fileio
 {
-private:
-	// Allow single thread to access HD.
-	static std::mutex mut;
 public:
 	// Loads file's bytes onto heap. Failure returns nullptr.
 	static char* read(const char* filename);
 };
-

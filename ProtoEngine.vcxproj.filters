@@ -83,6 +83,12 @@
     <ClInclude Include="planet\planet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="moon\moon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="spacecraft\spacecraft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -137,6 +143,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="planet\planet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="moon\moon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="spacecraft\spacecraft.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

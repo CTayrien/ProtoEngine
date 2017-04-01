@@ -17,7 +17,7 @@ private:
 	float zNear = .01f;
 	float zFar = 1000.f;
 	
-	const float maxvel = 2.f;
+	const float maxspeed = 2.f;
 	const float sens = .005f;
 	
 public:

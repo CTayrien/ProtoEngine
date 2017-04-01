@@ -16,6 +16,8 @@ public:
 	static GLFWwindow *ptr;
 
 	static double cursorx, cursory;
+	static double cursorx0, cursory0;
+	static double dx, dy;
 	
 	static int w, h;
 	static int halfw, halfh;

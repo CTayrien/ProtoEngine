@@ -23,11 +23,35 @@ model sphereMod("engine/models/sphere.obj");
 texture earthTex("engine/textures/earth.png");
 planet earth(&sphereMod, &earthTex);
 
+#include "spacecraft/spacecraft.h"
+model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.obj");
+//"Mars_Lander_Space_Capsule.mtl"
+//texture ab1.jpg
+//texture cp2.jpg
+texture blackTex("engine/textures/black.png");
+spacecraft spacecraftObj(&spacecraftMod, &blackTex);
+
+#include "moon/moon.h"
+texture moonTex("moon/moon.png");
+const int maxmoons = 60;
+int nmoons = 0;
+moon moons[maxmoons];
+
+void spawnMoons() {
+	int i = 0;
+
+	moons[i].mod = &sphereMod;
+	moons[i].tex = &moonTex;
+	moons[i].tform.loc.x = 5;
+
+	nmoons++;
+}
+
 #include "builder/builder.h"
 model antMod("builder/ant.obj");
-texture blackTex("engine/textures/black.png");
+//texture blackTex("engine/textures/black.png");
 int nbuilders = 0;
-const int maxbuilders = 10;
+const int maxbuilders = 60;
 builder builders[maxbuilders];
 
 void spawnbuilder() {
@@ -41,7 +65,7 @@ void spawnbuilder() {
 
 	if (i > 0) {
 		builders[i].tform = builders[i-1].tform;
-		builders[i].tform.loc.z += .05;
+		builders[i].tform.loc.z += .025;
 	}
 }
 
@@ -53,20 +77,25 @@ int main() {
 	if (!sphereMod.load()) return 1;
 	if (!earthTex.load()) return 1;
 
+	if (!moonTex.load()) return 1;
+
+	if (!spacecraftMod.load())return 1;
+
 	if (!antMod.load()) return 1;
 	if (!blackTex.load()) return 1;
 
-	for (int i = 0; i < 10; i++) {
+	spawnMoons();
+
+	for (int i = 0; i < maxbuilders; i++) {
 		spawnbuilder();
 	}
 
-	for (int i = 0; i < 10; i++) {
+	for (int i = 0; i < maxbuilders; i++) {
 		earth.push(builders+i);
 	}
 
-	//earth.push(&engine::cam);
+	engine::time.update();
 
-	engine::time.dt = 0;
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
 	{
@@ -75,14 +104,22 @@ int main() {
 		
 		// 9) Update all objects
 		earth.update();
+		spacecraftObj.update();
 		for (int i = 0; i < nbuilders; i++) {
 			builders[i].update();
+		}
+		for (int i = 0; i < nmoons; i++) {
+			moons[i].update();
 		}
 
 		// 10) Render all objects
 		earth.render();
+		spacecraftObj.render();
 		for (int i = 0; i < nbuilders; i++) {
 			builders[i].render();
+		}
+		for (int i = 0; i < nmoons; i++) {
+			moons[i].render();
 		}
 	}
 	
