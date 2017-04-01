@@ -26,7 +26,12 @@ shader::~shader()
 
 bool shader::load()
 {	
-	// Compile shaders
+	// Read
+	vshaderCode = fileio::read(filenamev.c_str());
+	fshaderCode = fileio::read(filenamef.c_str());
+	if (!vshaderCode || !fshaderCode) return false;
+
+	// Process & Write
 	if (!compile(GL_VERTEX_SHADER)) return false;
 	if (!compile(GL_FRAGMENT_SHADER)) {
 		glDeleteShader(vid);
@@ -64,9 +69,8 @@ bool shader::compile(GLenum shaderType)
 {
 	uint32_t& sid = (shaderType == GL_VERTEX_SHADER) ? vid : fid;
 	string& filename = (shaderType == GL_VERTEX_SHADER) ? filenamev : filenamef;
+	char* shaderCode = (shaderType == GL_VERTEX_SHADER) ? vshaderCode : fshaderCode;
 
-	char* shaderCode = fileio::read(filename.c_str());
-	
 	// Compile
 	sid = glCreateShader(shaderType);
 	glShaderSource(sid, 1, &shaderCode, 0);

@@ -20,11 +20,11 @@ skybox::~skybox()
 
 bool skybox::start()
 {
-	if (!mod->load())
-		return false;
+	mod->load();
+	if (!mod->loaded) return false;
 
-	if (!tex->load())
-		return false;
+	tex->load();
+	if (!tex->loaded) return false;
 	
 	return true;
 }

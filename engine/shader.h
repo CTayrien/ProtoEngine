@@ -13,7 +13,8 @@ class shader
 public:
 	string filenamev = "engine/shaders/vshader.glsl";
 	string filenamef = "engine/shaders/fshader.glsl";
-
+	char* vshaderCode = nullptr;
+	char* fshaderCode = nullptr;
 	uint32_t id = 0, vid = 0, fid = 0;
 
 	shader();

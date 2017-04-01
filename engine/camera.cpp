@@ -28,11 +28,11 @@ bool camera::start()
 	// Move cursor to center
 	glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
 
-	if (!mod->load())
-		return false;
+	mod->load();
+	if (!mod->loaded) return false;
 
-	if (!tex->load())
-		return false;
+	tex->load();
+	if (!tex->loaded) return false;
 
 	return true;
 }

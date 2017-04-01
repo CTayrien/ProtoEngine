@@ -13,10 +13,10 @@ public:
 	texture(std::string filename);
 	~texture();
 
-	bool load();
+	void load();
+	bool loaded = false;
 
 	void use();
 
 	void unload();
 };
-

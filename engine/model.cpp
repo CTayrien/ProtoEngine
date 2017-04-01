@@ -22,23 +22,31 @@ model::~model()
 {
 }
 
-bool model::load()
+void model::load()
 {
+	// Read from HD
+	modelBytes = fileio::read(filename.c_str());
+
+	// Process
+	process();
+
+	// Write to vram
+	upload();
+
+	loaded = true;
+}
+
+void model::process()
+{
+	// process data
+	if (modelBytes == nullptr) return;
+	std::stringstream modelData(modelBytes);	// copies the data to another location on the heap and wraps it... lame.
+	delete[] modelBytes;						// deletes one copy of the data from the heap... lame.
+
 	using glm::vec2;
 	using glm::vec3;
 	using std::vector;
 	using std::string;
-
-	struct Vertex { vec3 loc; vec2 uv; vec3 norm; };
-	struct VertInd { uint32_t locInd, uvInd, normInd; };
-
-	// Read file
-	char* contents = fileio::read(filename.c_str());
-	if (contents == nullptr) return false;
-	std::stringstream modelData(contents);	// copies the data to another location on the heap and wraps it... lame.
-	delete[] contents;						// deletes one copy of the data from the heap... lame.
-
-	vector<Vertex> vertBufData;
 
 	// Get unique vertex locs, uvs and norms
 	vector<vec3> locs;
@@ -122,7 +130,10 @@ bool model::load()
 		vertBufData[i].uv = uvs[vertInds[i].uvInd];
 		vertBufData[i].norm = norms[vertInds[i].normInd];
 	}
+}
 
+void model::upload()
+{
 	// Vertex array
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -134,6 +145,7 @@ bool model::load()
 		sizeof(Vertex) * nverts,
 		&vertBufData[0],
 		GL_STATIC_DRAW);
+	vertBufData.clear();
 
 	// Vertex attributes for model loc, uv, norm
 	glEnableVertexAttribArray(0);
@@ -142,17 +154,15 @@ bool model::load()
 
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (void*)sizeof(vec3));
+		sizeof(Vertex), (void*)sizeof(glm::vec3));
 
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (void*)(sizeof(vec3) + sizeof(vec2)));
+		sizeof(Vertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec2)));
 
 	// Unbind
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-	return true;
 }
 
 void model::render()

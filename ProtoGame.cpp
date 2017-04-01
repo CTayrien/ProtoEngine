@@ -74,15 +74,15 @@ int main() {
 	if (!engine::start()) return 1;
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
-	if (!sphereMod.load()) return 1;
-	if (!earthTex.load()) return 1;
+	sphereMod.load();
+	earthTex.load();
 
-	if (!moonTex.load()) return 1;
+	moonTex.load();
 
-	if (!spacecraftMod.load())return 1;
+	spacecraftMod.load();
 
-	if (!antMod.load()) return 1;
-	if (!blackTex.load()) return 1;
+	antMod.load();
+	blackTex.load();
 
 	spawnMoons();
 

@@ -16,22 +16,23 @@ texture::~texture()
 {
 }
 
-bool texture::load()
+void texture::load()
 {
-	// Load
+	// Read from HD
 	FIBITMAP* image = FreeImage_Load(FreeImage_GetFileType(filename.c_str(), 0), filename.c_str());
-	if (image == nullptr) 
-		return false;
+	if (image == nullptr) return;
 
+	// Process
 	FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
 	FreeImage_Unload(image);
 
+	// Write to vram
 	// Generate and bind texture
 	// declare a temp unsigned int
 	glGenTextures(1, &id);				// use a temp unsigned int
 	glBindTexture(GL_TEXTURE_2D, id);	// use a temp unsigned int
 
-															// Upload to vram and clear ram
+	// Upload to vram and clear ram
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB_ALPHA, FreeImage_GetWidth(image32Bit), FreeImage_GetHeight(image32Bit), 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(image32Bit));
 	FreeImage_Unload(image32Bit);
 
@@ -41,7 +42,7 @@ bool texture::load()
 	// Unbind
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	return true;
+	loaded = true;
 }
 
 void texture::use()
