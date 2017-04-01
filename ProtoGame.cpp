@@ -27,8 +27,8 @@ planet earth(&sphereMod, &earthTex);
 #include "spacecraft/spacecraft.h"
 model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.obj");
 //"Mars_Lander_Space_Capsule.mtl"
-//texture ab1.jpg
-//texture cp2.jpg
+//texture ab1.jpg // mtl file refers to these two textures
+//texture cp2.jpg //
 texture blackTex("engine/textures/black.png");
 spacecraft spacecraftObj(&spacecraftMod, &blackTex);
 

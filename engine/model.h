@@ -33,7 +33,7 @@ public:
 	// Load before rendering, after engine starts
 	void load();
 	bool loaded = false;
-	void process();
+	void process();			//should pre-process models with tool? 
 	void upload();
 
 	// Render after loading
