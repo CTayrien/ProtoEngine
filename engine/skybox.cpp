@@ -8,8 +8,8 @@ skybox::skybox()
 {
 	tag = "skybox";
 	mat = material(1, 0, 0, 1);
-	mod = new model("engine/models/skybox.obj");
-	tex = new texture("engine/textures/skybox.png");
+	mod = new model("engine/models/skybox.dat");
+	tex = new texture("engine/textures/spacebox.png");
 }
 
 skybox::~skybox()

@@ -15,6 +15,7 @@ private:
 	struct VertInd { uint32_t locInd, uvInd, normInd; };
 	std::vector<Vertex> vertBufData;
 	char* modelBytes = nullptr;
+	void* vertBufDataPtr = nullptr;
 
 	uint32_t vao = 0, vbo = 0, nverts = 0;
 
@@ -33,7 +34,8 @@ public:
 	// Load before rendering, after engine starts
 	void load();
 	bool loaded = false;
-	void process();			//should pre-process models with tool? 
+	void processobj();			//should pre-process models with tool?
+	void processdat();
 	void upload();
 
 	// Render after loading

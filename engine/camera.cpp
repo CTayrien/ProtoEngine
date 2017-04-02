@@ -7,7 +7,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 camera::camera()
 {
 	tag = "camera";
-	mod = new model("engine/models/camera.obj");
+	mod = new model("engine/models/camera.dat");
 	tex = new texture("engine/textures/black.png");
 	tform.loc.y = 2;
 	tform.rot.x = -engine::pi / 2;

@@ -28,21 +28,27 @@ void model::load()
 	modelBytes = fileio::read(filename.c_str());
 
 	// Process
-	process();
+	//if (filename == "engine/models/sphere.dat") {
+		processdat();
+	//}
+	//else {
+		//process();
+	//}
 
 	// Write to vram
 	upload();
 
+	delete[] modelBytes;
+
 	loaded = true;
 }
 
-void model::process()
+void model::processobj()
 {
 	// process data
 	if (modelBytes == nullptr) return;
 	std::stringstream modelData(modelBytes);	// copies the data to another location on the heap and wraps it... lame.
-	delete[] modelBytes;						// deletes one copy of the data from the heap... lame.
-
+	
 	using glm::vec2;
 	using glm::vec3;
 	using std::vector;
@@ -130,6 +136,45 @@ void model::process()
 		vertBufData[i].uv = uvs[vertInds[i].uvInd];
 		vertBufData[i].norm = norms[vertInds[i].normInd];
 	}
+
+	vertBufDataPtr = (void*)(&(vertBufData[0].loc.x));
+}
+
+void model::processdat()
+{
+	if (modelBytes == nullptr) return;
+
+	// set up addresses
+	float* maxxptr = (float*)modelBytes;
+	float* maxyptr = ((float*)modelBytes) + 1;	// 4 bytes
+	float* maxzptr = ((float*)modelBytes) + 2;	// 8 bytes
+	uint32_t* nvertptr = (uint32_t*)(modelBytes + 12);
+
+	float* vbufdatptr = (float*)(modelBytes + 16);
+
+	// try to deref
+	max.x = *maxxptr;
+	max.y = *maxyptr;
+	max.z = *maxzptr;
+	nverts = *nvertptr;
+
+	vertBufDataPtr = (void*)(vbufdatptr);
+
+	//vertBufData.resize(nverts);
+	//for (uint32_t i = 0; i < nverts; i++) {
+	//	vertBufData[i].loc.x = *(vbufdatptr + 0);
+	//	vertBufData[i].loc.y = *(vbufdatptr + 1);
+	//	vertBufData[i].loc.z = *(vbufdatptr + 2);
+	//
+	//	vertBufData[i].uv.x = *(vbufdatptr + 3);
+	//	vertBufData[i].uv.y = *(vbufdatptr + 4);
+	//
+	//	vertBufData[i].norm.x = *(vbufdatptr + 5);
+	//	vertBufData[i].norm.y = *(vbufdatptr + 6);
+	//	vertBufData[i].norm.z = *(vbufdatptr + 7);
+	//
+	//	vbufdatptr += 8;
+	//}
 }
 
 void model::upload()
@@ -143,7 +188,7 @@ void model::upload()
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glBufferData(GL_ARRAY_BUFFER,
 		sizeof(Vertex) * nverts,
-		&vertBufData[0],
+		vertBufDataPtr,//&vertBufData[0],
 		GL_STATIC_DRAW);
 	vertBufData.clear();
 

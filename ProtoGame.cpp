@@ -20,17 +20,17 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 // 4) Declare assets and objects globally, on the stack, or on the heap.
 //		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.  
 #include "planet/planet.h"
-model sphereMod("engine/models/sphere.obj");
+model sphereMod("engine/models/sphere.dat");
 texture earthTex("engine/textures/earth.png");
 planet earth(&sphereMod, &earthTex);
 
 #include "spacecraft/spacecraft.h"
-model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.obj");
+model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.dat");
 //"Mars_Lander_Space_Capsule.mtl"
 //texture ab1.jpg // mtl file refers to these two textures
 //texture cp2.jpg //
-texture blackTex("engine/textures/black.png");
-spacecraft spacecraftObj(&spacecraftMod, &blackTex);
+texture redTex("engine/textures/red.png");
+spacecraft spacecraftObj(&spacecraftMod, &redTex);
 
 #include "moon/moon.h"
 texture moonTex("moon/moon.png");
@@ -49,7 +49,7 @@ void spawnMoons() {
 }
 
 #include "builder/builder.h"
-model antMod("builder/ant.obj");
+model antMod("builder/ant.dat");
 //texture blackTex("engine/textures/black.png");
 int nbuilders = 0;
 const int maxbuilders = 60;
@@ -62,7 +62,7 @@ void spawnbuilder() {
 	int i = nbuilders++;
 	
 	builders[i].mod = &antMod;
-	builders[i].tex = &blackTex;
+	builders[i].tex = &redTex;
 
 	if (i > 0) {
 		builders[i].tform = builders[i-1].tform;
@@ -79,7 +79,7 @@ void loadassets() {
 	spacecraftMod.load();
 
 	antMod.load();
-	blackTex.load();
+	redTex.load();
 }
 
 void unloadassets() {
@@ -91,7 +91,7 @@ void unloadassets() {
 	spacecraftMod.unload();
 
 	antMod.unload();
-	blackTex.unload();
+	redTex.unload();
 }
 
 int main() {
