@@ -13,7 +13,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // 2) Add a scene.cpp and include engine.h.
 #include "engine/engine.h"
-#include <thread>
 
 // 3) Develop assets (models and textures) for game objects, put their behavior in a new obj, and include the object's header.
 
@@ -109,10 +108,8 @@ int main() {
 	}
 
 	for (int i = 0; i < maxbuilders; i++) {
-		earth.push(builders+i);
+		earth.push(builders + i);
 	}
-
-	engine::time.update();
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
