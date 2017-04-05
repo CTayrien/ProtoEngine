@@ -28,8 +28,8 @@ model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.dat");
 //"Mars_Lander_Space_Capsule.mtl"
 //texture ab1.jpg // mtl file refers to these two textures
 //texture cp2.jpg //
-texture redTex("engine/textures/red.png");
-spacecraft spacecraftObj(&spacecraftMod, &redTex);
+texture whiteTex("engine/textures/white.png");
+spacecraft spacecraftObj(&spacecraftMod, &whiteTex);
 
 #include "moon/moon.h"
 texture moonTex("moon/moon.png");
@@ -61,7 +61,7 @@ void spawnbuilder() {
 	int i = nbuilders++;
 	
 	builders[i].mod = &antMod;
-	builders[i].tex = &redTex;
+	builders[i].tex = &whiteTex;
 
 	if (i > 0) {
 		builders[i].tform = builders[i-1].tform;
@@ -78,7 +78,7 @@ void loadassets() {
 	spacecraftMod.load();
 
 	antMod.load();
-	redTex.load();
+	whiteTex.load();
 }
 
 void unloadassets() {
@@ -90,7 +90,7 @@ void unloadassets() {
 	spacecraftMod.unload();
 
 	antMod.unload();
-	redTex.unload();
+	whiteTex.unload();
 }
 
 int main() {
