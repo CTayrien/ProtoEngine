@@ -8,7 +8,7 @@ use a gamma scalar on the timer
 make units realistic
 lerp to object/camera's gamma button
 
-pilotspacecraft
+pilot spacecraft
 orbital transfer and phasing is the required result
 achieved by autonomousthrust and 
 in what direction -  lateral?, for how long?
@@ -30,4 +30,4 @@ ISS, GPS,coms,etc
 *get debris
 
 go to mars
-fetchmineral-rich targets
+fetch mineral-rich targets
