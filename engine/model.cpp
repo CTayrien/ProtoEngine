@@ -24,25 +24,38 @@ model::~model()
 
 void model::load()
 {
-	// Read from HD
+	loadBufferData();
+	if (loaded) setVAO();
+}
+
+void model::loadBufferData()
+{
+	// Open & read file
 	modelBytes = fileio::read(filename.c_str());
+	if (modelBytes == nullptr) return;
 
-	// Process
-	//if (filename == "engine/models/sphere.dat") {
-		processdat();
-	//}
-	//else {
-		//process();
-	//}
+	// Process file data
+	max.x  = *((float*)		(modelBytes + 0));
+	max.y  = *((float*)		(modelBytes + 4));
+	max.z  = *((float*)		(modelBytes + 8));
+	nverts = *((uint32_t*)	(modelBytes + 12));
+	vertBufDataPtr = (void*)(modelBytes + 16);
 
-	// Write to vram
-	upload();
+	// Upload buffer data to vram
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER,
+		sizeof(Vertex) * nverts,
+		vertBufDataPtr,
+		GL_STATIC_DRAW);
 
+	// Clear ram
 	delete[] modelBytes;
 
 	loaded = true;
 }
 
+/*
 void model::processobj()
 {
 	// process data
@@ -139,58 +152,13 @@ void model::processobj()
 
 	vertBufDataPtr = (void*)(&(vertBufData[0].loc.x));
 }
+/**/
 
-void model::processdat()
-{
-	if (modelBytes == nullptr) return;
-
-	// set up addresses
-	float* maxxptr = (float*)modelBytes;
-	float* maxyptr = ((float*)modelBytes) + 1;	// 4 bytes
-	float* maxzptr = ((float*)modelBytes) + 2;	// 8 bytes
-	uint32_t* nvertptr = (uint32_t*)(modelBytes + 12);
-
-	float* vbufdatptr = (float*)(modelBytes + 16);
-
-	// try to deref
-	max.x = *maxxptr;
-	max.y = *maxyptr;
-	max.z = *maxzptr;
-	nverts = *nvertptr;
-
-	vertBufDataPtr = (void*)(vbufdatptr);
-
-	//vertBufData.resize(nverts);
-	//for (uint32_t i = 0; i < nverts; i++) {
-	//	vertBufData[i].loc.x = *(vbufdatptr + 0);
-	//	vertBufData[i].loc.y = *(vbufdatptr + 1);
-	//	vertBufData[i].loc.z = *(vbufdatptr + 2);
-	//
-	//	vertBufData[i].uv.x = *(vbufdatptr + 3);
-	//	vertBufData[i].uv.y = *(vbufdatptr + 4);
-	//
-	//	vertBufData[i].norm.x = *(vbufdatptr + 5);
-	//	vertBufData[i].norm.y = *(vbufdatptr + 6);
-	//	vertBufData[i].norm.z = *(vbufdatptr + 7);
-	//
-	//	vbufdatptr += 8;
-	//}
-}
-
-void model::upload()
+void model::setVAO()
 {
 	// Vertex array
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-
-	// Buffer model data
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(Vertex) * nverts,
-		vertBufDataPtr,//&vertBufData[0],
-		GL_STATIC_DRAW);
-	vertBufData.clear();
 
 	// Vertex attributes for model loc, uv, norm
 	glEnableVertexAttribArray(0);

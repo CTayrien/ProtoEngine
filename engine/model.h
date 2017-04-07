@@ -33,10 +33,10 @@ public:
 
 	// Load before rendering, after engine starts
 	void load();
+	void loadBufferData();
 	bool loaded = false;
-	void processobj();			//should pre-process models with tool?
-	void processdat();
-	void upload();
+	//void processobj();			//deprecated - will cause crash if used when attempting to delete model data (which is managed by the vector<> rather than on the heap)
+	void setVAO();
 
 	// Render after loading
 	void render();
