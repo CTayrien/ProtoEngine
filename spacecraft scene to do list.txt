@@ -11,7 +11,7 @@ lerp to object/camera's gamma button
 pilot spacecraft
 orbital transfer and phasing is the required result
 achieved by autonomousthrust and 
-in what direction -  lateral?, for how long?
+in what direction - lateral?, for how long?
 will need attitude thrusters
 do aerobraking/capture
 do oberth-effect slingshot

@@ -52,6 +52,26 @@ void model::loadBufferData()
 	// Clear ram
 	delete[] modelBytes;
 
+	// Vertex array: Loc, uv, norm
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), (GLvoid*)0);
+
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), (GLvoid*)12);
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
+		sizeof(Vertex), (GLvoid*)20);
+
+	// Unbind
+	glBindVertexArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
 	loaded = true;
 }
 
@@ -156,26 +176,7 @@ void model::processobj()
 
 void model::setVAO()
 {
-	// Vertex array
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
 
-	// Vertex attributes for model loc, uv, norm
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), 0);
-
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (void*)sizeof(glm::vec3));
-
-	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (void*)(sizeof(glm::vec3) + sizeof(glm::vec2)));
-
-	// Unbind
-	glBindVertexArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 void model::render()
