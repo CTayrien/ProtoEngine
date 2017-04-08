@@ -25,20 +25,21 @@ planet earth(&sphereMod, &earthTex);
 
 #include "spacecraft/spacecraft.h"
 model spacecraftMod("spacecraft/Mars Lander Space Capsule tri.dat");
-//"Mars_Lander_Space_Capsule.mtl"
-//texture ab1.jpg // mtl file refers to these two textures
-//texture cp2.jpg //
 texture whiteTex("engine/textures/white.png");
 spacecraft spacecraftObj(&spacecraftMod, &whiteTex);
+// spacecraft model refers to material file and two textures
+//	"Mars_Lander_Space_Capsule.mtl"
+//	texture ab1.jpg
+//	texture cp2.jpg
 
 #include "moon/moon.h"
 texture moonTex("moon/moon.png");
-const int maxmoons = 60;
 int nmoons = 0;
+const int maxmoons = 1;
 moon moons[maxmoons];
 
-void spawnMoons() {
-	int i = 0;
+void spawnmoon() {
+	int i = nmoons;
 
 	moons[i].mod = &sphereMod;
 	moons[i].tex = &moonTex;
@@ -49,7 +50,6 @@ void spawnMoons() {
 
 #include "builder/builder.h"
 model antMod("builder/ant.dat");
-//texture blackTex("engine/textures/black.png");
 int nbuilders = 0;
 const int maxbuilders = 60;
 builder builders[maxbuilders];
@@ -101,12 +101,15 @@ int main() {
 	//std::thread loader(loadassets);
 	loadassets();
 
-	spawnMoons();
+	for (int i = 0; i < maxmoons; i++) {
+		spawnmoon();
+	}
 
 	for (int i = 0; i < maxbuilders; i++) {
 		spawnbuilder();
 	}
 
+	// how earth attracts objects
 	for (int i = 0; i < maxbuilders; i++) {
 		earth.push(builders + i);
 	}
@@ -139,7 +142,6 @@ int main() {
 	}
 	
 	// 11) Unload all assets
-	//loader.join();
 	unloadassets();
 	
 	// 12) Stop the engine

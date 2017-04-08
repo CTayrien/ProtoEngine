@@ -52,18 +52,21 @@ void model::loadBufferData()
 	// Clear ram
 	delete[] modelBytes;
 
-	// Vertex array: Loc, uv, norm
+	// VAO
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	// loc
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (GLvoid*)0);
 
+	// uv
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (GLvoid*)12);
 
+	// norm
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
 		sizeof(Vertex), (GLvoid*)20);
