@@ -15,17 +15,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class planet :
 	public object
 {
-	struct orbit {
-		float semimajoraxis;
-		float semiminoraxis;
-		glm::vec3 a, b;
-		float orbitalperiod;
-		glm::vec3 curloc, curvel;
-		float phase;
-		object* barycenter;
-		float eccentricity;
-	};
-
 private:
 	float G = .1f;
 	std::vector<object*> objs;

@@ -89,6 +89,9 @@
     <ClInclude Include="spacecraft\spacecraft.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="orbit\orbit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -149,6 +152,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="spacecraft\spacecraft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="orbit\orbit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
