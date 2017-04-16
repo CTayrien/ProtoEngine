@@ -20,7 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\shaders\fshader.glsl" />
+    <None Include="engine\shaders\fshader_skybox.glsl" />
     <None Include="engine\shaders\vshader.glsl" />
+    <None Include="engine\shaders\vshader_skybox.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="builder\builder.h" />
@@ -36,6 +38,7 @@
     <ClInclude Include="engine\shader.h" />
     <ClInclude Include="engine\skybox.h" />
     <ClInclude Include="engine\texture.h" />
+    <ClInclude Include="engine\texture_cubemap.h" />
     <ClInclude Include="engine\timer.h" />
     <ClInclude Include="engine\transform.h" />
     <ClInclude Include="engine\window.h" />
@@ -57,6 +60,7 @@
     <ClCompile Include="engine\shader.cpp" />
     <ClCompile Include="engine\skybox.cpp" />
     <ClCompile Include="engine\texture.cpp" />
+    <ClCompile Include="engine\texture_cubemap.cpp" />
     <ClCompile Include="engine\timer.cpp" />
     <ClCompile Include="engine\transform.cpp" />
     <ClCompile Include="engine\window.cpp" />

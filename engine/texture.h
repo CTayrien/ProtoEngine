@@ -6,17 +6,17 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 class texture
 {
-private:
+protected:
 	std::string filename;
 	uint32_t id = 0;
 public:
 	texture(std::string filename);
-	~texture();
+	virtual ~texture();
 
-	void load();
+	virtual void load();
 	bool loaded = false;
 
-	void use();
+	virtual void use();
 
-	void unload();
+	virtual void unload();
 };

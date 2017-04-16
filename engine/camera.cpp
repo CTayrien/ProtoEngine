@@ -45,14 +45,14 @@ void camera::update()
 	
 	turn();
 
-	worldView = glm::perspective(fov, aspect, zNear, zFar) 
-		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
-
 	upload();
 }
 
 void camera::upload()
 {
+	worldView = glm::perspective(fov, aspect, zNear, zFar)
+		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
+
 	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
 
 	// for lighting

@@ -63,4 +63,6 @@ void engine::stop()
 	window::stop();
 
 	skybox.stop();
+
+	cam.stop();
 }

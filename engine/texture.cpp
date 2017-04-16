@@ -32,8 +32,18 @@ void texture::load()
 	glGenTextures(1, &id);				// use a temp unsigned int
 	glBindTexture(GL_TEXTURE_2D, id);	// use a temp unsigned int
 
-	// Upload to vram and clear ram
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_SRGB_ALPHA, FreeImage_GetWidth(image32Bit), FreeImage_GetHeight(image32Bit), 0, GL_BGRA, GL_UNSIGNED_BYTE, (void*)FreeImage_GetBits(image32Bit));
+	// Upload to vram
+	glTexImage2D(GL_TEXTURE_2D,
+		0,
+		GL_SRGB_ALPHA,
+		FreeImage_GetWidth(image32Bit),
+		FreeImage_GetHeight(image32Bit),
+		0,
+		GL_BGRA,
+		GL_UNSIGNED_BYTE,
+		(void*)FreeImage_GetBits(image32Bit));
+	
+	// Clear ram
 	FreeImage_Unload(image32Bit);
 
 	// Set min filter to linear instead of mipmap linear

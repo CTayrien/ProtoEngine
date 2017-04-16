@@ -2,22 +2,21 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
+#include "texture.h"
+#include <vector>
 
-#include "shader.h"
-#include "material.h"
-
-class renderer
+class texture_cubemap :
+	public texture
 {
 private:
-	static shader theshader;
-	static shader shader_skybox;
+	std::string filenames[6];
 
-public:	
-	static material thematerial;
+public:
+	~texture_cubemap();
 
-	static bool start();
-
-	static void update();
-	
-	static void stop();
+	texture_cubemap::texture_cubemap(std::string filenames[6]);
+	void load() override;
+	void use() override;
+	void unload() override;
 };
+

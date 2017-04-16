@@ -9,8 +9,6 @@ class skybox
 	: public object
 {
 private:
-	material mat;
-
 public:
 	skybox();
 	~skybox();
