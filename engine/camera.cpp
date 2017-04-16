@@ -64,10 +64,10 @@ void camera::move()
 	// Move
 	glm::vec3 d;
 
-	if (input::isDown(input_left))  d.x -= 1;
-	if (input::isDown(input_right)) d.x += 1;
-	if (input::isDown(input_up))    d.z -= 1;
-	if (input::isDown(input_down))  d.z += 1;
+	if (input::isDown(input_w)) d.z -= 1;
+	if (input::isDown(input_a)) d.x -= 1;
+	if (input::isDown(input_s)) d.z += 1;
+	if (input::isDown(input_d)) d.x += 1;
 
 	float d2 = glm::dot(d, d);
 	if (d2 != 0) d /= d2;
