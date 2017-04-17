@@ -20,7 +20,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 //		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.  
 #include "planet/planet.h"
 model sphereMod("engine/models/sphere.dat");
-texture earthTex("engine/textures/earth.png");
+texture earthTex("planet/earth.png");
 planet earth(&sphereMod, &earthTex);
 
 #include "spacecraft/spacecraft.h"

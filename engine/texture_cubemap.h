@@ -14,7 +14,7 @@ private:
 public:
 	~texture_cubemap();
 
-	texture_cubemap::texture_cubemap(std::string filenames[6]);
+	texture_cubemap(std::string filenames[6]);
 	void load() override;
 	void use() override;
 	void unload() override;

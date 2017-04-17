@@ -11,12 +11,12 @@ skybox::skybox()
 	mod = new model("engine/models/skybox.dat");
 
 	std::string filenames[6] = {
-		"engine/textures/skybox/right.jpg",
-		"engine/textures/skybox/left.jpg",
-		"engine/textures/skybox/top.jpg",
-		"engine/textures/skybox/bottom.jpg",
-		"engine/textures/skybox/back.jpg",
-		"engine/textures/skybox/front.jpg"
+		"engine/textures/spacescape_right1.png",
+		"engine/textures/spacescape_left2.png",
+		"engine/textures/spacescape_top3.png",
+		"engine/textures/spacescape_bottom4.png",
+		"engine/textures/spacescape_back6.png",
+		"engine/textures/spacescape_front5.png"
 	};
 	tex = new texture_cubemap(filenames);
 }
