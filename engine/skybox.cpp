@@ -40,24 +40,31 @@ bool skybox::start()
 
 void skybox::update()
 {
-	// Or should I move the camera to the box, render, and move it back?
-	//tform.loc = engine::cam.tform.loc;
 	
-	//tform.update();
 }
 
 void skybox::render()
 {
-	// special settings (use special material)
+	renderer::shader_skybox.use();
 
+	// Skybox shader & uniform
+	glm::vec3 temp = engine::cam.tform.loc;
+	engine::cam.tform.loc = glm::vec3();
+	engine::cam.upload();
+	engine::cam.tform.loc = temp;
+
+	// Using a special model will remedy the need for toggling cull face. The model does not need uvs and normals. A special model loader will support that.
+	glDisable(GL_CULL_FACE);
 	object::render();
+	glEnable(GL_CULL_FACE);
+	
+	glClear(GL_DEPTH_BUFFER_BIT);
 
-	// unuse shader
+	renderer::theshader.use();
 }
 
 void skybox::stop()
 {
 	mod->unload();
 	tex->unload();
-	// shader unload
 }

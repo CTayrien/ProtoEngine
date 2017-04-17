@@ -35,22 +35,7 @@ void renderer::update()
 	glfwSwapBuffers(window::ptr);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	// Skybox shader & uniform
-	shader_skybox.use();
-	glm::vec3 temp = engine::cam.tform.loc;
-	engine::cam.tform.loc = glm::vec3();
-	engine::cam.upload();
-	engine::cam.tform.loc = temp;
-
-	// Using a special model will remedy the need for toggling cull face. The model does not need uvs and normals. A special model loader will support that.
-	glDisable(GL_CULL_FACE);
 	engine::skybox.render();
-	glEnable(GL_CULL_FACE);
-
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	// Update game objects, then render game objects
-	theshader.use();
 }
 
 void renderer::stop()

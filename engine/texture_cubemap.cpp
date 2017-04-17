@@ -7,8 +7,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <FreeImage.h>
 #include <GL\glew.h>
 
-
-
 texture_cubemap::~texture_cubemap()
 {
 }

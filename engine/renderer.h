@@ -8,11 +8,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 class renderer
 {
-private:
+public:	
 	static shader theshader;
 	static shader shader_skybox;
-
-public:	
 	static material thematerial;
 
 	static bool start();
