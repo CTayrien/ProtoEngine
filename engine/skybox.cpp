@@ -9,15 +9,26 @@ skybox::skybox()
 {
 	tag = "skybox";
 	mod = new model("engine/models/skybox.dat");
-
+	
+	// Space-scape skybox images given out of order. If order changed to expected, seams don't line up, regardless of flipping images vert & horiz. There was no "OpenGL" export option so I chose Ogre3D - bad choice? Perhaps -z is not forward in that engine, so the names understood to refer to +/- z are swapped.
 	std::string filenames[6] = {
-		"engine/textures/spacescape_right1.png",
-		"engine/textures/spacescape_left2.png",
-		"engine/textures/spacescape_top3.png",
-		"engine/textures/spacescape_bottom4.png",
-		"engine/textures/spacescape_back6.png",
-		"engine/textures/spacescape_front5.png"
+		"engine/textures/spacescape/spacescape_right1.png",
+		"engine/textures/spacescape/spacescape_left2.png",
+		"engine/textures/spacescape/spacescape_top3.png",
+		"engine/textures/spacescape/spacescape_bottom4.png",
+		"engine/textures/spacescape/spacescape_front5.png",		//expected: back
+		"engine/textures/spacescape/spacescape_back6.png"		//expected: front
 	};
+
+	// For contrast, the following ordering (expected) works with skybox given at https://learnopengl.com/#!Advanced-OpenGL/Cubemaps
+	//std::string filenames[6] = {
+	//	"engine/textures/skybox/right.jpg",
+	//	"engine/textures/skybox/left.jpg",
+	//	"engine/textures/skybox/top.jpg",
+	//	"engine/textures/skybox/bottom.jpg",
+	//	"engine/textures/skybox/back.jpg",
+	//	"engine/textures/skybox/front.jpg"
+	//};
 	tex = new texture_cubemap(filenames);
 }
 
@@ -45,18 +56,17 @@ void skybox::update()
 
 void skybox::render()
 {
+	// Shader
 	renderer::shader_skybox.use();
 
-	// Skybox shader & uniform
+	// Shader uniform (world-view matrix for camera at origin allows skipping model-world matrix (Identity matrix))
 	glm::vec3 temp = engine::cam.tform.loc;
 	engine::cam.tform.loc = glm::vec3();
 	engine::cam.upload();
 	engine::cam.tform.loc = temp;
 
-	// Using a special model will remedy the need for toggling cull face. The model does not need uvs and normals. A special model loader will support that.
-	glDisable(GL_CULL_FACE);
+	// If using out-facing model, disable back-face culling. This model is in-facing. The model does not need uvs and normals. A special model loader will support that.
 	object::render();
-	glEnable(GL_CULL_FACE);
 	
 	glClear(GL_DEPTH_BUFFER_BIT);
 

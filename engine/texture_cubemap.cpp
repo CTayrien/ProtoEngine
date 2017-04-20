@@ -42,7 +42,7 @@ void texture_cubemap::load()
 		// Read & process from HD
 		FIBITMAP* image = FreeImage_Load(FreeImage_GetFileType(filenames[i].c_str(), 0), filenames[i].c_str());
 		FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
-		FreeImage_FlipVertical(image32Bit);
+		FreeImage_FlipVertical(image32Bit);		// Not sure why skybox images must be flipped. No uvs used in Skybox shader ... maybe it's a FreeImage thing? Maybe I should be asking the opposite, "Why do I not have to flip regular 2D textures? Do all of my models texture coordinates have 1-v where they should be v?"
 
 		// Upload to 6 cubemap binding points: right, left (= left + 1), top (= left + 2), etc...
 		glTexImage2D(
