@@ -25,10 +25,10 @@ texture_cubemap::texture_cubemap(std::string filenames[6])
 
 void texture_cubemap::load()
 {
-	// Allocate tex in vram
+	// Allocate vram for texture
 	glGenTextures(1, &id);
 
-	// Bind & set filters
+	// Bind texture to cubemap binding point & set cubemap filters
 	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -36,7 +36,7 @@ void texture_cubemap::load()
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	// Load and upload
+	// Load and upload six cubemap textures
 	for (int i = 0; i < 6; i++)
 	{
 		// Read & process from HD
@@ -44,7 +44,7 @@ void texture_cubemap::load()
 		FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
 		FreeImage_FlipVertical(image32Bit);
 
-		// Upload
+		// Upload to 6 cubemap binding points: right, left (= left + 1), top (= left + 2), etc...
 		glTexImage2D(
 			GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
 			0,
@@ -61,7 +61,7 @@ void texture_cubemap::load()
 		FreeImage_Unload(image);
 	}
 
-	// Unbind
+	// Unbind texture from cubemap binding point
 	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 
 	loaded = true;

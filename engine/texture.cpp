@@ -18,19 +18,16 @@ texture::~texture()
 
 void texture::load()
 {
-	// Read from HD
+	// Read & process
 	FIBITMAP* image = FreeImage_Load(FreeImage_GetFileType(filename.c_str(), 0), filename.c_str());
-	if (image == nullptr) return;
-
-	// Process
 	FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
-	FreeImage_Unload(image);
+	
+	// Allocate vram
+	glGenTextures(1, &id);
 
-	// Write to vram
-	// Generate and bind texture
-	// declare a temp unsigned int
-	glGenTextures(1, &id);				// use a temp unsigned int
-	glBindTexture(GL_TEXTURE_2D, id);	// use a temp unsigned int
+	// Bind texture & set texture filters (Set min filter to linear instead of mipmap linear)
+	glBindTexture(GL_TEXTURE_2D, id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	// Upload to vram
 	glTexImage2D(GL_TEXTURE_2D,
@@ -44,10 +41,8 @@ void texture::load()
 		(void*)FreeImage_GetBits(image32Bit));
 	
 	// Clear ram
+	FreeImage_Unload(image);
 	FreeImage_Unload(image32Bit);
-
-	// Set min filter to linear instead of mipmap linear
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	// Unbind
 	glBindTexture(GL_TEXTURE_2D, 0);

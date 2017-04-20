@@ -14,10 +14,9 @@ out vec3 texdir;
 
 void main()
 {
-	// cubemap skybox texture coordinate is a direction
-	//texdir = vec3(modelLoc.x, modelLoc.y, modelLoc.z);
+	// Cubemap skybox texture coordinate is a direction
 	texdir = modelLoc;
 
-	// Transform from model space into view space
+	// Transform from model space into view space - cubemap doesn't rotate or scale, and if camera is at origin, then cubemap translation is 0 too:  as long as camera is located at origin, cubemap model-world is identity, implicitly included in the transformation below.
 	gl_Position = worldView * vec4(modelLoc, 1);
 }
