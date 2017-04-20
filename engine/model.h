@@ -11,12 +11,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class model
 {
 private:
-	struct Vertex { glm::vec3 loc; glm::vec2 uv; glm::vec3 norm; };
-	struct VertInd { uint32_t locInd, uvInd, normInd; };
-	std::vector<Vertex> vertBufData;
-	char* modelBytes = nullptr;
-	void* vertBufDataPtr = nullptr;
-
 	uint32_t vao = 0, vbo = 0, nverts = 0;
 
 public:
