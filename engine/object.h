@@ -31,6 +31,7 @@ public:
 	void render();
 
 	// Cache these on collider class after model loading, or any time scale or model changes
+	// model stores e of OBB in mod->max. To use other bounding surface AABB or Sphere, r^2 = dot(max,max). AABB dims = <r,r,r>. Object may rotate any way within the non-rotating sphere or AABB
 	// Collisions
 	glm::vec3 s() const;
 	float r() const;		// currently calc incorrect - max(s). should be mag(s)
@@ -40,7 +41,7 @@ public:
 	bool collides(const object& b) const;
 };
 
-// spec defs go ... in collision.h? no, here... defined in cpp? no... nowhere?
+// spec defs go ... in collision.h? no, here... defined in cpp? no... nowhere? add this type of information to a lecture on templates
 //template<>
 //bool object::collides<AABB>(const object& b) const;
 //

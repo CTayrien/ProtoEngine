@@ -16,22 +16,16 @@ private:
 public:
 	std::string filename = "default model";
 	
-	// e : half-width of obb (tightest fit)
+	// half-width of tightest fit model-oriented bounding box (OBB)
 	glm::vec3 max = {};
 	
-	// r : half-width of square AABB (loosest fit) and sphere (tighter fit)
-	//float maxr = 0;
-
 	model(std::string filename);
 	~model();
 
 	// Load before rendering, after engine starts
 	void load();
-	void loadBufferData();
 	bool loaded = false;
-	//void processobj();			//deprecated - will cause crash if used when attempting to delete model data (which is managed by the vector<> rather than on the heap)
-	void setVAO();
-
+	
 	// Render after loading
 	void render();
 	
