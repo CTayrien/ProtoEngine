@@ -56,20 +56,22 @@ void skybox::update()
 
 void skybox::render()
 {
-	// Shader
+	// Skybox Shader
 	renderer::shader_skybox.use();
 
-	// Shader uniform (world-view matrix for camera at origin allows skipping model-world matrix (Identity matrix))
+	// World-View transform at origin (so I don't need a Model-World transform with skybox.loc = camera.loc)
 	glm::vec3 temp = engine::cam.tform.loc;
 	engine::cam.tform.loc = glm::vec3();
 	engine::cam.upload();
 	engine::cam.tform.loc = temp;
 
-	// If using out-facing model, disable back-face culling. This model is in-facing. The model does not need uvs and normals. A special model loader will support that.
+	// Draw skybox
 	object::render();
 	
+	// Clear depth buffer
 	glClear(GL_DEPTH_BUFFER_BIT);
 
+	// Reuse normal shader
 	renderer::theshader.use();
 }
 
