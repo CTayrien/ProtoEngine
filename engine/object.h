@@ -27,8 +27,12 @@ public:
 	
 	object();
 	virtual ~object();
+	
+	void load();
+	void unload();
+	
 	virtual void update() = 0;
-	void render();
+	virtual void render();
 
 	// Cache these on collider class after model loading, or any time scale or model changes
 	// model stores e of OBB in mod->max. To use other bounding surface AABB or Sphere, r^2 = dot(max,max). AABB dims = <r,r,r>. Object may rotate any way within the non-rotating sphere or AABB
