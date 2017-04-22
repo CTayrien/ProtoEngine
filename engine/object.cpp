@@ -13,14 +13,14 @@ object::~object()
 
 void object::load()
 {
-	if (!mod->loaded) mod->load();
-	if (!tex->loaded) tex->load();
+	if (mod && !mod->loaded) mod->load();
+	if (tex && !tex->loaded) tex->load();
 }
 
 void object::unload()
 {
-	if (mod->loaded) mod->unload();
-	if (tex->loaded) tex->unload();
+	if (mod && mod->loaded) mod->unload();
+	if (tex && tex->loaded) tex->unload();
 }
 
 void object::render()
