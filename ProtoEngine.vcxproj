@@ -68,7 +68,7 @@
     <ClCompile Include="moon\moon.cpp" />
     <ClCompile Include="orbit\orbit.cpp" />
     <ClCompile Include="planet\planet.cpp" />
-    <ClCompile Include="ProtoGame.cpp" />
+    <ClCompile Include="QuatDemo.cpp" />
     <ClCompile Include="spacecraft\spacecraft.cpp" />
     <ClCompile Include="src\imgui\imgui.cpp" />
     <ClCompile Include="src\imgui\imgui_demo.cpp" />
