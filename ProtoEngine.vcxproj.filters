@@ -110,6 +110,9 @@
     <ClInclude Include="Arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lerparrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -191,6 +194,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Arrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lerparrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

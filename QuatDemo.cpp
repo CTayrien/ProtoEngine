@@ -22,7 +22,11 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 Globe globe;
 
 #include "Arrow.h"
-Arrow arrow;
+Arrow beijing;
+Arrow nyc;
+
+#include "lerparrow.h"
+lerparrow lerper;
 
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
@@ -30,11 +34,21 @@ int main() {
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
 	globe.load();
-	arrow.load();
-	arrow.tform.scale *= -1.1f;
-	//arrow.tform.rot.x = 70.f * engine::pi / 180.f;
-	arrow.tform.rot.x = 90.f * engine::pi / 180.f;
+	globe.tform.rot.y = -125.0f * engine::pi / 180.f;
 
+	beijing.load();
+	beijing.tform.scale *= 1.1f;
+	beijing.tform.rot.y = -100.f * engine::pi / 180.f;	//yaw = longitude
+	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+
+	nyc.load();
+	nyc.tform.scale *= 1.1f;
+	nyc.tform.rot.y = 70.f * engine::pi / 180.f;	//yaw = longitude
+	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+
+	lerper.load();
+	lerper.a = &beijing.tform;
+	lerper.b = &nyc.tform;
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
@@ -44,16 +58,21 @@ int main() {
 
 		// 9) Update all objects
 		globe.update();
-		arrow.update();
+		beijing.update();
+		nyc.update();
+		lerper.update();
 
 		// 10) Render all objects
 		globe.render();
-		arrow.render();
+		beijing.render();
+		nyc.render();
+		lerper.render();
 	}
 
 	// 11) Unload all assets
 	globe.unload();
-	arrow.unload();
+	beijing.unload();
+	nyc.unload();
 
 	// 12) Stop the engine
 	engine::stop();

@@ -14,4 +14,5 @@ Globe::~Globe()
 
 void Globe::update()
 {
+	tform.update();
 }

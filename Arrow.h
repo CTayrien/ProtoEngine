@@ -5,7 +5,7 @@ class Arrow :
 {
 public:
 	Arrow();
-	~Arrow();
+	virtual ~Arrow();
 	void update() override;
 };
 

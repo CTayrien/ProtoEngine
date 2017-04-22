@@ -9,9 +9,12 @@ camera::camera()
 	tag = "camera";
 	mod = new model("engine/models/camera.dat");
 	tex = new texture("engine/textures/black.png");
-	tform.loc.y = 2;
-	tform.rot.x = -engine::pi / 2;
 	fov = engine::pi * .4f;
+
+	tform.loc.z = 2;
+	//tform.loc.y = 2;
+	//tform.rot.x = -engine::pi / 2;
+	
 }
 
 camera::~camera()
