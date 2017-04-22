@@ -18,17 +18,23 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // 4) Declare assets and objects globally, on the stack, or on the heap.
 //		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.  
-#include "planet/planet.h"
-model sphereMod("engine/models/sphere.dat");
-texture earthTex("planet/earth.png");
-planet earth(&sphereMod, &earthTex);
+#include "Globe.h"
+Globe globe;
+
+#include "Arrow.h"
+Arrow arrow;
 
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
 	if (!engine::start()) return 1;
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
-	earth.load();
+	globe.load();
+	arrow.load();
+	arrow.tform.scale *= -1.1f;
+	//arrow.tform.rot.x = 70.f * engine::pi / 180.f;
+	arrow.tform.rot.x = 90.f * engine::pi / 180.f;
+
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
@@ -37,14 +43,17 @@ int main() {
 		engine::update();
 
 		// 9) Update all objects
-		earth.update();
+		globe.update();
+		arrow.update();
 
 		// 10) Render all objects
-		earth.render();
+		globe.render();
+		arrow.render();
 	}
 
 	// 11) Unload all assets
-	earth.unload();
+	globe.unload();
+	arrow.unload();
 
 	// 12) Stop the engine
 	engine::stop();

@@ -6,6 +6,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <FreeImage.h>
 #include <GL\glew.h>
+#include <iostream>
 
 texture::texture(std::string filename)
 {
@@ -18,10 +19,6 @@ texture::~texture()
 
 void texture::load()
 {
-	// Read & process
-	FIBITMAP* image = FreeImage_Load(FreeImage_GetFileType(filename.c_str(), 0), filename.c_str());
-	FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
-	
 	// Allocate vram
 	glGenTextures(1, &id);
 
@@ -29,7 +26,26 @@ void texture::load()
 	glBindTexture(GL_TEXTURE_2D, id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-	// Upload to vram
+	// Try open and get file type
+	const char* file = filename.c_str();
+	FREE_IMAGE_FORMAT fif = FreeImage_GetFileType(file, 0);
+
+	if (FIF_UNKNOWN == fif) {
+		unload();
+		glBindTexture(GL_TEXTURE_2D, 0);
+		printf("\nError: Texture file path/type unknown: %s\n", file);
+		return;
+	}
+
+	// Read
+	FIBITMAP* image = FreeImage_Load(fif, file);
+	
+	// Process
+	FIBITMAP* image32Bit = FreeImage_ConvertTo32Bits(image);
+	
+	FreeImage_Unload(image);
+
+	// Upload (ram->vram)
 	glTexImage2D(GL_TEXTURE_2D,
 		0,
 		GL_SRGB_ALPHA,
@@ -40,8 +56,6 @@ void texture::load()
 		GL_UNSIGNED_BYTE,
 		(void*)FreeImage_GetBits(image32Bit));
 	
-	// Clear ram
-	FreeImage_Unload(image);
 	FreeImage_Unload(image32Bit);
 
 	// Unbind

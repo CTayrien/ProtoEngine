@@ -104,6 +104,12 @@
     <ClInclude Include="orbit\orbit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Globe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Arrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -179,6 +185,12 @@
       <Filter>Source Files\imgui</Filter>
     </ClCompile>
     <ClCompile Include="QuatDemo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Globe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Arrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
