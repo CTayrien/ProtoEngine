@@ -14,17 +14,17 @@ layout (location = 3) uniform mat4 modelWorld;
 layout (location = 4) uniform mat4 worldView;
 
 // World space
-out vec3 worldLoc;
+out vec3 loc;
 out vec2 uv;
-out vec3 worldNorm;
+out vec3 norm;
 
 void main()
 {
-	// Transform from model space into world space
-	worldLoc = (modelWorld * vec4(modelLoc, 1)).xyz;
+	// World space
+	loc = (modelWorld * vec4(modelLoc, 1)).xyz;
 	uv = modelUV;
-	worldNorm = normalize((transpose(inverse(modelWorld)) * vec4(modelNorm, 0)).xyz);
+	norm = normalize((transpose(inverse(modelWorld)) * vec4(modelNorm, 0)).xyz);
 
-	// Transform from world space into view space
-	gl_Position = worldView * vec4(worldLoc, 1);
+	// View space
+	gl_Position = worldView * vec4(loc, 1);
 }

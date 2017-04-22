@@ -34,25 +34,26 @@ bool renderer::start()
 	io.DisplaySize.x = window::w;
 	io.DisplaySize.y = window::h;
 	io.IniFilename = "imgui.ini";
-	// default null render function
-	// default texture atlas
+
+	// default null render function callback?
 	
-	unsigned char* pixels;
+	// default texture atlas
+	unsigned char* fontbytes;
 	int width, height;
-	io.Fonts->GetTexDataAsRGBA32(&pixels, &width, &height);
+	io.Fonts->GetTexDataAsRGBA32(&fontbytes, &width, &height);
 	
 	GLuint texid;
 	glGenTextures(1, &texid);
-	glBindTexture(GL_TEXTURE_2D, texid);
+	glBindTexture(GL_TEXTURE_2D, texid);	//hope that's the right binding pt
 	glTexImage2D(GL_TEXTURE_2D,
 		0,
 		GL_SRGB_ALPHA,
 		width,
 		height,
 		0,
-		GL_BGRA,
+		GL_BGRA,			// internal-should be RGBA?
 		GL_UNSIGNED_BYTE,
-		pixels);
+		fontbytes);
 	
 	io.Fonts->TexID = (void*)&texid;
 

@@ -4,35 +4,39 @@
 
 #version 430
 
-out vec4 fragColor;
-
 layout (location = 5) uniform vec3 lightLoc;
-layout (location = 6) uniform vec3 cameraLoc;
-
-in vec3 worldLoc;
-in vec2 uv;
-in vec3 worldNorm;
-
-uniform sampler2D myTexture;
-
+layout (location = 6) uniform vec3 camLoc;
 layout (location = 7) uniform vec4 material;
+
+uniform sampler2D tex2D;
+
+// World space
+in vec3 loc;
+in vec2 uv;
+in vec3 norm;
+
+out vec4 fragColor;
 
 void main()
 {
-	// Frag to Light, Frag to Camera/Eye, Halfway, Normal
-	vec3 L = normalize( lightLoc - worldLoc );
-	vec3 V = normalize( cameraLoc - worldLoc );
-	vec3 H = normalize( L + V );
-	vec3 N = normalize( worldNorm );
+	// Texturing
+	vec4 texel = texture(tex2D, uv);
+
+	// Phong-Blinn Lighting
+	vec3 L = normalize( lightLoc - loc);	// Fragment to light
+	vec3 V = normalize( camLoc - loc);		// Fragment to camera
+	vec3 H = normalize( L + V );			// Halfway vector
+	vec3 N = normalize( norm );				// Fragment normal
 	
-	// Material
 	float amb = material[0];
 	float dif = material[1] * max(dot(L, N), 0);
 	float spec = material[2] * pow(max(dot(H, N), 0), material[3]);
+	float light = amb + dif + spec;
 	
-	float bright = amb + dif + spec;
-	// could easily scale those by distance, and have multiple lights.
-	
-	vec4 texColor = texture(myTexture, uv);
-	fragColor = vec4(bright * texColor.rgb, texColor.a);
+	// Tex * Light
+	vec3 color = light * texel.rgb;
+	float alpha = texel.a;
+
+	// Out to color buffer
+	fragColor = vec4(color, texel.a);
 }
