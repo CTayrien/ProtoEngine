@@ -4,16 +4,16 @@
 
 #version 430
 
-// Model space
+// Uniforms
+layout (location = 3) uniform mat4 modelWorld;
+layout (location = 4) uniform mat4 worldView;
+
+// Attributes
 layout (location = 0) in vec3 modelLoc;
 layout (location = 1) in vec2 modelUV;
 layout (location = 2) in vec3 modelNorm;
 
-// Model-world-view transforms
-layout (location = 3) uniform mat4 modelWorld;
-layout (location = 4) uniform mat4 worldView;
-
-// World space
+// Varyings
 out vec3 loc;
 out vec2 uv;
 out vec3 norm;

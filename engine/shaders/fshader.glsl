@@ -4,17 +4,18 @@
 
 #version 430
 
+// Uniforms
+uniform sampler2D tex2D;
 layout (location = 5) uniform vec3 lightLoc;
 layout (location = 6) uniform vec3 camLoc;
 layout (location = 7) uniform vec4 material;
 
-uniform sampler2D tex2D;
-
-// World space
+// Varyings
 in vec3 loc;
 in vec2 uv;
 in vec3 norm;
 
+// Out
 out vec4 fragColor;
 
 void main()
@@ -22,7 +23,7 @@ void main()
 	// Texturing
 	vec4 texel = texture(tex2D, uv);
 
-	// Phong-Blinn Lighting
+	// Lighting (Phong-Blinn)
 	vec3 L = normalize( lightLoc - loc);	// Fragment to light
 	vec3 V = normalize( camLoc - loc);		// Fragment to camera
 	vec3 H = normalize( L + V );			// Halfway vector
@@ -37,6 +38,6 @@ void main()
 	vec3 color = light * texel.rgb;
 	float alpha = texel.a;
 
-	// Out to color buffer
+	// Color
 	fragColor = vec4(color, texel.a);
 }
