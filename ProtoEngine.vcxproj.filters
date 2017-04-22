@@ -22,6 +22,9 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{86d6b4a5-bc72-4cc6-89c4-92c2817cef41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{88ad8480-a412-422f-89da-be7154252541}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\shaders\fshader.glsl">
@@ -98,6 +101,9 @@
     <ClInclude Include="engine\texture_cubemap.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="orbit\orbit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -162,6 +168,18 @@
     </ClCompile>
     <ClCompile Include="engine\texture_cubemap.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="orbit\orbit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui\imgui.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui\imgui_demo.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\imgui\imgui_draw.cpp">
+      <Filter>Source Files\imgui</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
