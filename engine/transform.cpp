@@ -4,8 +4,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "transform.h"
 #include "engine.h"
 
-#include <glm/gtx/transform.hpp>
-#include <glm/gtx/euler_angles.hpp>
+#include <glm\gtx\transform.hpp>
+#include <glm\gtx\euler_angles.hpp>
+#include <glm\gtx\quaternion.hpp>
 
 transform::transform()
 {
@@ -17,7 +18,6 @@ transform::transform()
 	rot = rotvel = torque = { 0, 0, 0 };
 	moment = 1;
 }
-
 
 transform::~transform()
 {
@@ -43,11 +43,11 @@ void transform::update()
 	rot += rotvel * engine::time.dt;
 	torque = {0, 0, 0};
 
-	rotation = glm::yawPitchRoll(rot.y, rot.x, rot.z);
+	rotmat = glm::yawPitchRoll(rot.y, rot.x, rot.z);
 	
-	R = (glm::mat3)rotation;
+	R = (glm::mat3)rotmat;
 
-	modelWorld = glm::translate(loc) * rotation	* glm::scale(scale);
+	modelWorld = glm::translate(loc) * rotmat	* glm::scale(scale);
 }
 
 void transform::render()

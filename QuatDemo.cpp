@@ -18,18 +18,22 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // 4) Declare assets and objects globally, on the stack, or on the heap.
 //		Use c'tors or setters to ensure the member data is initialized for game objects and assets before loading, updating or rendering.  
-#include "Globe.h"
+#include "globe/Globe.h"
 Globe globe;
 
-#include "Arrow.h"
+#include "arrows/Arrow.h"
 Arrow beijing;
 Arrow nyc;
 
-#include "lerparrow.h"
+#include "arrows/lerparrow.h"
 lerparrow lerper;
+
+#include "arrows/slerparrow.h"
+slerparrow slerper;
 
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
+	renderer::thematerial.ambDifSpec[0] = .9f;	//lighten up a bit
 	if (!engine::start()) return 1;
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
@@ -37,18 +41,22 @@ int main() {
 	globe.tform.rot.y = -125.0f * engine::pi / 180.f;
 
 	beijing.load();
-	beijing.tform.scale *= 1.1f;
 	beijing.tform.rot.y = -100.f * engine::pi / 180.f;	//yaw = longitude
 	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+	beijing.tform.rot.z = engine::pi / 2.f;
 
-	nyc.load();
-	nyc.tform.scale *= 1.1f;
+ 	nyc.load();
 	nyc.tform.rot.y = 70.f * engine::pi / 180.f;	//yaw = longitude
 	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+	beijing.tform.rot.z = -engine::pi / 2.f;
 
 	lerper.load();
 	lerper.a = &beijing.tform;
 	lerper.b = &nyc.tform;
+
+	slerper.load();
+	slerper.a = &beijing.tform;
+	slerper.b = &nyc.tform;
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
@@ -61,18 +69,21 @@ int main() {
 		beijing.update();
 		nyc.update();
 		lerper.update();
+		slerper.update();
 
 		// 10) Render all objects
 		globe.render();
 		beijing.render();
 		nyc.render();
 		lerper.render();
+		slerper.render();
 	}
 
 	// 11) Unload all assets
 	globe.unload();
 	beijing.unload();
 	nyc.unload();
+	slerper.unload();
 
 	// 12) Stop the engine
 	engine::stop();

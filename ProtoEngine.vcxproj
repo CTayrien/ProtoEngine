@@ -25,7 +25,9 @@
     <None Include="engine\shaders\vshader_skybox.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Arrow.h" />
+    <ClInclude Include="arrows\Arrow.h" />
+    <ClInclude Include="arrows\lerparrow.h" />
+    <ClInclude Include="arrows\slerparrow.h" />
     <ClInclude Include="builder\builder.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
@@ -43,15 +45,16 @@
     <ClInclude Include="engine\timer.h" />
     <ClInclude Include="engine\transform.h" />
     <ClInclude Include="engine\window.h" />
-    <ClInclude Include="Globe.h" />
-    <ClInclude Include="lerparrow.h" />
+    <ClInclude Include="globe\Globe.h" />
     <ClInclude Include="moon\moon.h" />
     <ClInclude Include="orbit\orbit.h" />
     <ClInclude Include="planet\planet.h" />
     <ClInclude Include="spacecraft\spacecraft.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Arrow.cpp" />
+    <ClCompile Include="arrows\Arrow.cpp" />
+    <ClCompile Include="arrows\lerparrow.cpp" />
+    <ClCompile Include="arrows\slerparrow.cpp" />
     <ClCompile Include="builder\builder.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
@@ -69,8 +72,7 @@
     <ClCompile Include="engine\timer.cpp" />
     <ClCompile Include="engine\transform.cpp" />
     <ClCompile Include="engine\window.cpp" />
-    <ClCompile Include="Globe.cpp" />
-    <ClCompile Include="lerparrow.cpp" />
+    <ClCompile Include="globe\Globe.cpp" />
     <ClCompile Include="moon\moon.cpp" />
     <ClCompile Include="orbit\orbit.cpp" />
     <ClCompile Include="planet\planet.cpp" />

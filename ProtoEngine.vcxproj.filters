@@ -104,13 +104,16 @@
     <ClInclude Include="orbit\orbit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Globe.h">
+    <ClInclude Include="arrows\Arrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Arrow.h">
+    <ClInclude Include="arrows\lerparrow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lerparrow.h">
+    <ClInclude Include="arrows\slerparrow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="globe\Globe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -190,13 +193,16 @@
     <ClCompile Include="QuatDemo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Globe.cpp">
+    <ClCompile Include="arrows\Arrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Arrow.cpp">
+    <ClCompile Include="arrows\lerparrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="lerparrow.cpp">
+    <ClCompile Include="arrows\slerparrow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="globe\Globe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
