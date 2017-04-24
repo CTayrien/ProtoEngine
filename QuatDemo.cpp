@@ -43,12 +43,14 @@ int main() {
 	beijing.load();
 	beijing.tform.rot.y = -100.f * engine::pi / 180.f;	//yaw = longitude
 	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
-	beijing.tform.rot.z = engine::pi / 2.f;
+	
+	
 
  	nyc.load();
 	nyc.tform.rot.y = 70.f * engine::pi / 180.f;	//yaw = longitude
 	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
-	beijing.tform.rot.z = -engine::pi / 2.f;
+	
+	//nyc.tform.rot.z = 90.f * engine::pi / 180.f;
 
 	lerper.load();
 	lerper.a = &beijing.tform;

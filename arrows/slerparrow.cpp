@@ -18,12 +18,19 @@ slerparrow::~slerparrow()
 
 void slerparrow::update()
 {
+	if (input::isDown(GLFW_KEY_EQUAL)){
+		a->rot.z += 1.f * engine::pi / 180.f;
+		printf("%f\n", a->rot.z * 180.f / engine::pi);
+	}
+	if (input::isDown(GLFW_KEY_MINUS)) {
+		a->rot.z -= 1.f * engine::pi / 180.f;
+		printf("%f\n", a->rot.z * 180.f / engine::pi);
+	}
+
 	// Try to stop
 	if ((d > 0.0f && t >= 1.0f) ||
 		(d < 0.0f && t <= 0.0f)) {
 		d *= -1.0f;
-		if (d > 0) t = 0;
-		else t = 1;
 		go = false;
 	}
 
@@ -42,9 +49,9 @@ void slerparrow::update()
 	glm::quat qa(a->rotmat);
 	glm::quat qb(b->rotmat);
 
-	glm::quat qt = glm::slerp(qa, qb, t);
+	glm::quat qt = glm::slerp(glm::normalize(qa), glm::normalize(qb), t);
 
-	tform.rotmat = glm::toMat4(qt);
+	tform.rotmat = glm::toMat4(glm::normalize(qt));
 	
 	// derive yaw,pitch,roll from qt or rotmat & update tform...or just do this
 	tform.modelWorld =

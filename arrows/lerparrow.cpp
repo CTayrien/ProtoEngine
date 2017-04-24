@@ -22,8 +22,6 @@ void lerparrow::update()
 	if ((d > 0.0f && t >= 1.0f) ||
 		(d < 0.0f && t <= 0.0f)) {
 		d *= -1.0f;
-		if (d > 0) t = 0;
-		else t = 1;
 		go = false;
 	}
 	
