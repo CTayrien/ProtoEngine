@@ -78,9 +78,6 @@
     <ClCompile Include="planet\planet.cpp" />
     <ClCompile Include="QuatDemo.cpp" />
     <ClCompile Include="spacecraft\spacecraft.cpp" />
-    <ClCompile Include="src\imgui\imgui.cpp" />
-    <ClCompile Include="src\imgui\imgui_demo.cpp" />
-    <ClCompile Include="src\imgui\imgui_draw.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>

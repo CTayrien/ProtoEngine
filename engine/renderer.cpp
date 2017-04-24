@@ -4,7 +4,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include <imgui.h>
+//#include <imgui.h>
 #include <FreeImage.h>
 
 shader renderer::theshader;
@@ -28,7 +28,7 @@ bool renderer::start()
 
 	thematerial.use();
 
-
+	/*
 	// Init imgui
 	ImGuiIO& io = ImGui::GetIO();
 	io.DisplaySize.x = window::w;
@@ -57,7 +57,7 @@ bool renderer::start()
 	
 	io.Fonts->TexID = (void*)&texid;
 
-	ImGui::NewFrame();
+	ImGui::NewFrame();/**/
 
 	return true;
 }
@@ -72,16 +72,16 @@ void renderer::update()
 	//io.MouseDown[0] = mouse_button_0;
 	//io.MouseDown[1] = mouse_button_1;
 	//io.KeysDown[i] = ...
-
+	
 	// 4) render & swap video buffers
-	ImGui::Render();
+	//ImGui::Render();
 	
 	// Send color buffer to screen, clear new frame buffers
 	glfwSwapBuffers(window::ptr);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	// 2) call NewFrame(), after this point you can use ImGui::* functions anytime
-	ImGui::NewFrame();
+	//ImGui::NewFrame();
 
 	// should this be somewhere else?
 	engine::skybox.render();
