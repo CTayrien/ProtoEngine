@@ -49,9 +49,9 @@ void slerparrow::update()
 	glm::quat qa(a->rotmat);
 	glm::quat qb(b->rotmat);
 
-	glm::quat qt = glm::slerp(glm::normalize(qa), glm::normalize(qb), t);
+	glm::quat qt = glm::slerp(qa, qb, t);
 
-	tform.rotmat = glm::toMat4(glm::normalize(qt));
+	tform.rotmat = glm::toMat4(qt);
 	
 	// derive yaw,pitch,roll from qt or rotmat & update tform...or just do this
 	tform.modelWorld =
