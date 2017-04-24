@@ -10,7 +10,7 @@ camera::camera()
 	mod = new model("engine/models/camera.dat");
 	tex = new texture("engine/textures/black.png");
 	fov = engine::pi * .4f;
-
+	//fov = engine::pi * .65;
 	tform.loc.z = 2;
 	//tform.loc.y = 2;
 	//tform.rot.x = -engine::pi / 2;
@@ -29,7 +29,7 @@ bool camera::start()
 	glfwSetInputMode(window::ptr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Move cursor to center
-	glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
+	//glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
 
 	mod->load();
 	if (!mod->loaded) return false;

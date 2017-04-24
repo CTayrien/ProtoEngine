@@ -51,4 +51,7 @@ void slerparrow::update()
 		glm::translate(tform.loc) *
 		tform.rotmat *
 		glm::scale(tform.scale);
+
+	// render an axis in direction d = normalize(v)
+	// scale is s = length(v)
 }

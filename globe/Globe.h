@@ -13,4 +13,3 @@ public:
 	~Globe();
 	void update() override;
 };
-

@@ -65,18 +65,18 @@ int main() {
 		engine::update();
 
 		// 9) Update all objects
-		globe.update();
 		beijing.update();
 		nyc.update();
 		lerper.update();
 		slerper.update();
+		globe.update();
 
 		// 10) Render all objects
-		globe.render();
 		beijing.render();
 		nyc.render();
 		lerper.render();
 		slerper.render();
+		globe.render();
 	}
 
 	// 11) Unload all assets
