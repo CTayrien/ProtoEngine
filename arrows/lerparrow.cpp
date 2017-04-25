@@ -41,5 +41,5 @@ void lerparrow::update()
 	// Derive delta r-axis or global r-axis from delta rot or tform.rot ?
 	// cross current <0,0,-1> with previous <0,0,-1> ?
 
-	tform.update();
+	tform.updatematrix();
 }

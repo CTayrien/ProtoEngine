@@ -31,7 +31,7 @@ planet::~planet()
 // update
 void planet::update()
 {
-	tform.update();
+	tform.updatematrix();
 
 	if (collides<SPHERE>(engine::cam)) {
 		system("cls");

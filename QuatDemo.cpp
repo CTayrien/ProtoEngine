@@ -25,11 +25,13 @@ Globe globe;
 Arrow beijing;
 Arrow nyc;
 
-#include "arrows/lerparrow.h"
-lerparrow lerper;
+//#include "arrows/lerparrow.h"
+//lerparrow lerper;
 
 #include "arrows/slerparrow.h"
 slerparrow slerper;
+
+Globe qtvector;
 
 int main() {
 	// 5) Init engine. (libraries, window, renderer, input, physics, etc. - start before calling anything else - constructors are fine as long as they don't interact with the engine
@@ -44,21 +46,34 @@ int main() {
 	beijing.tform.rot.y = -100.f * engine::pi / 180.f;	//yaw = longitude
 	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
-	
-
  	nyc.load();
 	nyc.tform.rot.y = 70.f * engine::pi / 180.f;	//yaw = longitude
 	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
+	// need a screw model and a set-forward vector so i can direct it outward from the sphere
+
 	//nyc.tform.rot.z = 90.f * engine::pi / 180.f;
 
-	lerper.load();
-	lerper.a = &beijing.tform;
-	lerper.b = &nyc.tform;
+	//lerper.load();
+	//lerper.a = &beijing.tform;
+	//lerper.b = &nyc.tform;
 
+	delete qtvector.tex;
+	qtvector.tex = new texture("engine/textures/blue.png");
+	delete qtvector.mod;
+	qtvector.mod = new model("bolt.dat");
+	qtvector.load();
+	qtvector.tform.scale *= 1.0f/3000.0f;
+	qtvector.tform.updatematrix();
+
+	delete slerper.mod;
+	slerper.mod = new model("spacecraft/spacecraft.dat");
 	slerper.load();
 	slerper.a = &beijing.tform;
 	slerper.b = &nyc.tform;
+	slerper.qtvector = &qtvector.tform;
+	slerper.tform.scale = glm:: vec3(1.0f) / 300.0f;
+	slerper.tform.updatematrix();
 
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
@@ -69,14 +84,16 @@ int main() {
 		// 9) Update all objects
 		beijing.update();
 		nyc.update();
-		lerper.update();
+		//lerper.update();
 		slerper.update();
-		globe.update();
+		//qtvector.update();
+		//globe.update();
 
 		// 10) Render all objects
 		beijing.render();
 		nyc.render();
-		lerper.render();
+		//lerper.render();
+		qtvector.render();
 		slerper.render();
 		globe.render();
 	}

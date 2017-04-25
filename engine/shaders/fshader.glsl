@@ -39,5 +39,5 @@ void main()
 	float alpha = texel.a;
 
 	// Color
-	fragColor = vec4(color, texel.a);
+	fragColor = vec4(color, texel.a*.9);
 }

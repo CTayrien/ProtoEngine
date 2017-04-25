@@ -42,7 +42,7 @@ bool camera::start()
 
 void camera::update()
 {
-	tform.update();
+	tform.physicsupdate();
 
 	move();
 	
@@ -51,10 +51,15 @@ void camera::update()
 	upload();
 }
 
-void camera::upload()
+void camera::updatematrix()
 {
 	worldView = glm::perspective(fov, aspect, zNear, zFar)
 		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
+}
+
+void camera::upload()
+{
+	updatematrix();
 
 	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
 

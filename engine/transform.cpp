@@ -33,24 +33,50 @@ glm::vec3 transform::up()
 	return R[1];
 }
 
-void transform::update()
+void transform::setroll(float roll)
+{
+	rot.z = roll;
+	updatematrix();
+}
+
+void transform::setforward(glm::vec3 f)
+{
+	//assume unit vector
+	float pitch = -asinf(f.y);
+
+	//float yaw = asinf(f.x);
+	//float yaw = acosf(f.z);
+	//float yaw = atanf(f.x / f.z);
+	float yaw = atan2(f.x, f.z);
+
+	rot = glm::vec3{ pitch, yaw, rot.z };
+	
+	updatematrix();
+}
+
+void transform::physicsupdate()
 {
 	vel += force / mass * engine::time.dt;
 	loc += vel * engine::time.dt;
-	force = {0, 0, 0};
+	force = { 0, 0, 0 };
 
 	rotvel += torque / moment * engine::time.dt;
 	rot += rotvel * engine::time.dt;
-	torque = {0, 0, 0};
+	torque = { 0, 0, 0 };
 
+	updatematrix();
+}
+
+void transform::updatematrix()
+{
+	transmat = glm::translate(loc);
 	rotmat = glm::yawPitchRoll(rot.y, rot.x, rot.z);
-	
-	R = (glm::mat3)rotmat;
+	scalemat = glm::scale(scale);
 
-	modelWorld = glm::translate(loc) * rotmat	* glm::scale(scale);
+	R = (glm::mat3)rotmat;
 }
 
 void transform::render()
 {
-	glUniformMatrix4fv(3, 1, GL_FALSE, &modelWorld[0][0]);
+	glUniformMatrix4fv(3, 1, GL_FALSE, &(transmat * rotmat	* scalemat)[0][0]);
 }

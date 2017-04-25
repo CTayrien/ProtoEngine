@@ -10,6 +10,8 @@ public:
 	glm::vec3 loc, rot, scale;
 	glm::mat3 R;
 	glm::mat4 rotmat;
+	glm::mat4 scalemat;
+	glm::mat4 transmat;
 	glm::mat4 modelWorld;
 
 	glm::vec3 vel, force;
@@ -24,6 +26,11 @@ public:
 	glm::vec3 forward();
 	glm::vec3 up();
 
-	void update();
+	void setroll(float roll);
+	void setforward(glm::vec3 f);
+
+	void physicsupdate();
+
+	void updatematrix();
 	void render();
 };

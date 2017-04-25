@@ -26,6 +26,7 @@ public:
 
 	bool start();
 	void update() override;
+	void updatematrix();
 	void upload();
 	void move();
 	void turn();
