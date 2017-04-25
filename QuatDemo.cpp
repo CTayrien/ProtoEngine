@@ -24,6 +24,7 @@ Globe globe;
 #include "arrows/Arrow.h"
 Arrow beijing;
 Arrow nyc;
+Arrow derper;
 
 //#include "arrows/lerparrow.h"
 //lerparrow lerper;
@@ -40,14 +41,15 @@ int main() {
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
 	globe.load();
-	globe.tform.rot.y = -125.0f * engine::pi / 180.f;
+	globe.tform.rot.y = -95.0f * engine::pi / 180.f;
+	globe.tform.updatematrix();
 
 	beijing.load();
-	beijing.tform.rot.y = -100.f * engine::pi / 180.f;	//yaw = longitude
+	beijing.tform.rot.y = 100.f * engine::pi / 180.f;	//yaw = longitude
 	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
  	nyc.load();
-	nyc.tform.rot.y = 70.f * engine::pi / 180.f;	//yaw = longitude
+	nyc.tform.rot.y = -74.f * engine::pi / 180.f;	//yaw = longitude
 	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
 	// need a screw model and a set-forward vector so i can direct it outward from the sphere
@@ -66,13 +68,22 @@ int main() {
 	qtvector.tform.scale *= 1.0f/3000.0f;
 	qtvector.tform.updatematrix();
 
-	delete slerper.mod;
-	slerper.mod = new model("spacecraft/spacecraft.dat");
+	Globe qavector = qtvector, qbvector = qtvector, qdvector = qtvector;
+	derper.load();
+
+	//delete slerper.mod;
+	//slerper.mod = new model("spacecraft/spacecraft.dat");
+	//slerper.tform.scale = glm::vec3(1.0f) / 300.0f;
 	slerper.load();
 	slerper.a = &beijing.tform;
 	slerper.b = &nyc.tform;
 	slerper.qtvector = &qtvector.tform;
-	slerper.tform.scale = glm:: vec3(1.0f) / 300.0f;
+	slerper.qavector = &qavector.tform;
+	slerper.qbvector = &qbvector.tform;
+	slerper.qdvector = &qdvector.tform;
+	slerper.derper = &derper.tform;
+
+
 	slerper.tform.updatematrix();
 
 	// 7) Loop while the escape key isn't pressed
@@ -86,16 +97,26 @@ int main() {
 		nyc.update();
 		//lerper.update();
 		slerper.update();
-		//qtvector.update();
+		//qtvector.update();	// updating this would call the updatematrix func, using the incorrect rot. maybe should set forward instead of matrix?
 		//globe.update();
-
+		
 		// 10) Render all objects
 		beijing.render();
 		nyc.render();
 		//lerper.render();
-		qtvector.render();
 		slerper.render();
-		globe.render();
+		qtvector.render();
+		qavector.render();
+		qbvector.render();
+		qdvector.render();
+		derper.render();
+		// render a spicy color-globe: 	fragColor = vec4(abs(loc), .9);, glDisable(GL_CULL_FACE);
+		//globe.tform.scale = glm::vec3(.1);
+		//for (int i = 0; i < 10; i++) {
+		//	globe.tform.updatematrix();
+		//	globe.render();
+		//	globe.tform.scale += glm::vec3(.1);
+		//}
 	}
 
 	// 11) Unload all assets

@@ -18,18 +18,17 @@ slerparrow::~slerparrow()
 
 void slerparrow::update()
 {
-	bool nothingmoved = true;
-
 	// Try to stop/start t increasing to 1 or decreasing to 0 over 3 seconds
 	if ((d > 0.0f && t >= 1.0f) ||
 		(d < 0.0f && t <= 0.0f)) {
 		d *= -1.0f;
 		go = false;
 	}
-	if (input::isDown(input_enter)) go = true;
+	if (input::isDown(input_enter)) {
+		go = true;
+	}
 	if (go) {
 		t += d * f * engine::time.dt;
-		nothingmoved = false;
 	}
 	// Slerp with t
 	//#include <glm\gtx\quaternion.hpp>
@@ -38,11 +37,50 @@ void slerparrow::update()
 	glm::quat qt = glm::slerp(qa, qb, t);
 	
 	// Set orientation of slerp object "spacecraft"
+	//tform.setforward((glm::vec3)glm::rotate(qt, glm::vec4(0, 0, -1, 1)));
+	//tform.setroll(?);
+	//tform.updatematrix();//upside-down?
+	
 	tform.rotmat = glm::toMat4(qt);
 	tform.modelWorld =
 		glm::translate(tform.loc) *
 		tform.rotmat *
 		glm::scale(tform.scale);		//dont updatematrix because it never got .rot set
+
+
+
+	// derp
+	float t2 = glm::abs(2 * t - (int)(2 * t));
+	glm::quat q0;
+	glm::quat qx = (t<.5) ? (qa) : (q0);
+	glm::quat qy = (t<.5) ? (q0) : (qb);
+	glm::quat qd = glm::slerp(qx, qy, t2);
+
+	derper->rotmat = glm::toMat4(qd);
+	derper->modelWorld =
+		glm::translate(derper->loc) *
+		derper->rotmat *
+		glm::scale(derper->scale);
+
+	glm::vec3 qvd = glm::vec3{ qd.x, qd.y, qd.z };
+	qdvector->loc = qvd;
+	qdvector->setforward(-glm::normalize(qvd));
+	qdvector->setroll(-engine::pi * glm::length(qvd));
+	qdvector->updatematrix();
+
+	//qa
+	glm::vec3 qva = glm::vec3{ qa.x, qa.y, qa.z };
+	qavector->loc = qva;
+	qavector->setforward(-glm::normalize(qva));
+	qavector->setroll(-engine::pi * glm::length(qva));
+	qavector->updatematrix();
+
+	//qb
+	glm::vec3 qvb = glm::vec3{ qb.x, qb.y, qb.z };
+	qbvector->loc = qvb;
+	qbvector->setforward(-glm::normalize(qvb));
+	qbvector->setroll(-engine::pi * glm::length(qvb));
+	qbvector->updatematrix();
 
 	// Set location/orientation of quaternion Vector object (screw / bolt)
 	glm::vec3 qv = glm::vec3{ qt.x, qt.y, qt.z };
@@ -58,40 +96,30 @@ void slerparrow::update()
 	if (input::isDown(input_right)) {
 		b->rot.y += 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
-		nothingmoved = false;
 	}
 	if (input::isDown(input_left)) {
 		b->rot.y -= 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
-		nothingmoved = false;
 	}
 	if (input::isDown(input_up)) {
 		b->rot.x += 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
-		nothingmoved = false;
 	}
 	if (input::isDown(input_down)) {
 		b->rot.x -= 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
-		nothingmoved = false;
 	}
 	if (input::isDown(GLFW_KEY_EQUAL)) {
 		b->rot.z += 1.f * s;
 		printf("Roll: %f\n", b->rot.z * c);
-		nothingmoved = false;
 	}
 	if (input::isDown(GLFW_KEY_MINUS)) {
 		b->rot.z -= 1.f * s;
 		printf("Roll: %f\n", b->rot.z * c);
-		nothingmoved = false;
 	}
 	b->updatematrix();
 
-	//if (nothingmoved) return;
 	// Set location/orientation of camera
-	//glm::vec3 loc = qv*1.1f;
-	//float t = .001;
-	//engine::cam.tform.loc = glm::mix(engine::cam.tform.loc, loc, t);
 	if (input::isDown(input_ctrl_left))
 		engine::cam.tform.loc += dv;
 }
