@@ -11,7 +11,7 @@ class slerparrow :
 public:
 	transform* a;
 	transform* b;
-	transform* qtvector, *qavector, *qbvector, *derper, *qdvector;
+	transform* qtvector, *qavector, *qbvector;// , *derper, *qdvector;
 	float f = 1.0f / 3.0f;
 	float t = 0.0f;
 	float d = 1.0f;

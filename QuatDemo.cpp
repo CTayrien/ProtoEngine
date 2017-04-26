@@ -24,10 +24,10 @@ Globe globe;
 #include "arrows/Arrow.h"
 Arrow beijing;
 Arrow nyc;
-Arrow derper;
+//Arrow derper;
 
-//#include "arrows/lerparrow.h"
-//lerparrow lerper;
+#include "arrows/lerparrow.h"
+lerparrow lerper;
 
 #include "arrows/slerparrow.h"
 slerparrow slerper;
@@ -41,7 +41,7 @@ int main() {
 
 	// 6) Load all assets. (Load each asset only once and reuse each when possible)
 	globe.load();
-	globe.tform.rot.y = -95.0f * engine::pi / 180.f;
+	globe.tform.rot.y = 85.0f * engine::pi / 180.f;
 	globe.tform.updatematrix();
 
 	beijing.load();
@@ -49,39 +49,48 @@ int main() {
 	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
  	nyc.load();
-	nyc.tform.rot.y = -74.f * engine::pi / 180.f;	//yaw = longitude
-	nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+	//nyc.tform.rot.y = -74.f * engine::pi / 180.f;	//yaw = longitude
+	//nyc.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
 	
 	// need a screw model and a set-forward vector so i can direct it outward from the sphere
 
 	//nyc.tform.rot.z = 90.f * engine::pi / 180.f;
 
-	//lerper.load();
-	//lerper.a = &beijing.tform;
-	//lerper.b = &nyc.tform;
+	lerper.load();
+	lerper.a = &nyc.tform;
+	lerper.b = &beijing.tform;
 
 	delete qtvector.tex;
-	qtvector.tex = new texture("engine/textures/blue.png");
+	qtvector.tex = new texture("engine/textures/green.png");
 	delete qtvector.mod;
 	qtvector.mod = new model("bolt.dat");
 	qtvector.load();
 	qtvector.tform.scale *= 1.0f/3000.0f;
 	qtvector.tform.updatematrix();
 
-	Globe qavector = qtvector, qbvector = qtvector, qdvector = qtvector;
-	derper.load();
+	Globe qavector = qtvector, qbvector = qtvector;// , qdvector = qtvector;
+	qavector.tex = new texture("engine/textures/white.png");
+	qbvector.tex = new texture("engine/textures/white.png");
+	//qdvector.tex = new texture("engine/textures/red.png");
+	qavector.load();
+	qbvector.load();
+	//qdvector.load();
+
+	//delete derper.tex;
+	//derper.tex = new texture("engine/textures/red.png");
+	//derper.load();
 
 	//delete slerper.mod;
 	//slerper.mod = new model("spacecraft/spacecraft.dat");
 	//slerper.tform.scale = glm::vec3(1.0f) / 300.0f;
 	slerper.load();
-	slerper.a = &beijing.tform;
-	slerper.b = &nyc.tform;
+	slerper.a = &nyc.tform;
+	slerper.b = &beijing.tform;
 	slerper.qtvector = &qtvector.tform;
 	slerper.qavector = &qavector.tform;
 	slerper.qbvector = &qbvector.tform;
-	slerper.qdvector = &qdvector.tform;
-	slerper.derper = &derper.tform;
+	//slerper.qdvector = &qdvector.tform;
+	//slerper.derper = &derper.tform;
 
 
 	slerper.tform.updatematrix();
@@ -95,7 +104,7 @@ int main() {
 		// 9) Update all objects
 		beijing.update();
 		nyc.update();
-		//lerper.update();
+		lerper.update();
 		slerper.update();
 		//qtvector.update();	// updating this would call the updatematrix func, using the incorrect rot. maybe should set forward instead of matrix?
 		//globe.update();
@@ -103,13 +112,13 @@ int main() {
 		// 10) Render all objects
 		beijing.render();
 		nyc.render();
-		//lerper.render();
+		lerper.render();
 		slerper.render();
 		qtvector.render();
 		qavector.render();
 		qbvector.render();
-		qdvector.render();
-		derper.render();
+		//qdvector.render();
+		//derper.render();
 		globe.render();
 
 		// render a spicy color-globe: 	fragColor = vec4(abs(loc), .9);, glDisable(GL_CULL_FACE);

@@ -49,24 +49,25 @@ void slerparrow::update()
 
 
 
-	// derp
-	float t2 = glm::abs(2 * t - (int)(2 * t));
-	glm::quat q0;
-	glm::quat qx = (t<.5) ? (qa) : (q0);
-	glm::quat qy = (t<.5) ? (q0) : (qb);
-	glm::quat qd = glm::slerp(qx, qy, t2);
-
-	derper->rotmat = glm::toMat4(qd);
-	derper->modelWorld =
-		glm::translate(derper->loc) *
-		derper->rotmat *
-		glm::scale(derper->scale);
-
-	glm::vec3 qvd = glm::vec3{ qd.x, qd.y, qd.z };
-	qdvector->loc = qvd;
-	qdvector->setforward(-glm::normalize(qvd));
-	qdvector->setroll(-engine::pi * glm::length(qvd));
-	qdvector->updatematrix();
+	// derp draws back one quaternion, then adds the other.
+	//float t2 = glm::abs(2 * t - (int)(2 * t));
+	//if (t >= 1.0f) t2 = 1.0f;
+	//glm::quat q0;
+	//glm::quat qx = (t<.5) ? (qa) : (q0);
+	//glm::quat qy = (t<.5) ? (q0) : (qb);
+	//glm::quat qd = glm::slerp(qx, qy, t2);
+	//
+	//derper->rotmat = glm::toMat4(qd);
+	//derper->modelWorld =
+	//	glm::translate(derper->loc) *
+	//	derper->rotmat *
+	//	glm::scale(derper->scale);
+	//
+	//glm::vec3 qvd = glm::vec3{ qd.x, qd.y, qd.z };
+	//qdvector->loc = qvd;
+	//qdvector->setforward(-glm::normalize(qvd));
+	//qdvector->setroll(-engine::pi * glm::length(qvd));
+	//qdvector->updatematrix();
 
 	//qa
 	glm::vec3 qva = glm::vec3{ qa.x, qa.y, qa.z };
@@ -94,19 +95,19 @@ void slerparrow::update()
 	float c = 180.f / engine::pi;
 	float s = 60.0f / engine::time.fps / c;
 	if (input::isDown(input_right)) {
-		b->rot.y += 1.f * s;
+		b->rot.x += 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
 	}
 	if (input::isDown(input_left)) {
-		b->rot.y -= 1.f * s;
+		b->rot.x -= 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
 	}
 	if (input::isDown(input_up)) {
-		b->rot.x += 1.f * s;
+		b->rot.y += 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
 	}
 	if (input::isDown(input_down)) {
-		b->rot.x -= 1.f * s;
+		b->rot.y -= 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
 	}
 	if (input::isDown(GLFW_KEY_EQUAL)) {
