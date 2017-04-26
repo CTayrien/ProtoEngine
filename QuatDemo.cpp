@@ -110,6 +110,8 @@ int main() {
 		qbvector.render();
 		qdvector.render();
 		derper.render();
+		globe.render();
+
 		// render a spicy color-globe: 	fragColor = vec4(abs(loc), .9);, glDisable(GL_CULL_FACE);
 		//globe.tform.scale = glm::vec3(.1);
 		//for (int i = 0; i < 10; i++) {

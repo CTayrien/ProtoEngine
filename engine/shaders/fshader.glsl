@@ -40,5 +40,5 @@ void main()
 
 	// Color
 	fragColor = vec4(color, texel.a*.9);
-	fragColor = vec4(abs(loc), .9);
+	//fragColor = vec4(abs(loc), .9);
 }
