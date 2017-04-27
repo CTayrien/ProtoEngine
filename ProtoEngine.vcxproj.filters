@@ -178,9 +178,6 @@
     <ClCompile Include="orbit\orbit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QuatDemo.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="arrows\Arrow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
