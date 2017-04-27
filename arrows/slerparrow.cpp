@@ -42,6 +42,7 @@ void slerparrow::update()
 	//tform.updatematrix();//upside-down?
 	
 	tform.rotmat = glm::toMat4(qt);
+
 	tform.modelWorld =
 		glm::translate(tform.loc) *
 		tform.rotmat *

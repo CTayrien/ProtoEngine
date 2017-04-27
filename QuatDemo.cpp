@@ -45,8 +45,9 @@ int main() {
 	globe.tform.updatematrix();
 
 	beijing.load();
-	beijing.tform.rot.y = 100.f * engine::pi / 180.f;	//yaw = longitude
-	beijing.tform.rot.x = 40.f * engine::pi / 180.f;	//pitch = latitude
+	beijing.tform.rot.y = 359.f * engine::pi / 180.f;	//yaw = longitude
+	beijing.tform.rot.x = 89.f * engine::pi / 180.f;	//pitch = latitude
+	//beijing.tform.rot.z = 180.f * engine::pi / 180.f;
 	
  	nyc.load();
 	//nyc.tform.rot.y = -74.f * engine::pi / 180.f;	//yaw = longitude
@@ -98,6 +99,7 @@ int main() {
 	// 7) Loop while the escape key isn't pressed
 	while (!input::isDown(input_esc))
 	{
+		glDisable(GL_CULL_FACE);
 		// 8) Update engine. (More efficient systems may be developed (spatial partitioning, render lists, instanced rendering, frustum culling, multithreading, etc.))
 		engine::update();
 
