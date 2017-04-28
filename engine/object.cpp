@@ -67,6 +67,7 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 template<>
 bool object::collides<OBB, OBB>(const object& b) const
 {
+	// Is a way to derive axes?
 	for (int i = 0; i < 3; i++)
 	{
 		// Axes of a
@@ -92,9 +93,13 @@ bool object::collides<OBB, OBB>(const object& b) const
 
 template<>
 bool object::collides<OBB, SPHERE>(const object& b) const {
-	// get nearest point on box to sphere
-	// get its dist from sphere
-	// if greater than sphere radius, collision
-	// this code is in raptor engine
-	return false;
+	// Nearest point on box to sphere
+	glm::vec3 e = mod->max * tform.scale;	// half-width
+	glm::vec3 p = tform.loc + tform.R * glm::clamp((b.tform.loc - tform.loc) * tform.R, -e, e);
+	
+	// Dist from point to sphere
+	float d = glm::distance(p, b.tform.loc);
+
+	// If less than sphere radius, collision
+	return (d < b.r());
 }
