@@ -77,7 +77,6 @@ void model::load()
 	loaded = true;
 }
 
-
 void model::render()
 {
 	glBindVertexArray(vao);
