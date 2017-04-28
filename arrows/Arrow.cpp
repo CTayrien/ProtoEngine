@@ -11,7 +11,7 @@ Arrow::Arrow()
 	tform.scale.x *= .1f;
 	tform.scale.y *= .1f;
 	tform.scale.z *= 1.1f;
-	tform.updatematrix();
+	tform.derivematrix();
 }
 
 Arrow::~Arrow()
@@ -22,5 +22,5 @@ Arrow::~Arrow()
 
 void Arrow::update()
 {
-	tform.updatematrix();
+	tform.derivematrix();
 }

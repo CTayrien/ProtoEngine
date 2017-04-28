@@ -64,7 +64,7 @@ void texture::load()
 	loaded = true;
 }
 
-void texture::use()
+void texture::bind()
 {
 	glBindTexture(GL_TEXTURE_2D, id);
 }

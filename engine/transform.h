@@ -7,7 +7,10 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class transform
 {
 public:
+	// Can/should I use quaternion instead of yaw pitch roll?
 	glm::vec3 loc, rot, scale;
+
+	// Do I really need to store all of these?
 	glm::mat3 R;
 	glm::mat4 rotmat;
 	glm::mat4 scalemat;
@@ -25,12 +28,16 @@ public:
 
 	glm::vec3 forward();
 	glm::vec3 up();
+	// right();
+	// lookat();
 
 	void setroll(float roll);
+	// void set yaw, pitch?
+
 	void setforward(glm::vec3 f);
 
 	void physicsupdate();
 
-	void updatematrix();
-	void render();
+	void derivematrix();
+	void upload();
 };

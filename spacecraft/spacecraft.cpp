@@ -20,5 +20,5 @@ spacecraft::~spacecraft()
 
 void spacecraft::update()
 {
-	tform.updatematrix();
+	tform.derivematrix();
 }

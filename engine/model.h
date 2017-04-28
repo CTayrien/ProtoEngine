@@ -16,9 +16,12 @@ private:
 public:
 	std::string filename = "default model";
 	
-	// half-width of tightest fit model-oriented bounding box (OBB)
+	// Half-width of tightest fit model-oriented bounding box (OBB)
 	glm::vec3 max = {};
-	
+
+	// Radius of the tightest fit bounding sphere
+	float r;
+
 	model(std::string filename);
 	~model();
 

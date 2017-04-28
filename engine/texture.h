@@ -16,7 +16,7 @@ public:
 	virtual void load();
 	bool loaded = false;
 
-	virtual void use();
+	virtual void bind();
 
 	virtual void unload();
 };

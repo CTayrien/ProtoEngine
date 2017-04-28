@@ -3,6 +3,18 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "object.h"
 
+float object::r() const
+{
+	// V1 - Incorrect
+	glm::vec3 r = (glm::vec3(mod->max) * tform.scale);
+	return glm::length(r);
+
+	// V2 - Not yet baked into .dat by model processor
+	// Average scale - wish to cache this
+	float avgs = glm::dot(tform.scale, glm::vec3(1)) / 3.f;
+	return mod->r * avgs;
+}
+
 object::object()
 {
 }
@@ -25,96 +37,64 @@ void object::unload()
 
 void object::render()
 {
-	tform.render();
-	tex->use();
+	tform.upload();
+	tex->bind();
 	mod->render();
 }
 
-// Collisions
-inline float max(glm::vec3 v) {
-	float max = v.x;
-	if (v.y > max) max = v.y;
-	if (v.z > max) max = v.z;
-	return max;
-}
-
-inline glm::vec3 object::s() const
-{
-	return mod->max * tform.scale;
-}
-
-inline float object::r() const
-{
-	return max(s());
-}
-
-inline float object::r2() const
-{
-	float r = this->r();
-	return r*r;
-}
-
 template<>
-bool object::collides<AABB>(const object& b) const
+bool object::collides<SPHERE, SPHERE>(const object& b) const
 {
-	glm::vec3 diff = glm::abs(b.tform.loc - tform.loc);
-	glm::vec3 size = s() + b.s();
+	// If dist^2 less than sum of radii squared, then colliding
+	glm::vec3 diff = tform.loc - b.tform.loc;
 
-	if (diff.x < size.x) return true;
-	if (diff.y < size.y) return true;
-	if (diff.z < size.z) return true;
-
-	return false;
-}
-
-template<>
-bool object::collides<SPHERE>(const object& b) const
-{	
-	glm::vec3 diff = glm::abs(b.tform.loc - tform.loc);
-	float dist2 = glm::dot(diff, diff);
-
-	return (dist2 < r2() + b.r2());
-}
-
-inline glm::vec3 rOBB(const object& o, const glm::vec3& L)
-{
-	return o.tform.R * (glm::sign(L * o.tform.R) * o.mod->max);
+	float rab = r() + b.r();
+	
+	return (glm::dot(diff, diff) < rab*rab);
 }
 
 inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 {
 	const glm::vec3& ca = a.tform.loc;
-	const glm::vec3& cb = a.tform.loc;
+	const glm::vec3& cb = b.tform.loc;
 
-	const glm::vec3& ra = rOBB(a, L);
-	const glm::vec3& rb = rOBB(b, L);
+	const glm::vec3& ra = a.tform.R * (glm::sign(L * a.tform.R) * a.mod->max * a.tform.scale);
+	const glm::vec3& rb = b.tform.R * (glm::sign(L * b.tform.R) * b.mod->max * b.tform.scale);
 
 	return abs(glm::dot(L, ca - cb)) > abs(glm::dot(L, ra)) + abs(glm::dot(L, rb));
 }
 
 template<>
-bool object::collides<OBB>(const object& b) const
+bool object::collides<OBB, OBB>(const object& b) const
 {
-	glm::vec3 L;
 	for (int i = 0; i < 3; i++)
 	{
-		L = tform.R[i];
-		if (testSepAxis(L, *this, b)) return false;
+		// Axes of a
+		if (testSepAxis(tform.R[i], *this, b)) return false;
 
-		L = b.tform.R[i];
-		if (testSepAxis(L, *this, b)) return false;
+		// Axes of b
+		if (testSepAxis(b.tform.R[i], *this, b)) return false;
 
+		// Axes of b cross with axes of b
 		for (int j = 0; j < 3; j++)
 		{
 			glm::vec3 c = cross(tform.R[i], b.tform.R[j]);
+			
+			// Don't cross parallel axes
 			float m = glm::length(c);
-			if (m == 0) continue;
-
-			L = c / m;
-
-			if (testSepAxis(L, *this, b)) return false;
+			if (m != 0)	
+				if (testSepAxis(c/m, *this, b)) return false;
 		}
 	}
 
 	return true;
+}
+
+template<>
+bool object::collides<OBB, SPHERE>(const object& b) const {
+	// get nearest point on box to sphere
+	// get its dist from sphere
+	// if greater than sphere radius, collision
+	// this code is in raptor engine
+	return false;
 }

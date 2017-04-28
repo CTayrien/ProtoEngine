@@ -75,14 +75,14 @@ void slerparrow::update()
 	qavector->loc = qva;
 	qavector->setforward(-glm::normalize(qva));
 	qavector->setroll(-engine::pi * glm::length(qva));
-	qavector->updatematrix();
+	qavector->derivematrix();
 
 	//qb
 	glm::vec3 qvb = glm::vec3{ qb.x, qb.y, qb.z };
 	qbvector->loc = qvb;
 	qbvector->setforward(-glm::normalize(qvb));
 	qbvector->setroll(-engine::pi * glm::length(qvb));
-	qbvector->updatematrix();
+	qbvector->derivematrix();
 
 	// Set location/orientation of quaternion Vector object (screw / bolt)
 	glm::vec3 qv = glm::vec3{ qt.x, qt.y, qt.z };
@@ -90,7 +90,7 @@ void slerparrow::update()
 	qtvector->loc = qv;
 	qtvector->setforward(-glm::normalize(qv));
 	qtvector->setroll(-engine::pi * glm::length(qv));
-	qtvector->updatematrix();
+	qtvector->derivematrix();
 	
 	// Move orientation b "Beijing"
 	float c = 180.f / engine::pi;
@@ -119,7 +119,7 @@ void slerparrow::update()
 		b->rot.z -= 1.f * s;
 		printf("Roll: %f\n", b->rot.z * c);
 	}
-	b->updatematrix();
+	b->derivematrix();
 
 	// Set location/orientation of camera
 	if (input::isDown(input_ctrl_left))

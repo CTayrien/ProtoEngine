@@ -36,7 +36,7 @@ glm::vec3 transform::up()
 void transform::setroll(float roll)
 {
 	rot.z = roll;
-	updatematrix();
+	derivematrix();
 }
 
 void transform::setforward(glm::vec3 f)
@@ -51,7 +51,7 @@ void transform::setforward(glm::vec3 f)
 
 	rot = glm::vec3{ pitch, yaw, rot.z };
 	
-	updatematrix();
+	derivematrix();
 }
 
 void transform::physicsupdate()
@@ -64,10 +64,10 @@ void transform::physicsupdate()
 	rot += rotvel * engine::time.dt;
 	torque = { 0, 0, 0 };
 
-	updatematrix();
+	derivematrix();
 }
 
-void transform::updatematrix()
+void transform::derivematrix()
 {
 	transmat = glm::translate(loc);
 	rotmat = glm::yawPitchRoll(rot.y, rot.x, rot.z);
@@ -76,7 +76,9 @@ void transform::updatematrix()
 	R = (glm::mat3)rotmat;
 }
 
-void transform::render()
+void transform::upload()
 {
+	// would like to call derivematrix here (or just do it, don't call a function)
+	// however I sometimes use slerp to create the matrix, and haven't set rot.xyz to reflect the current orientation
 	glUniformMatrix4fv(3, 1, GL_FALSE, &(transmat * rotmat	* scalemat)[0][0]);
 }

@@ -13,8 +13,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "texture.h"
 #include "transform.h"
 
-// want collider.h - include it here
-enum collider { AABB, SPHERE, OBB };	// def this in collider.h, call it colliderenum
+enum collider { SPHERE, OBB };
 
 class object
 {
@@ -23,8 +22,7 @@ public:
 	model* mod = nullptr;
 	texture* tex = nullptr;
 	transform tform;
-	// have a collider class here. data: s, r, r2. vals get set in collider.init, after model loads (data the model saves is not needed ever again)
-	
+
 	object();
 	virtual ~object();
 	
@@ -34,23 +32,9 @@ public:
 	virtual void update() = 0;
 	virtual void render();
 
-	// Cache these on collider class after model loading, or any time scale or model changes
-	// model stores e of OBB in mod->max. To use other bounding surface AABB or Sphere, r^2 = dot(max,max). AABB dims = <r,r,r>. Object may rotate any way within the non-rotating sphere or AABB
-	// Collisions
-	glm::vec3 s() const;
-	float r() const;		// currently calc incorrect - max(s). should be mag(s)
-	float r2() const;
+	// Don't call a function - exists to contain to-do code
+	float r() const;
 
-	template<collider type>	// declared here, but specialized dec & def in collision.h & cpp
+	template<collider, collider>
 	bool collides(const object& b) const;
 };
-
-// spec defs go ... in collision.h? no, here... defined in cpp? no... nowhere? add this type of information to a lecture on templates
-//template<>
-//bool object::collides<AABB>(const object& b) const;
-//
-//template<>
-//bool object::collides<SPHERE>(const object& b) const;
-//
-//template<>
-//bool object::collides<OBB>(const object& b) const;
