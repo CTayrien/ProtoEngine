@@ -67,7 +67,7 @@ void texture_cubemap::load()
 	loaded = true;
 }
 
-void texture_cubemap::use()
+void texture_cubemap::bind()
 {
 	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
 }
