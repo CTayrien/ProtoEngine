@@ -36,9 +36,9 @@ void model::load()
 	max.x = *((float*)(modelBytes + 0));
 	max.y = *((float*)(modelBytes + 4));
 	max.z = *((float*)(modelBytes + 8));
-	//r = *((float*)(modelBytes + 12));				// not yet baked into .dat by model processor
-	nverts = *((uint32_t*)(modelBytes + 12));
-	void* vertBufDataPtr = (void*)(modelBytes + 16);
+	r = *((float*)(modelBytes + 12));				// not yet baked into .dat by model processor
+	nverts = *((uint32_t*)(modelBytes + 16));
+	void* vertBufDataPtr = (void*)(modelBytes + 20);
 
 	// Upload buffer data to vram
 	glGenBuffers(1, &vbo);

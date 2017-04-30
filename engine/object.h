@@ -13,7 +13,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "texture.h"
 #include "transform.h"
 
-enum collider { SPHERE, OBB };
+enum collider { SPHERE, BOX };
 
 class object
 {
@@ -31,9 +31,6 @@ public:
 	
 	virtual void update() = 0;
 	virtual void render();
-
-	// Don't call a function - exists to contain to-do code
-	float r() const;
 
 	template<collider, collider>
 	bool collides(const object& b) const;
