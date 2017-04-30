@@ -9,10 +9,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-#include <sstream>
-#include <iostream>
-#include <vector>
-
 model::model(std::string filename)
 {
 	this->filename = filename;
@@ -24,29 +20,27 @@ model::~model()
 
 void model::load()
 {
-	// For Skybox, there's no uv or norm. Can this figure that out programatically?
-	struct Vertex { glm::vec3 loc; glm::vec2 uv; glm::vec3 norm; };
-	struct VertInd { uint32_t locInd, uvInd, normInd; };
+	GLsizei locsize = sizeof(glm::vec3);
+	GLsizei uvsize = sizeof(glm::vec2);
+	GLsizei normsize = sizeof(glm::vec3);
+	GLsizei vertsize = locsize + uvsize + normsize;
 	
-	// Open & read file
+	// Open & read file & allocate on heap
 	char* modelBytes = fileio::read(filename.c_str());
 	if (modelBytes == nullptr) return;
 
 	// Process file data
-	max.x = *((float*)(modelBytes + 0));
-	max.y = *((float*)(modelBytes + 4));
-	max.z = *((float*)(modelBytes + 8));
-	r = *((float*)(modelBytes + 12));				// not yet baked into .dat by model processor
+	max.x =	*((float*)(modelBytes + 0));
+	max.y =	*((float*)(modelBytes + 4));
+	max.z =	*((float*)(modelBytes + 8));
+	r =		*((float*)(modelBytes + 12));
 	nverts = *((uint32_t*)(modelBytes + 16));
-	void* vertBufDataPtr = (void*)(modelBytes + 20);
+	void* vdata = (void*)(modelBytes + 20);
 
 	// Upload buffer data to vram
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER,
-		sizeof(Vertex) * nverts,
-		vertBufDataPtr,
-		GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertsize * nverts, vdata, GL_STATIC_DRAW);
 
 	// Clear ram
 	delete[] modelBytes;
@@ -57,18 +51,15 @@ void model::load()
 
 	// Loc
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, vertsize, (GLvoid*)0);
 
 	// uv
 	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (GLvoid*)12);
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, vertsize, (GLvoid*)locsize);
 
 	// Norm
 	glEnableVertexAttribArray(2);
-	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE,
-		sizeof(Vertex), (GLvoid*)20);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, vertsize, (GLvoid*)(locsize + uvsize));
 
 	// Unbind
 	glBindVertexArray(0);
@@ -90,4 +81,9 @@ void model::unload()
 
 	vao = vbo = 0;
 	nverts = 0;
+
+	max = {};
+	r = 0;
+
+	loaded = false;
 }

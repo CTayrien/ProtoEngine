@@ -6,7 +6,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <glm\glm.hpp>
 
 #include <string>
-#include <vector>
 
 class model
 {
