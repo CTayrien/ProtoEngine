@@ -11,21 +11,20 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class window
 {
 public:
-	static std::string title;
+	std::string title = "Proto Engine";
 
-	static GLFWwindow *ptr;
+	GLFWwindow *ptr;
 
-	static double cursorx, cursory;
-	static double cursorx0, cursory0;
-	static double dx, dy;
+	double cursorx, cursory;
+	double cursorx0, cursory0;
+	double dx, dy;
 	
-	static int w, h;
-	static int halfw, halfh;
+	int w, h, halfw, halfh;
 	
-	static bool start();
+	window();
+	~window();
 
-	static void update();
+	void update();
 
-	static void stop();
+	void clampcursor();
 };
-

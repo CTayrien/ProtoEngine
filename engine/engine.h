@@ -5,12 +5,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include "window.h"
 #include "input.h"
-#include "renderer.h"		// includes material, shader
 #include "object.h"			// includes model, texture
 #include "timer.h"
 #include "camera.h"
 #include "light.h"
 #include "skybox.h"
+#include "shader.h"
+#include "material.h"
 
 class engine
 {
@@ -26,6 +27,12 @@ public:
 	static light light;
 
 	static skybox skybox;
+
+	static shader theshader;
+	static shader shader_skybox;
+	static material thematerial;
+
+	static window window;
 
 	static bool start();
 	static void update();

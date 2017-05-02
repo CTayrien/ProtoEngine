@@ -13,16 +13,25 @@ timer engine::time;
 camera engine::cam;
 light engine::light;
 skybox engine::skybox;
+shader engine::theshader("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
+shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
+material engine::thematerial;
+
+window engine::window;
 
 bool engine::start()
 {
 	// Init engine's libraries, window, renderer, input, physics timer
 	//		make window name, size, etc. variables, let game dev set them
 
-	// really should have a component model
+	// really should have a component model - is the scene one of the components?
 	if (glfwInit() != GL_TRUE)	return false;
+
+	window.ptr = glfwCreateWindow(window.w, window.h, window.title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
 	
-	if (!window::start()) return false;
+	if (nullptr == window.ptr) return false;
+	
+	glfwMakeContextCurrent(window.ptr);
 	
 	if (glewInit() != GLEW_OK) return false;
 
@@ -30,12 +39,23 @@ bool engine::start()
 
 	if (!input::start()) return false;
 	
-	if (!renderer::start()) return false;
+	// Renderer basics
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(.45f, .45f, .9f, 1.f);
 
+	theshader.tryload();
+	shader_skybox.tryload();
+	if (!theshader.loaded || !shader_skybox.loaded)
+		return false;
+
+	theshader.use();
+	thematerial.use();
+
+	// Scene basics
 	cam.start();
-
-	//light.start();
-
 	skybox.start();
 
 	return true;
@@ -43,9 +63,17 @@ bool engine::start()
 
 void engine::update()
 {	
-	renderer::update();
+	// Send color buffer to screen, clear new frame buffers
+	glfwSwapBuffers(window.ptr);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	window::update();
+	// should this be somewhere else?
+	skybox.render();
+
+	// Process queued changes to window and input
+	glfwPollEvents();
+
+	window.update();
 
 	time.update();
 	
@@ -60,9 +88,10 @@ void engine::update()
 
 void engine::stop()
 {
-	renderer::stop();
-	
-	window::stop();
+	theshader.unload();
+	shader_skybox.unload();
+
+	glfwTerminate();
 
 	skybox.stop();
 

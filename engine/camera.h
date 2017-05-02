@@ -13,17 +13,20 @@ private:
 	glm::mat4 worldView;
 
 	float fov; //fov init in ctor
-	float aspect = (float)window::w / (float)window::h;
+	float aspect;
 	float zNear = .01f;
 	float zFar = 1000.f;
 	
 	const float maxspeed = 2.f;
 	const float sens = .005f;
 	
+	bool isfps = true;
 public:
+	
 	camera();
 	~camera() override;
 
+	void setisfps(bool isfps);
 	bool start();
 	void script() override;
 	void updatematrix();

@@ -12,7 +12,7 @@ int main()
 	globe.mod->filename = "engine/models/sphere2.dat";
 	
 	// play game should be built in
-	engine::start();
+	if(!engine::start()) return -1;
 
 	globe.load();
 

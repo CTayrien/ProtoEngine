@@ -15,11 +15,11 @@ bool input::start()
 void input::update()
 {
 	// Input data
-	cursorx = window::cursorx / window::w;
-	cursory = window::cursory / window::h;
+	cursorx = engine::window.cursorx / engine::window.w;
+	cursory = engine::window.cursory / engine::window.h;
 }
 
 bool input::isDown(int key)
 {
-	return GLFW_PRESS == glfwGetKey(window::ptr, key);
+	return GLFW_PRESS == glfwGetKey(engine::window.ptr, key);
 }

@@ -10,11 +10,8 @@ camera::camera()
 	mod = new model("engine/models/camera2.dat");
 	tex = new texture("engine/textures/black.png");
 	fov = engine::pi * .4f;
-	//fov = engine::pi * .65;
 	tform.loc.z = 2;
-	//tform.loc.y = 2;
-	//tform.rot.x = -engine::pi / 2;
-	
+	tform.rot = glm::vec3{};
 }
 
 camera::~camera()
@@ -23,10 +20,19 @@ camera::~camera()
 	delete tex;
 }
 
+void camera::setisfps(bool isfps)
+{
+	this->isfps = isfps;
+	int value = (isfps) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL;
+	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, value);
+}
+
 bool camera::start()
 {
 	// Hide cursor
-	glfwSetInputMode(window::ptr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	setisfps(isfps);
+
+	aspect = (float)engine::window.w / (float)engine::window.h;
 
 	load();
 
@@ -35,9 +41,10 @@ bool camera::start()
 
 void camera::script()
 {
-	//tform.physicsupdate();
-	move();
-	turn();
+	if (isfps) {
+		move();
+		turn();
+	}
 
 	upload();
 }
@@ -78,15 +85,15 @@ void camera::move()
 
 void camera::turn()
 {
+	engine::window.clampcursor();
+
 	// Yaw & Pitch (pitch clamped to +/- 90 deg)
-	tform.rot.y -= sens * window::dx;
-	tform.rot.x -= sens * window::dy;
+	tform.rot.y -= sens * (float)engine::window.dx;
+	tform.rot.x -= sens * (float)engine::window.dy;
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
 }
 
 void camera::stop()
 {
 	unload();
-	//mod->unload();
-	//tex->unload();
 }

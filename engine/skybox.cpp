@@ -60,7 +60,7 @@ void skybox::script()
 void skybox::render()
 {
 	// Skybox Shader
-	renderer::shader_skybox.use();
+	engine::shader_skybox.use();
 
 	// World-View transform at origin (so I don't need a Model-World transform with skybox.loc = camera.loc)
 	glm::vec3 temp = engine::cam.tform.loc;
@@ -75,7 +75,7 @@ void skybox::render()
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	// Reuse normal shader
-	renderer::theshader.use();
+	engine::theshader.use();
 }
 
 void skybox::stop()

@@ -38,7 +38,6 @@
     <ClInclude Include="engine\material.h" />
     <ClInclude Include="engine\model.h" />
     <ClInclude Include="engine\object.h" />
-    <ClInclude Include="engine\renderer.h" />
     <ClInclude Include="engine\shader.h" />
     <ClInclude Include="engine\skybox.h" />
     <ClInclude Include="engine\texture.h" />
@@ -66,7 +65,6 @@
     <ClCompile Include="engine\material.cpp" />
     <ClCompile Include="engine\model.cpp" />
     <ClCompile Include="engine\object.cpp" />
-    <ClCompile Include="engine\renderer.cpp" />
     <ClCompile Include="engine\shader.cpp" />
     <ClCompile Include="engine\skybox.cpp" />
     <ClCompile Include="engine\texture.cpp" />

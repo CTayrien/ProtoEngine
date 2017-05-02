@@ -65,5 +65,6 @@ public:
 
 	static void update();
 
+	// to do: enable registering a single keypress: tracking what is down vs what was down with 2 maps, update them each frame with input callbacks
 	static bool isDown(int key);
 };
