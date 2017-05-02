@@ -20,6 +20,11 @@ camera::~camera()
 	delete tex;
 }
 
+//void camera::toggleisfps()
+//{
+//	setisfps(!isfps);
+//}
+
 void camera::setisfps(bool isfps)
 {
 	this->isfps = isfps;

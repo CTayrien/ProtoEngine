@@ -26,6 +26,7 @@ public:
 	camera();
 	~camera() override;
 
+	//void toggleisfps();
 	void setisfps(bool isfps);
 	bool start();
 	void script() override;

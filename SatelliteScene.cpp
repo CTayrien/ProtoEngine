@@ -15,10 +15,16 @@ int main()
 	if(!engine::start()) return -1;
 
 	globe.load();
+	engine::cam.setisfps(false);
 
 	while (!input::isDown(input_esc)) 
 	{	
 		engine::update();
+
+		if (input::isDown(input_1))
+			engine::cam.setisfps(true);
+		if (input::isDown(input_2))
+			engine::cam.setisfps(false);
 
 		// these calls should be built in
 		globe.update();
