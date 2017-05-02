@@ -11,5 +11,5 @@ public:
 	light();
 	~light();
 
-	void update() override;
+	void script() override;
 };

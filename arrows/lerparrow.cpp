@@ -16,7 +16,7 @@ lerparrow::~lerparrow()
 {
 }
 
-void lerparrow::update()
+void lerparrow::script()
 {
 	// Try to stop
 	if ((d > 0.0f && t >= 1.0f) ||

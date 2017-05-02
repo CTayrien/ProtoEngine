@@ -16,7 +16,7 @@ slerparrow::~slerparrow()
 {
 }
 
-void slerparrow::update()
+void slerparrow::script()
 {
 	// Try to stop/start t increasing to 1 or decreasing to 0 over 3 seconds
 	if ((d > 0.0f && t >= 1.0f) ||

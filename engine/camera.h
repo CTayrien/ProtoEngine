@@ -25,7 +25,7 @@ public:
 	~camera() override;
 
 	bool start();
-	void update() override;
+	void script() override;
 	void updatematrix();
 	void upload();
 	void move();

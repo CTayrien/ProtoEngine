@@ -29,7 +29,8 @@ public:
 	void load();
 	void unload();
 	
-	virtual void update() = 0;
+	void update();
+	virtual void script() = 0;
 	virtual void render();
 
 	template<collider, collider>

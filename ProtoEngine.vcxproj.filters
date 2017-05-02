@@ -190,5 +190,8 @@
     <ClCompile Include="globe\Globe.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SatelliteScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

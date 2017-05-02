@@ -18,6 +18,6 @@ public:
 
 	lerparrow();
 	~lerparrow();
-	void update() override;
+	void script() override;
 };
 

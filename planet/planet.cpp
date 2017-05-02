@@ -29,7 +29,7 @@ planet::~planet()
 }
 
 // update
-void planet::update()
+void planet::script()
 {
 	tform.derivematrix();
 

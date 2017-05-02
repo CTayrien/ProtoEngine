@@ -27,5 +27,5 @@ public:
 	~planet() override;
 
 	// 5) Override the update method with game logic. May access members of physics:: and input:: and call rigidbody.update
-	void update() override;
+	void script() override;
 };

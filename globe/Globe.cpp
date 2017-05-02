@@ -16,7 +16,7 @@ Globe::~Globe()
 	delete mod;
 }
 
-void Globe::update()
+void Globe::script()
 {
 	tform.derivematrix();
 }

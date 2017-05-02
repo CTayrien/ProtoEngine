@@ -7,6 +7,6 @@ public:
 	spacecraft();
 	spacecraft(model* mod, texture* tex);
 	~spacecraft() override;
-	void update() override;
+	void script() override;
 };
 

@@ -38,7 +38,7 @@ builder::~builder()
 {
 }
 
-void builder::update()
+void builder::script()
 {
 	tform.derivematrix();
 

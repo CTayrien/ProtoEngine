@@ -10,6 +10,6 @@ public:
 
 	~moon() override;
 
-	void update() override;
+	void script() override;
 };
 

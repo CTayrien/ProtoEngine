@@ -7,7 +7,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 camera::camera()
 {
 	tag = "camera";
-	mod = new model("engine/models/camera.dat");
+	mod = new model("engine/models/camera2.dat");
 	tex = new texture("engine/textures/black.png");
 	fov = engine::pi * .4f;
 	//fov = engine::pi * .65;
@@ -28,24 +28,15 @@ bool camera::start()
 	// Hide cursor
 	glfwSetInputMode(window::ptr, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
-	// Move cursor to center
-	//glfwSetCursorPos(window::ptr, window::halfw, window::halfh);
-
-	mod->load();
-	if (!mod->loaded) return false;
-
-	tex->load();
-	if (!tex->loaded) return false;
+	load();
 
 	return true;
 }
 
-void camera::update()
+void camera::script()
 {
-	tform.physicsupdate();
-
+	//tform.physicsupdate();
 	move();
-	
 	turn();
 
 	upload();
@@ -59,11 +50,13 @@ void camera::updatematrix()
 
 void camera::upload()
 {
+	// Bake this in?
 	updatematrix();
 
+	// World-view transform
 	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
 
-	// for lighting
+	// Lighting uniform variable
 	glUniform3fv(6, 1, &tform.loc[0]);
 }
 
@@ -78,7 +71,7 @@ void camera::move()
 	if (input::isDown(input_d)) d.x += 1;
 
 	float d2 = glm::dot(d, d);
-	if (d2 != 0) d /= d2;
+	if (d2 != 0) d /= d2;	//sqrt d2?
 	
 	tform.vel = tform.R * d * maxspeed;
 }
@@ -93,6 +86,7 @@ void camera::turn()
 
 void camera::stop()
 {
-	mod->unload();
-	tex->unload();
+	unload();
+	//mod->unload();
+	//tex->unload();
 }

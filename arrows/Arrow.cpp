@@ -20,7 +20,7 @@ Arrow::~Arrow()
 	delete tex;
 }
 
-void Arrow::update()
+void Arrow::script()
 {
 	tform.derivematrix();
 }

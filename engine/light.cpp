@@ -13,7 +13,8 @@ light::~light()
 {
 }
 
-void light::update()
+void light::script()
 {
+	// Upload uniform lighting data
 	glUniform3fv(5, 1, &tform.loc[0]);
 }

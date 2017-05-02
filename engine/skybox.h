@@ -15,7 +15,7 @@ public:
 
 	bool start();
 
-	void update() override;
+	void script() override;
 
 	void render() override;
 

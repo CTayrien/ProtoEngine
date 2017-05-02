@@ -11,6 +11,6 @@ class Arrow :
 public:
 	Arrow();
 	virtual ~Arrow();
-	void update() override;
+	void script() override;
 };
 

@@ -23,6 +23,12 @@ void object::unload()
 	if (tex && tex->loaded) tex->unload();
 }
 
+void object::update()
+{
+	script();
+	tform.physicsupdate();
+}
+
 void object::render()
 {
 	tform.upload();
@@ -95,7 +101,7 @@ bool object::collides<BOX, BOX>(const object& b) const
 		// Axes of b
 		if (testSepAxis(b.tform.R[i], *this, b)) return false;
 
-		// Axes of b cross with axes of b
+		// Axes of a cross with axes of b
 		for (int j = 0; j < 3; j++)
 		{
 			glm::vec3 c = cross(tform.R[i], b.tform.R[j]);

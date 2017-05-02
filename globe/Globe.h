@@ -11,5 +11,5 @@ class Globe :
 public:
 	Globe();
 	~Globe();
-	void update() override;
+	void script() override;
 };

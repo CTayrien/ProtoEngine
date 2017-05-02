@@ -18,6 +18,6 @@ public:
 
 	~builder() override;
 
-	void update() override;
+	void script() override;
 };
 

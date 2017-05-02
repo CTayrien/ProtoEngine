@@ -20,5 +20,5 @@ public:
 	slerparrow();
 	~slerparrow();
 
-	void update() override;
+	void script() override;
 };

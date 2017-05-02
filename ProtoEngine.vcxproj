@@ -76,6 +76,7 @@
     <ClCompile Include="moon\moon.cpp" />
     <ClCompile Include="orbit\orbit.cpp" />
     <ClCompile Include="planet\planet.cpp" />
+    <ClCompile Include="SatelliteScene.cpp" />
     <ClCompile Include="spacecraft\spacecraft.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
