@@ -113,6 +113,9 @@
     <ClInclude Include="globe\Globe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="engine\asset.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -192,6 +195,9 @@
     </ClCompile>
     <ClCompile Include="SatelliteScene.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\asset.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

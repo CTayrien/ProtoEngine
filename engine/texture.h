@@ -3,20 +3,21 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include <string>
+#include "asset.h"
 
 class texture
+	:public asset
 {
 protected:
-	std::string filename;
 	uint32_t id = 0;
+
 public:
 	texture(std::string filename);
 	virtual ~texture();
 
-	virtual void load();
-	bool loaded = false;
+	virtual bool load() override;
 
 	virtual void bind();
 
-	virtual void unload();
+	virtual void unload() override;
 };

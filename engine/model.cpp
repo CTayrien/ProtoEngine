@@ -10,15 +10,15 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <glm/glm.hpp>
 
 model::model(std::string filename)
+	:asset(filename)
 {
-	this->filename = filename;
 }
 
 model::~model()
 {
 }
 
-void model::load()
+bool model::load()
 {
 	GLsizei locsize = sizeof(glm::vec3);
 	GLsizei uvsize = sizeof(glm::vec2);
@@ -27,7 +27,7 @@ void model::load()
 	
 	// Open & read file & allocate on heap
 	char* modelBytes = fileio::read(filename.c_str());
-	if (modelBytes == nullptr) return;
+	if (modelBytes == nullptr) return false;
 
 	// Process file data
 	max.x =	*((float*)(modelBytes + 0));
@@ -65,7 +65,7 @@ void model::load()
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-	loaded = true;
+	return true;
 }
 
 void model::render()

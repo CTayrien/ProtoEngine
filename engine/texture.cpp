@@ -9,15 +9,15 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <iostream>
 
 texture::texture(std::string filename)
+	:asset(filename)
 {
-	this->filename = filename;
 }
 
 texture::~texture()
 {
 }
 
-void texture::load()
+bool texture::load()
 {
 	// Allocate vram
 	glGenTextures(1, &id);
@@ -34,7 +34,7 @@ void texture::load()
 		unload();
 		glBindTexture(GL_TEXTURE_2D, 0);
 		printf("\nError: Texture file path/type unknown: %s\n", file);
-		return;
+		return false;
 	}
 
 	// Read
@@ -61,7 +61,7 @@ void texture::load()
 	// Unbind
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	loaded = true;
+	return true;
 }
 
 void texture::bind()

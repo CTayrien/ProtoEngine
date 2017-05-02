@@ -9,12 +9,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <iostream>
 
-shader::shader()
-{
-}
-
-
 shader::shader(string filenamev, string filenamef)
+	:asset(filenamev)
 {
 	this->filenamev = filenamev;
 	this->filenamef = filenamef;
@@ -29,10 +25,12 @@ bool shader::load()
 	// Read
 	vshaderCode = fileio::read(filenamev.c_str());
 	fshaderCode = fileio::read(filenamef.c_str());
-	if (!vshaderCode || !fshaderCode) return false;
+	if (!vshaderCode || !fshaderCode) 
+		return false;
 
 	// Process & Write
-	if (!compile(GL_VERTEX_SHADER)) return false;
+	if (!compile(GL_VERTEX_SHADER)) 
+		return false;
 	if (!compile(GL_FRAGMENT_SHADER)) {
 		glDeleteShader(vid);
 		return false;
@@ -47,7 +45,8 @@ bool shader::load()
 	// Check if it worked
 	GLint linked;
 	glGetProgramiv(id, GL_LINK_STATUS, &linked);
-	if (linked) return true;
+	if (linked) 
+		return true;
 
 	// If failed, get and print info log
 	GLint logLength;

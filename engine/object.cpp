@@ -13,8 +13,12 @@ object::~object()
 
 void object::load()
 {
-	if (mod && !mod->loaded) mod->load();
-	if (tex && !tex->loaded) tex->load();
+	// tryload both assets
+	if (mod) mod->tryload();
+	if (tex) tex->tryload();
+
+	//if (mod && !mod->loaded) mod->load();
+	//if (tex && !tex->loaded) tex->load();
 }
 
 void object::unload()

@@ -7,7 +7,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// static member data constructor call (ish)
+// Variables declared static in engine class namespace, but allocated/instantiated once in global memory
 float engine::pi = glm::pi<float>();
 timer engine::time;
 camera engine::cam;
@@ -18,6 +18,8 @@ bool engine::start()
 {
 	// Init engine's libraries, window, renderer, input, physics timer
 	//		make window name, size, etc. variables, let game dev set them
+
+	// really should have a component model
 	if (glfwInit() != GL_TRUE)	return false;
 	
 	if (!window::start()) return false;

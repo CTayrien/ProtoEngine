@@ -1,14 +1,16 @@
 /* Proto Engine : free open-source educational prototype game engine for prototyping simple games.
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
+
+// wish this was just in the engine? or is it a component of the engine?
 #include "engine.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 //#include <imgui.h>
 #include <FreeImage.h>
 
-shader renderer::theshader;
-shader renderer::shader_skybox;
+shader renderer::theshader("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
+shader renderer::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
 
 material renderer::thematerial;
 
@@ -20,10 +22,12 @@ bool renderer::start()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(.45f, .45f, .9f, 1.f);
 
-	shader_skybox = shader("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
-	if (!shader_skybox.load()) return false;
-	if (!theshader.load()) return false;
-	
+	theshader.tryload();
+	shader_skybox.tryload();
+	if (!theshader.loaded || !shader_skybox.loaded)
+		return false;
+
+
 	theshader.use();
 
 	thematerial.use();

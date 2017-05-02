@@ -2,18 +2,18 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
+#include "asset.h"
 
 #include <glm\glm.hpp>
 
 #include <string>
 
 class model
+	: public asset
 {
-private:
-	uint32_t vao = 0, vbo = 0, nverts = 0;
-
 public:
-	std::string filename = "default model";
+	// Render data
+	uint32_t vao = 0, vbo = 0, nverts = 0;
 	
 	// Half-width of tightest fit model-oriented bounding box (OBB)
 	glm::vec3 max = {};
@@ -25,12 +25,12 @@ public:
 	~model();
 
 	// Load before rendering, after engine starts
-	void load();
-	bool loaded = false;
-	
+	bool load() override;
+
+	// Unload when done with the model
+	void unload() override;
+
 	// Render after loading
 	void render();
 	
-	// Unload when done with the model
-	void unload();
 };

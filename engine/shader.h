@@ -7,22 +7,24 @@ using std::string;
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include "asset.h"
 
 class shader
+	:public asset
 {
 public:
-	string filenamev = "engine/shaders/vshader.glsl";
-	string filenamef = "engine/shaders/fshader.glsl";
-	char* vshaderCode = nullptr;
-	char* fshaderCode = nullptr;
+	string filenamev;
+	string filenamef;
 	uint32_t id = 0, vid = 0, fid = 0;
 
-	shader();
 	shader(string filenamev, string filenamef);
 	~shader();
 	
-	bool load();
+	char* vshaderCode = nullptr;
+	char* fshaderCode = nullptr;
+
+	bool load() override;
 	bool compile(GLenum shaderType);
 	void use();
-	void unload();
+	void unload() override;
 };
