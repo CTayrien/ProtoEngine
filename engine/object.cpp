@@ -33,11 +33,11 @@ void object::update()
 
 void object::render()
 {
-	glUniformMatrix4fv(3, 1, GL_FALSE, &(tform.modelWorld[0][0]));
-	glUniformMatrix3fv(5, 1, GL_FALSE, &(tform.normtform[0][0]));
-	glBindTexture(GL_TEXTURE_2D, tex->id);
-	glBindVertexArray(mod->vao);
-	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
+	glUniformMatrix4fv(3, 1, GL_FALSE, &(tform.modelWorld[0][0]));		//normal transform matrix
+	glUniformMatrix3fv(5, 1, GL_FALSE, &(tform.normtform[0][0]));		//position transform matrix
+	glBindTexture(GL_TEXTURE_2D, tex->id);								//texture
+	glBindVertexArray(mod->vao);										//model
+	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);							//draw
 }
 
 template<>

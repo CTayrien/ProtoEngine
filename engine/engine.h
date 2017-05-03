@@ -4,7 +4,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 
 #include "window.h"
-#include "object.h"			// includes model, texture
+#include "object.h"
 #include "timer.h"
 #include "camera.h"
 #include "skybox.h"
@@ -16,13 +16,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #define input_space GLFW_KEY_SPACE
 #define input_enter GLFW_KEY_ENTER
 
-#define input_ctrl_left		GLFW_KEY_LEFT_CONTROL
-#define input_shift_left	GLFW_KEY_LEFT_SHIFT
-#define input_alt_left		GLFW_KEY_LEFT_ALT
-
-#define input_ctrl_right	GLFW_KEY_RIGHT_CONTROL
-#define input_shift_right	GLFW_KEY_RIGHT_SHIFT
-#define input_alt_right		GLFW_KEY_RIGHT_ALT
+#define input_ctrl		GLFW_KEY_LEFT_CONTROL
+#define input_shift		GLFW_KEY_LEFT_SHIFT
+#define input_alt		GLFW_KEY_LEFT_ALT
 
 #define input_w		GLFW_KEY_W
 #define input_a		GLFW_KEY_A
@@ -47,6 +43,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #define input_mouse_right	GLFW_MOUSE_BUTTON_RIGHT
 #define input_mouse_middle	GLFW_MOUSE_BUTTON_MIDDLE
 
+#define input_tilde GLFW_KEY_GRAVE_ACCENT
 #define input_1		GLFW_KEY_1
 #define input_2		GLFW_KEY_2
 #define input_3		GLFW_KEY_3
@@ -62,8 +59,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 class engine
 {
-private:
-
 public:
 	static float pi;
 
@@ -77,7 +72,7 @@ public:
 	static shader shader_skybox;
 
 	// to do: enable registering a single keypress: tracking what is down vs what was down with 2 maps, update them each frame with input callbacks
-	static bool inputdown(int key);
+	static bool isdown(int key);
 
 	static bool start();
 	static void update();

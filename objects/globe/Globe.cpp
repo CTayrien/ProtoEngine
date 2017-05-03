@@ -18,5 +18,5 @@ Globe::~Globe()
 
 void Globe::script()
 {
-	tform.derivematrix();
+	
 }

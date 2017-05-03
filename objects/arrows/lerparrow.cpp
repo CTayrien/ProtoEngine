@@ -26,7 +26,7 @@ void lerparrow::script()
 	}
 	
 	// Try to start
-	if (engine::inputdown(input_enter)) {
+	if (engine::isdown(input_enter)) {
 		go = true;
 	}
 	

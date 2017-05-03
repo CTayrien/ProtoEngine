@@ -61,10 +61,10 @@ void camera::move()
 	// Move
 	glm::vec3 d;
 
-	if (engine::inputdown(input_w)) d.z -= 1;
-	if (engine::inputdown(input_a)) d.x -= 1;
-	if (engine::inputdown(input_s)) d.z += 1;
-	if (engine::inputdown(input_d)) d.x += 1;
+	if (engine::isdown(input_w)) d.z -= 1;
+	if (engine::isdown(input_a)) d.x -= 1;
+	if (engine::isdown(input_s)) d.z += 1;
+	if (engine::isdown(input_d)) d.x += 1;
 
 	float d2 = glm::dot(d, d);
 	if (d2 != 0) d /= d2;	//sqrt d2?

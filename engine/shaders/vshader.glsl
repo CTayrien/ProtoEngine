@@ -25,7 +25,6 @@ void main()
 	loc = (modelWorld * vec4(modelLoc, 1)).xyz;
 	uv = modelUV;
 	norm = normalize(normtform * modelNorm);
-	//norm = modelNorm;
 
 	// View space
 	gl_Position = worldView * vec4(loc, 1);

@@ -19,7 +19,7 @@ shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shade
 
 window engine::window;
 
-bool engine::inputdown(int key)
+bool engine::isdown(int key)
 {
 	return GLFW_PRESS == glfwGetKey(window.ptr, key);
 }
