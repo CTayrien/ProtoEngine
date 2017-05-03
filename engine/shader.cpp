@@ -2,7 +2,6 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "shader.h"
-#include "fileio.h"
 
 #include <GL/glew.h>
 #include <iostream>
@@ -28,7 +27,7 @@ bool shader::load()
 	for (int i = 0; i < 2; i++)
 	{
 		// Try read
-		char* shaderCode = fileio::read(filenames[i].c_str());// = (shaderType == GL_VERTEX_SHADER) ? vshaderCode : fshaderCode;
+		char* shaderCode = read(filenames[i].c_str());
 		if (!shaderCode) {
 			printf("\nShader not found: %s\n", filenames[i].c_str());
 			unload();

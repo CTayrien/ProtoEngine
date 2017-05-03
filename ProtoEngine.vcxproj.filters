@@ -50,9 +50,6 @@
     <ClInclude Include="engine\engine.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\fileio.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\model.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -116,9 +113,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\engine.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\fileio.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\model.cpp">

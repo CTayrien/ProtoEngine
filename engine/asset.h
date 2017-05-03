@@ -10,7 +10,8 @@ class asset
 public:
 	// Using pointers allows polymorphism to work - stores address of first asset to load - subsequent assets with same name copy its data - may become invalid if first asset moves or is deleted (when would it? can the map store its own?)
 	static std::map<std::string, asset*> manager;
-	
+	static char* read(const char* filename);
+
 	std::string filename;
 	bool loaded = false;
 
@@ -18,6 +19,7 @@ public:
 	virtual ~asset();
 
 	void tryload();
+	
 	virtual bool load() = 0;
 	virtual void unload() = 0;
  };

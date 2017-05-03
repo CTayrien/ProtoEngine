@@ -2,7 +2,6 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "texture_cubemap.h"
-#include "fileio.h"
 
 #include <FreeImage.h>
 #include <GL\glew.h>

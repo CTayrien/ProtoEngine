@@ -2,7 +2,6 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "model.h"
-#include "fileio.h"
 #include "engine.h"
 
 #include <GL/glew.h>
@@ -26,7 +25,7 @@ bool model::load()
 	GLsizei vertsize = locsize + uvsize + normsize;
 	
 	// Open & read file & allocate on heap
-	char* modelBytes = fileio::read(filename.c_str());
+	char* modelBytes = read(filename.c_str());
 	if (modelBytes == nullptr) return false;
 
 	// Process file data
