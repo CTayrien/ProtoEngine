@@ -6,7 +6,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 Globe::Globe()
 {
-	this->tex = new texture("planet/earth.png");
+	this->tex = new texture("objects/planet/earth.png");
 	this->mod = new model("engine/models/sphere.dat");
 }
 

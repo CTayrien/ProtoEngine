@@ -22,6 +22,12 @@
     <Filter Include="Source Files\Engine">
       <UniqueIdentifier>{86d6b4a5-bc72-4cc6-89c4-92c2817cef41}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Objects">
+      <UniqueIdentifier>{e15e8b3b-b4c1-4b23-96d3-8d3794896d5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{7b0a3a3c-94cb-442c-a0fc-93881288df17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\shaders\fshader.glsl">
@@ -71,38 +77,38 @@
     <ClInclude Include="engine\window.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="builder\builder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="planet\planet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="moon\moon.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="spacecraft\spacecraft.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="engine\texture_cubemap.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="orbit\orbit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arrows\Arrow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arrows\lerparrow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="arrows\slerparrow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="globe\Globe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="engine\asset.h">
       <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\spacecraft\spacecraft.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\planet\planet.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\orbit\orbit.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\moon\moon.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\globe\Globe.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\builder\builder.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\arrows\lerparrow.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\arrows\slerparrow.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\arrows\Arrow.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -139,41 +145,41 @@
     <ClCompile Include="engine\window.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="builder\builder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="planet\planet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="moon\moon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="spacecraft\spacecraft.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\texture_cubemap.cpp">
       <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="orbit\orbit.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arrows\Arrow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arrows\lerparrow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="arrows\slerparrow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="globe\Globe.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SatelliteScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\asset.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\spacecraft\spacecraft.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\planet\planet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\orbit\orbit.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\moon\moon.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\globe\Globe.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\builder\builder.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\arrows\slerparrow.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\arrows\Arrow.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\arrows\lerparrow.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

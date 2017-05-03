@@ -3,7 +3,7 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include "engine\engine.h"
-#include "globe\Globe.h"
+#include "objects\globe\Globe.h"
 
 int main() 
 {
