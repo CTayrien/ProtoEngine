@@ -29,6 +29,8 @@ void window::start()
 		return;
 	}
 
+	aspect = (float)w / (float)h;
+
 	// Renderer basics
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);

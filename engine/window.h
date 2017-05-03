@@ -23,7 +23,8 @@ public:
 	int h = 900;
 	int halfw = w / 2;
 	int halfh = h / 2;
-	
+	float aspect;
+
 	window();
 	~window();
 

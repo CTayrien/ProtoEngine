@@ -12,8 +12,6 @@ public:
 	skybox();
 	~skybox();
 
-	bool start();
-
 	void script() override;
 
 	void render() override;

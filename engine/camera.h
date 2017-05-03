@@ -13,7 +13,6 @@ private:
 	glm::mat4 worldView;
 
 	float fov; //fov init in ctor
-	float aspect;
 	float zNear = .01f;
 	float zFar = 1000.f;
 	
@@ -28,7 +27,6 @@ public:
 
 	//void toggleisfps();
 	void setisfps(bool isfps);
-	bool start();
 	void script() override;
 	void updatematrix();
 	void upload();

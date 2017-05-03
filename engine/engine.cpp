@@ -27,39 +27,41 @@ bool engine::inputdown(int key)
 bool engine::start()
 {
 	window.start();
-	
+	time.start();
+
 	theshader.tryload();
 	shader_skybox.tryload();
 
-	theshader.use();
+	cam.load();
+	cam.setisfps(true);
 
-	// Scene basics
-	cam.start();
-	skybox.start();
-
-	time.start();
+	skybox.load();
+	skybox.tform.derivematrix();
 
 	return true;
 }
 
 void engine::update()
 {	
-	time.update();
+	// imgui render last before swapbuffers
 	
+	// End old scene, start new one
 	window.update();
 	
-	skybox.render();
+	time.update();
 	
 	cam.update();
-
-	skybox.update();
+	
+	skybox.render();
 }
 
 void engine::stop()
 {
 	theshader.unload();
-
 	shader_skybox.unload();
 	
+	skybox.unload();
+	cam.unload();
+
 	window.stop();
 }

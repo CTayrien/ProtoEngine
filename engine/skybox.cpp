@@ -38,20 +38,6 @@ skybox::~skybox()
 	delete tex;
 }
 
-//rule of 3: copy c'tor
-
-bool skybox::start()
-{
-	load();
-	//mod->load();
-	//if (!mod->loaded) return false;
-	//
-	//tex->load();
-	//if (!tex->loaded) return false;
-	
-	return true;
-}
-
 void skybox::script()
 {
 	// skybox has no behavior
@@ -67,7 +53,7 @@ void skybox::render()
 	engine::cam.tform.loc = glm::vec3();
 	engine::cam.upload();
 	engine::cam.tform.loc = temp;
-
+	
 	// Draw skybox
 	glBindTexture(GL_TEXTURE_CUBE_MAP, tex->id);
 	glBindVertexArray(mod->vao);

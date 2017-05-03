@@ -28,18 +28,6 @@ void camera::setisfps(bool isfps)
 	tform.vel = glm::vec3();
 }
 
-bool camera::start()
-{
-	// Hide cursor
-	setisfps(isfps);
-
-	aspect = (float)engine::window.w / (float)engine::window.h;
-
-	load();
-
-	return true;
-}
-
 void camera::script()
 {
 	if (isfps) {
@@ -52,7 +40,7 @@ void camera::script()
 
 void camera::updatematrix()
 {
-	worldView = glm::perspective(fov, aspect, zNear, zFar)
+	worldView = glm::perspective(fov, engine::window.aspect, zNear, zFar)
 		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
 }
 
