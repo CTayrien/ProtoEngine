@@ -4,16 +4,17 @@
 
 #version 430
 
-// Uniforms
+// Uniforms (Transforms)
 layout (location = 3) uniform mat4 modelWorld;
 layout (location = 4) uniform mat4 worldView;
+layout (location = 5) uniform mat3 normtform;
 
-// Attributes
+// Attributes (Model space)
 layout (location = 0) in vec3 modelLoc;
 layout (location = 1) in vec2 modelUV;
 layout (location = 2) in vec3 modelNorm;
 
-// Varyings
+// Varyings (World space)
 out vec3 loc;
 out vec2 uv;
 out vec3 norm;
@@ -23,7 +24,8 @@ void main()
 	// World space
 	loc = (modelWorld * vec4(modelLoc, 1)).xyz;
 	uv = modelUV;
-	norm = normalize((transpose(inverse(modelWorld)) * vec4(modelNorm, 0)).xyz);
+	norm = normalize(normtform * modelNorm);
+	//norm = modelNorm;
 
 	// View space
 	gl_Position = worldView * vec4(loc, 1);

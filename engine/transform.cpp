@@ -74,4 +74,7 @@ void transform::derivematrix()
 	scalemat = glm::scale(scale);
 
 	R = (glm::mat3)rotmat;
+	
+	modelWorld = transmat * rotmat * scalemat;
+	normtform = glm::transpose(glm::inverse(glm::mat3(modelWorld)));
 }

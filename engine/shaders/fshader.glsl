@@ -33,7 +33,7 @@ void main()
 	vec4 texel = texture(tex2D, uv);
 
 	// Lighting (Diffuse & Specular via Phong-Blinn)
-	vec3 L = normalize( litloc - loc);	// Fragment to light
+	vec3 L = normalize( litloc - loc);		// Fragment to light
 	vec3 V = normalize( camloc - loc);		// Fragment to camera
 	vec3 H = normalize( L + V );			// Halfway vector
 	vec3 N = normalize( norm );				// Fragment normal

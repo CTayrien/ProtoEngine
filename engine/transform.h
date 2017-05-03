@@ -12,6 +12,7 @@ public:
 
 	// Do I really need to store all of these?
 	glm::mat3 R;
+	glm::mat3 normtform;
 	glm::mat4 rotmat;
 	glm::mat4 scalemat;
 	glm::mat4 transmat;
