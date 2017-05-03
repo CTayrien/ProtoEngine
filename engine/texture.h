@@ -8,16 +8,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class texture
 	:public asset
 {
-protected:
-	uint32_t id = 0;
-
 public:
+	uint32_t id = 0;
+	
 	texture(std::string filename);
 	virtual ~texture();
 
 	virtual bool load() override;
-
-	virtual void bind();
 
 	virtual void unload() override;
 };

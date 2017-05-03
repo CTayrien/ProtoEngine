@@ -68,11 +68,6 @@ bool texture_cubemap::load()
 	return true;
 }
 
-void texture_cubemap::bind()
-{
-	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
-}
-
 void texture_cubemap::unload()
 {
 	glDeleteTextures(1, &id);

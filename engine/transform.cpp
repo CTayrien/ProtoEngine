@@ -75,10 +75,3 @@ void transform::derivematrix()
 
 	R = (glm::mat3)rotmat;
 }
-
-void transform::upload()
-{
-	// would like to call derivematrix here (or just do it, don't call a function)
-	// however I sometimes use slerp to create the matrix, and haven't set rot.xyz to reflect the current orientation
-	glUniformMatrix4fv(3, 1, GL_FALSE, &(transmat * rotmat	* scalemat)[0][0]);
-}

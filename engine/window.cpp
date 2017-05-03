@@ -14,13 +14,20 @@ window::~window()
 
 void window::start()
 {
-	if (glfwInit() != GL_TRUE)	return;
-
+	if (glfwInit() != GL_TRUE)
+	{
+		return;
+	}
 	ptr = glfwCreateWindow(w, h, title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
-	if (nullptr == ptr) return;
+	if (nullptr == ptr) {
+		glfwTerminate();
+		return;
+	}
 	glfwMakeContextCurrent(ptr);
-
-	if (glewInit() != GLEW_OK) return;
+	if (glewInit() != GLEW_OK) {
+		glfwTerminate();
+		return;
+	}
 
 	// Renderer basics
 	glEnable(GL_CULL_FACE);
@@ -44,6 +51,7 @@ void window::update()
 	// Process queued changes to window and input
 	glfwPollEvents();
 
+	// Cursor
 	cursorx0 = cursorx;
 	cursory0 = cursory;
 	glfwGetCursorPos(ptr, &cursorx, &cursory);
@@ -53,7 +61,7 @@ void window::update()
 
 void window::clampcursor()
 {
-	cursorx = glm::clamp(cursorx, (double)0, (double)w);
-	cursory = glm::clamp(cursory, (double)0, (double)h);
+	cursorx = glm::clamp(cursorx, 0.0, (double)w);
+	cursory = glm::clamp(cursory, 0.0, (double)h);
 	glfwSetCursorPos(ptr, cursorx, cursory);
 }

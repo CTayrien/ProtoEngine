@@ -29,8 +29,4 @@ public:
 
 	// Unload when done with the model
 	void unload() override;
-
-	// Render after loading
-	void render();
-	
 };

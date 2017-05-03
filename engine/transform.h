@@ -39,5 +39,4 @@ public:
 	void physicsupdate();
 
 	void derivematrix();
-	void upload();
 };

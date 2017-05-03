@@ -68,12 +68,6 @@ bool model::load()
 	return true;
 }
 
-void model::render()
-{
-	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, nverts);
-}
-
 void model::unload()
 {
 	glDeleteVertexArrays(1, &vao);

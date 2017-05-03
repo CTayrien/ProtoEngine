@@ -64,11 +64,6 @@ bool texture::load()
 	return true;
 }
 
-void texture::bind()
-{
-	glBindTexture(GL_TEXTURE_2D, id);
-}
-
 void texture::unload()
 {
 	glDeleteTextures(1, &id);

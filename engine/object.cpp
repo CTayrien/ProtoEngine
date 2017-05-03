@@ -2,6 +2,7 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "object.h"
+#include "engine.h"
 
 object::object()
 {
@@ -13,12 +14,8 @@ object::~object()
 
 void object::load()
 {
-	// tryload both assets
 	if (mod) mod->tryload();
 	if (tex) tex->tryload();
-
-	//if (mod && !mod->loaded) mod->load();
-	//if (tex && !tex->loaded) tex->load();
 }
 
 void object::unload()
@@ -35,9 +32,10 @@ void object::update()
 
 void object::render()
 {
-	tform.upload();
-	tex->bind();
-	mod->render();
+	glUniformMatrix4fv(3, 1, GL_FALSE, &(tform.modelWorld[0][0]));
+	glBindTexture(GL_TEXTURE_2D, tex->id);
+	glBindVertexArray(mod->vao);
+	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
 }
 
 template<>

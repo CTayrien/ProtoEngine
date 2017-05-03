@@ -69,8 +69,10 @@ void skybox::render()
 	engine::cam.tform.loc = temp;
 
 	// Draw skybox
-	object::render();
-	
+	glBindTexture(GL_TEXTURE_CUBE_MAP, tex->id);
+	glBindVertexArray(mod->vao);
+	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
+
 	// Clear depth buffer
 	glClear(GL_DEPTH_BUFFER_BIT);
 
