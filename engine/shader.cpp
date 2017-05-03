@@ -5,15 +5,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "fileio.h"
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <iostream>
 
-shader::shader(string filenamev, string filenamef)
-	:asset(filenamev)
+shader::shader(std::string filenamev, std::string filenamef)
+	:asset(filenamev + " and " + filenamef)
 {
-	this->filenamev = filenamev;
-	this->filenamef = filenamef;
+	this->filenames[0] = filenamev;
+	this->filenames[1] = filenamef;
 }
 
 shader::~shader()
@@ -22,73 +20,57 @@ shader::~shader()
 
 bool shader::load()
 {	
-	// Read
-	vshaderCode = fileio::read(filenamev.c_str());
-	fshaderCode = fileio::read(filenamef.c_str());
-	if (!vshaderCode || !fshaderCode) 
-		return false;
+	// Create program & shaders in memory
+	id = glCreateProgram();
+	ids[0] = glCreateShader(GL_VERTEX_SHADER);
+	ids[1] = glCreateShader(GL_FRAGMENT_SHADER);
+	
+	for (int i = 0; i < 2; i++)
+	{
+		// Try read
+		char* shaderCode = fileio::read(filenames[i].c_str());// = (shaderType == GL_VERTEX_SHADER) ? vshaderCode : fshaderCode;
+		if (!shaderCode) {
+			printf("\nShader not found: %s\n", filenames[i].c_str());
+			unload();
+			return false;
+		}
 
-	// Process & Write
-	if (!compile(GL_VERTEX_SHADER)) 
-		return false;
-	if (!compile(GL_FRAGMENT_SHADER)) {
-		glDeleteShader(vid);
-		return false;
+		// Try upload & compile
+		glShaderSource(ids[i], 1, &shaderCode, 0);
+		delete[] shaderCode;
+		glCompileShader(ids[i]);
+		GLint compiled;
+		glGetShaderiv(ids[i], GL_COMPILE_STATUS, &compiled);
+		if (!compiled) {
+			GLint logLength;
+			glGetShaderiv(ids[i], GL_INFO_LOG_LENGTH, &logLength);
+			GLchar *log = new GLchar[logLength];
+			glGetShaderInfoLog(ids[i], logLength, 0, log);
+			printf ("\nShader failed to compile: %s\n", log);
+			delete[] log;
+			unload();
+			return false;
+		}
 	}
 	
-	// Create program, attach and link shaders
-	id = glCreateProgram();
-	glAttachShader(id, vid);
-	glAttachShader(id, fid);
+	// Try attach & link program
+	glAttachShader(id, ids[0]);
+	glAttachShader(id, ids[1]);
 	glLinkProgram(id);
-	
-	// Check if it worked
 	GLint linked;
 	glGetProgramiv(id, GL_LINK_STATUS, &linked);
-	if (linked) 
-		return true;
+	if (!linked) {
+		GLint logLength;
+		glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
+		GLchar *log = new GLchar[logLength];
+		glGetProgramInfoLog(id, logLength, 0, log);
+		printf("\nShader link failed:\n%s\n%s\n%s\n", filenames[0].c_str(), filenames[1].c_str(), log);
+		unload();
+		delete[] log;
+		return false;
+	}
 
-	// If failed, get and print info log
-	GLint logLength;
-	glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
-	GLchar *log = new GLchar[logLength];
-	glGetProgramInfoLog(id, logLength, 0, log);
-	std::cout << "\nShader link failed: \n" << log;
-	delete[] log;
-
-	// Clean up failed resources
-	glDeleteProgram(id);
-	glDeleteShader(vid);
-	glDeleteShader(fid);
-	
-	return false;
-}
-
-bool shader::compile(GLenum shaderType)
-{
-	uint32_t& sid = (shaderType == GL_VERTEX_SHADER) ? vid : fid;
-	string& filename = (shaderType == GL_VERTEX_SHADER) ? filenamev : filenamef;
-	char* shaderCode = (shaderType == GL_VERTEX_SHADER) ? vshaderCode : fshaderCode;
-
-	// Compile
-	sid = glCreateShader(shaderType);
-	glShaderSource(sid, 1, &shaderCode, 0);
-	delete[] shaderCode;
-	glCompileShader(sid);
-	GLint compiled;
-	glGetShaderiv(sid, GL_COMPILE_STATUS, &compiled);
-	if (compiled) return true;
-
-	// If it didn't compile...
-	GLint logLength;
-	glGetShaderiv(sid, GL_INFO_LOG_LENGTH, &logLength);
-	GLchar *log = new GLchar[logLength];
-	glGetShaderInfoLog(sid, logLength, 0, log);
-	std::cout << "\nShader failed to compile: \n" << log;
-	delete[] log;
-	glDeleteShader(sid);
-
-	return false;
+	return true;
 }
 
 void shader::use()
@@ -99,8 +81,8 @@ void shader::use()
 void shader::unload()
 {	
 	glDeleteProgram(id);
-	glDeleteShader(vid);
-	glDeleteShader(fid);
+	glDeleteShader(ids[0]);
+	glDeleteShader(ids[1]);
 	
-	id = vid = fid = 0;
+	id = ids[0] = ids[1] = 0;
 }
