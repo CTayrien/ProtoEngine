@@ -3,7 +3,6 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
-#include "material.h"
 
 class skybox
 	: public object
@@ -18,6 +17,4 @@ public:
 	void script() override;
 
 	void render() override;
-
-	void stop();
 };

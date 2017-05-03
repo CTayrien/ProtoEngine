@@ -19,10 +19,16 @@ public:
 	double cursorx0, cursory0;
 	double dx, dy;
 	
-	int w, h, halfw, halfh;
+	int w = 1200;
+	int h = 900;
+	int halfw = w / 2;
+	int halfh = h / 2;
 	
 	window();
 	~window();
+
+	void start();
+	void stop();
 
 	void update();
 

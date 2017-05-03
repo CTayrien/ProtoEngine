@@ -6,20 +6,44 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 window::window()
 {
-	w = 1200;
-	h = 900;
-
-	halfw = w / 2;
-	halfh = h / 2;
 }
 
 window::~window()
 {
 }
 
+void window::start()
+{
+	if (glfwInit() != GL_TRUE)	return;
+
+	ptr = glfwCreateWindow(w, h, title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
+	if (nullptr == ptr) return;
+	glfwMakeContextCurrent(ptr);
+
+	if (glewInit() != GLEW_OK) return;
+
+	// Renderer basics
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(.45f, .45f, .9f, 1.f);
+}
+
+void window::stop()
+{
+	glfwTerminate();
+}
+
 void window::update()
 {
-	// Window data
+	// Send color buffer to screen, clear new frame buffers
+	glfwSwapBuffers(ptr);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Process queued changes to window and input
+	glfwPollEvents();
+
 	cursorx0 = cursorx;
 	cursory0 = cursory;
 	glfwGetCursorPos(ptr, &cursorx, &cursory);
@@ -32,12 +56,4 @@ void window::clampcursor()
 	cursorx = glm::clamp(cursorx, (double)0, (double)w);
 	cursory = glm::clamp(cursory, (double)0, (double)h);
 	glfwSetCursorPos(ptr, cursorx, cursory);
-
-	// move to center
-	//if (cursorx > w || cursorx < 0 || cursory > h || cursorx < 0) {
-	//	glfwSetCursorPos(ptr, halfw, halfh);
-	//	cursorx = cursorx0 = halfw;
-	//	cursory = cursory0 = halfh;
-	//	dx = dy = 0;
-	//}
 }

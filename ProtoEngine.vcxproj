@@ -33,9 +33,6 @@
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\fileio.h" />
-    <ClInclude Include="engine\input.h" />
-    <ClInclude Include="engine\light.h" />
-    <ClInclude Include="engine\material.h" />
     <ClInclude Include="engine\model.h" />
     <ClInclude Include="engine\object.h" />
     <ClInclude Include="engine\shader.h" />
@@ -60,9 +57,6 @@
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\fileio.cpp" />
-    <ClCompile Include="engine\input.cpp" />
-    <ClCompile Include="engine\light.cpp" />
-    <ClCompile Include="engine\material.cpp" />
     <ClCompile Include="engine\model.cpp" />
     <ClCompile Include="engine\object.cpp" />
     <ClCompile Include="engine\shader.cpp" />

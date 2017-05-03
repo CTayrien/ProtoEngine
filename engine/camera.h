@@ -34,5 +34,4 @@ public:
 	void upload();
 	void move();
 	void turn();
-	void stop();
 };

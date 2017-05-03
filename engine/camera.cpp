@@ -20,16 +20,12 @@ camera::~camera()
 	delete tex;
 }
 
-//void camera::toggleisfps()
-//{
-//	setisfps(!isfps);
-//}
-
 void camera::setisfps(bool isfps)
 {
 	this->isfps = isfps;
 	int value = (isfps) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL;
 	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, value);
+	tform.vel = glm::vec3();
 }
 
 bool camera::start()
@@ -77,10 +73,10 @@ void camera::move()
 	// Move
 	glm::vec3 d;
 
-	if (input::isDown(input_w)) d.z -= 1;
-	if (input::isDown(input_a)) d.x -= 1;
-	if (input::isDown(input_s)) d.z += 1;
-	if (input::isDown(input_d)) d.x += 1;
+	if (engine::inputdown(input_w)) d.z -= 1;
+	if (engine::inputdown(input_a)) d.x -= 1;
+	if (engine::inputdown(input_s)) d.z += 1;
+	if (engine::inputdown(input_d)) d.x += 1;
 
 	float d2 = glm::dot(d, d);
 	if (d2 != 0) d /= d2;	//sqrt d2?
@@ -96,9 +92,4 @@ void camera::turn()
 	tform.rot.y -= sens * (float)engine::window.dx;
 	tform.rot.x -= sens * (float)engine::window.dy;
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
-}
-
-void camera::stop()
-{
-	unload();
 }

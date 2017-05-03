@@ -24,7 +24,7 @@ void slerparrow::script()
 		d *= -1.0f;
 		go = false;
 	}
-	if (input::isDown(input_enter)) {
+	if (engine::inputdown(input_enter)) {
 		go = true;
 	}
 	if (go) {
@@ -95,33 +95,33 @@ void slerparrow::script()
 	// Move orientation b "Beijing"
 	float c = 180.f / engine::pi;
 	float s = 60.0f / engine::time.fps / c;
-	if (input::isDown(input_right)) {
+	if (engine::inputdown(input_right)) {
 		b->rot.x += 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
 	}
-	if (input::isDown(input_left)) {
+	if (engine::inputdown(input_left)) {
 		b->rot.x -= 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
 	}
-	if (input::isDown(input_up)) {
+	if (engine::inputdown(input_up)) {
 		b->rot.y += 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
 	}
-	if (input::isDown(input_down)) {
+	if (engine::inputdown(input_down)) {
 		b->rot.y -= 1.f * s;
 		printf("Roll: %f\n", b->rot.x * c);
 	}
-	if (input::isDown(GLFW_KEY_EQUAL)) {
+	if (engine::inputdown(GLFW_KEY_EQUAL)) {
 		b->rot.z += 1.f * s;
 		printf("Roll: %f\n", b->rot.z * c);
 	}
-	if (input::isDown(GLFW_KEY_MINUS)) {
+	if (engine::inputdown(GLFW_KEY_MINUS)) {
 		b->rot.z -= 1.f * s;
 		printf("Roll: %f\n", b->rot.z * c);
 	}
 	b->derivematrix();
 
 	// Set location/orientation of camera
-	if (input::isDown(input_ctrl_left))
+	if (engine::inputdown(input_ctrl_left))
 		engine::cam.tform.loc += dv;
 }

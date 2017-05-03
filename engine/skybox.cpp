@@ -77,10 +77,3 @@ void skybox::render()
 	// Reuse normal shader
 	engine::theshader.use();
 }
-
-void skybox::stop()
-{
-	unload();
-	//mod->unload();
-	//tex->unload();
-}
