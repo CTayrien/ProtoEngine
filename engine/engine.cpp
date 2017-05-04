@@ -9,31 +9,51 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // Variables declared static in engine class namespace, but allocated/instantiated once in global memory
 float engine::pi = glm::pi<float>();
-timer engine::time;
 
-camera engine::cam;
-skybox engine::skybox;
-
-shader engine::theshader("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
-shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
-
-window engine::window;
-
-bool engine::isdown(int key)
-{
+// input
+bool engine::isdown(int key) {
 	return GLFW_PRESS == glfwGetKey(window.ptr, key);
 }
 
+cursor engine::cursor;
+window engine::window;
+timer engine::timer;
+
+// renderer assets
+shader engine::theshader("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
+shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
+
+// scene objects
+camera engine::camera;
+skybox engine::skybox;
+
 bool engine::start()
 {
-	window.start();
-	time.start();
+	if (glfwInit() != GL_TRUE) { return false; }
+	window.ptr = glfwCreateWindow(window.w, window.h, window.title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
+	if (nullptr == window.ptr) {
+		glfwTerminate();
+		return false;
+	}
+	glfwMakeContextCurrent(window.ptr);
+	if (glewInit() != GLEW_OK) {
+		glfwTerminate();
+		return false;
+	}
+
+	// Renderer settings
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glClearColor(.45f, .45f, .9f, 1.f);
 
 	theshader.tryload();
 	shader_skybox.tryload();
 
-	cam.load();
-	cam.setisfps(true);
+	camera.start();
+	camera.load();
+	camera.setisfps(true);
 
 	skybox.load();
 	skybox.tform.derivematrix();
@@ -43,15 +63,22 @@ bool engine::start()
 
 void engine::update()
 {	
-	// imgui render last before swapbuffers
-	
 	// End old scene, start new one
-	window.update();
+	glfwSwapBuffers(window.ptr);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glfwPollEvents();
+
+	timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
 	
-	time.update();
+	cursor.x0 = cursor.x; cursor.y0 = cursor.y;
+	glfwGetCursorPos(window.ptr, &cursor.x, &cursor.y);
+
+	// scene.update
+	camera.update();
+	skybox.update();
 	
-	cam.update();
-	
+	// scene.render
+	camera.render();
 	skybox.render();
 }
 
@@ -61,7 +88,7 @@ void engine::stop()
 	shader_skybox.unload();
 	
 	skybox.unload();
-	cam.unload();
+	camera.unload();
 
-	window.stop();
+	glfwTerminate();
 }

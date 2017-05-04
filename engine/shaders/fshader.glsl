@@ -25,16 +25,16 @@ void main()
 	// Scene const (ambient light rgb brightness)
 	vec3 ambclr = vec3(.1, .1, .1);
 	
-	// Light const (direct light rgb brightness, could be per light, could be scaled by dist)
-	vec3 dirclr = vec3(1, 1, 1);
+	// Light const (direct light rgb brightness, could be per light)
 	vec3 litloc = vec3(23481, 1, 1);	//23481 earth radii = 1 astronomical unit
+	vec3 dirclr = vec3(1, 1, 1);		//could be scaled by dist
 
 	// Texturing
-	vec4 texel = texture(tex2D, uv);
+	vec4 texel = texture(tex2D, uv); 
 
 	// Lighting (Diffuse & Specular via Phong-Blinn)
-	vec3 L = normalize( litloc - loc);		// Fragment to light
-	vec3 V = normalize( camloc - loc);		// Fragment to camera
+	vec3 L = normalize( litloc - loc );		// Fragment to light
+	vec3 V = normalize( camloc - loc );		// Fragment to camera
 	vec3 H = normalize( L + V );			// Halfway vector
 	vec3 N = normalize( norm );				// Fragment normal
 	

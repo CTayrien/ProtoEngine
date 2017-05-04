@@ -28,7 +28,7 @@ void slerparrow::script()
 		go = true;
 	}
 	if (go) {
-		t += d * f * engine::time.dt;
+		t += d * f * engine::timer.dt;
 	}
 	// Slerp with t
 	//#include <glm\gtx\quaternion.hpp>
@@ -94,7 +94,7 @@ void slerparrow::script()
 	
 	// Move orientation b "Beijing"
 	float c = 180.f / engine::pi;
-	float s = 60.0f / engine::time.fps / c;
+	float s = 60.0f * engine::timer.dt / c;
 	if (engine::isdown(input_right)) {
 		b->rot.x += 1.f * s;
 		printf("Yaw: %f\n", b->rot.y * c);
@@ -123,5 +123,5 @@ void slerparrow::script()
 
 	// Set location/orientation of camera
 	if (engine::isdown(input_ctrl))
-		engine::cam.tform.loc += dv;
+		engine::camera.tform.loc += dv;
 }

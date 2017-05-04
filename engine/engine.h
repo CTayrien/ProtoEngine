@@ -3,9 +3,10 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 
-#include "window.h"
+#include <gl\glew.h>
+#include <GLFW\glfw3.h>
+
 #include "object.h"
-#include "timer.h"
 #include "camera.h"
 #include "skybox.h"
 #include "shader.h"
@@ -57,22 +58,42 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #pragma endregion
 
+// input?
+
+struct window {
+	std::string title = "Proto Engine";
+	int w = 1200, h = 900;
+	GLFWwindow* ptr = nullptr;
+};
+
+struct cursor {
+	double x, y, x0, y0;
+};
+
+struct timer {
+	float t = 0, dt = 0;
+};
+
 class engine
 {
 public:
 	static float pi;
 
-	static window window;
-	static timer time;
-
-	static camera cam;
-	static skybox skybox;
-
-	static shader theshader;
-	static shader shader_skybox;
-
+	//input
 	// to do: enable registering a single keypress: tracking what is down vs what was down with 2 maps, update them each frame with input callbacks
 	static bool isdown(int key);
+
+	static window window;
+	static cursor cursor;
+	static timer timer;
+
+	// renderer
+	static shader theshader;
+	static shader shader_skybox;
+	
+	// scene objects
+	static camera camera;
+	static skybox skybox;
 
 	static bool start();
 	static void update();

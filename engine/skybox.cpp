@@ -49,10 +49,10 @@ void skybox::render()
 	engine::shader_skybox.use();
 
 	// World-View transform at origin (so I don't need a Model-World transform with skybox.loc = camera.loc)
-	glm::vec3 temp = engine::cam.tform.loc;
-	engine::cam.tform.loc = glm::vec3();
-	engine::cam.upload();
-	engine::cam.tform.loc = temp;
+	glm::vec3 temp = engine::camera.tform.loc;
+	engine::camera.tform.loc = glm::vec3();
+	engine::camera.upload();
+	engine::camera.tform.loc = temp;
 	
 	// Draw skybox
 	glBindTexture(GL_TEXTURE_CUBE_MAP, tex->id);

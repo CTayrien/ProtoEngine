@@ -13,6 +13,5 @@ public:
 	~skybox();
 
 	void script() override;
-
 	void render() override;
 };

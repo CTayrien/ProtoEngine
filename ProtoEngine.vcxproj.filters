@@ -65,13 +65,7 @@
     <ClInclude Include="engine\texture.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\timer.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\transform.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="engine\window.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
     <ClInclude Include="engine\texture_cubemap.h">
@@ -130,13 +124,7 @@
     <ClCompile Include="engine\texture.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="engine\timer.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="engine\transform.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\window.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\texture_cubemap.cpp">

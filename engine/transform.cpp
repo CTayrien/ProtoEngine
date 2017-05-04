@@ -56,12 +56,12 @@ void transform::setforward(glm::vec3 f)
 
 void transform::physicsupdate()
 {
-	vel += force / mass * engine::time.dt;
-	loc += vel * engine::time.dt;
+	vel += force / mass * engine::timer.dt;
+	loc += vel * engine::timer.dt;
 	force = { 0, 0, 0 };
 
-	rotvel += torque / moment * engine::time.dt;
-	rot += rotvel * engine::time.dt;
+	rotvel += torque / moment * engine::timer.dt;
+	rot += rotvel * engine::timer.dt;
 	torque = { 0, 0, 0 };
 
 	derivematrix();

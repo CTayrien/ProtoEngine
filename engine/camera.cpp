@@ -38,10 +38,18 @@ void camera::script()
 	upload();
 }
 
+void camera::render()
+{
+}
+
 void camera::updatematrix()
 {
-	worldView = glm::perspective(fov, engine::window.aspect, zNear, zFar)
-		* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
+	worldView = perspective	* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
+}
+
+void camera::start()
+{
+	perspective = glm::perspective(fov, (float)engine::window.w / (float)engine::window.h, zNear, zFar);
 }
 
 void camera::upload()
@@ -74,10 +82,17 @@ void camera::move()
 
 void camera::turn()
 {
-	engine::window.clampcursor();
+	double &x = engine::cursor.x, &y = engine::cursor.y, &x0 = engine::cursor.x0, &y0 = engine::cursor.y0;
 
 	// Yaw & Pitch (pitch clamped to +/- 90 deg)
-	tform.rot.y -= sens * (float)engine::window.dx;
-	tform.rot.x -= sens * (float)engine::window.dy;
+	tform.rot.y -= sens * (float)(x - x0);
+	tform.rot.x -= sens * (float)(y - y0);
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
+
+	// Clamp cursor to window
+	glfwSetCursorPos(engine::window.ptr,
+		glm::clamp((int)x, 0, engine::window.w),
+		glm::clamp((int)y, 0, engine::window.h));
+	glfwGetCursorPos(engine::window.ptr, &x, &y);
+	x0 = x; y0 = y;
 }

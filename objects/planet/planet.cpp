@@ -33,7 +33,7 @@ void planet::script()
 {
 	tform.derivematrix();
 
-	if (collides<SPHERE,SPHERE>(engine::cam)) {
+	if (collides<SPHERE,SPHERE>(engine::camera)) {
 		system("cls");
 		printf("Collision.\n");
 	}

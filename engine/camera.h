@@ -3,13 +3,13 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
-#include "window.h"
 #include <string>
 
 class camera :
 	public object
 {
 private:
+	glm::mat4 perspective;
 	glm::mat4 worldView;
 
 	float fov; //fov init in ctor
@@ -28,7 +28,9 @@ public:
 	//void toggleisfps();
 	void setisfps(bool isfps);
 	void script() override;
+	void render() override;
 	void updatematrix();
+	void start();
 	void upload();
 	void move();
 	void turn();

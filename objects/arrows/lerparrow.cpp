@@ -32,7 +32,7 @@ void lerparrow::script()
 	
 	// Increase or decrease t from 0 to 1 and back
 	if (go) {
-		t += d * f * engine::time.dt;
+		t += d * f * engine::timer.dt;
 	}
 
 	// Lerp
