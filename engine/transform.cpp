@@ -51,12 +51,7 @@ void transform::setroll(float roll)
 
 void transform::setforward(glm::vec3 f)
 {
-	//assume unit vector
 	float pitch = -asinf(f.y);
-
-	//float yaw = asinf(f.x);
-	//float yaw = acosf(f.z);
-	//float yaw = atanf(f.x / f.z);
 	float yaw = atan2(f.x, f.z);
 
 	rot = glm::vec3{ pitch, yaw, rot.z };

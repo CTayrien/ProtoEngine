@@ -2,6 +2,7 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
+
 #include "asset.h"
 
 #include <glm\glm.hpp>
@@ -24,9 +25,6 @@ public:
 	model(std::string filename);
 	~model();
 
-	// Load before rendering, after engine starts
 	bool load() override;
-
-	// Unload when done with the model
 	void unload() override;
 };
