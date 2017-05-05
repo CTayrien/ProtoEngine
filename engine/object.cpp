@@ -12,6 +12,11 @@ object::~object()
 {
 }
 
+bool object::loaded()
+{
+	return (mod->loaded && tex->loaded);
+}
+
 void object::load()
 {
 	if (mod) mod->tryload();

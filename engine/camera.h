@@ -11,27 +11,25 @@ class camera :
 private:
 	glm::mat4 perspective;
 	glm::mat4 worldView;
-
-	float fov; //fov init in ctor
-	float zNear = .01f;
-	float zFar = 1000.f;
 	
+	bool isfps = true;
 	const float maxspeed = 2.f;
 	const float sens = .005f;
 	
-	bool isfps = true;
 public:
 	
 	camera();
 	~camera() override;
 
+	void load() override;
+	void upload();
+	
+	void script() override;
+	bool ispov = true;
+	void render() override;
+	
 	//void toggleisfps();
 	void setisfps(bool isfps);
-	void script() override;
-	void render() override;
-	void updatematrix();
-	void start();
-	void upload();
-	void move();
-	void turn();
+	void flymove();
+	void flyturn();
 };

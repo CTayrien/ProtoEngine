@@ -9,7 +9,6 @@ camera::camera()
 	tag = "camera";
 	mod = new model("engine/models/camera2.dat");
 	tex = new texture("engine/textures/black.png");
-	fov = engine::pi * .4f;
 	tform.loc.z = 2;
 	tform.rot = glm::vec3{};
 }
@@ -23,39 +22,51 @@ camera::~camera()
 void camera::setisfps(bool isfps)
 {
 	this->isfps = isfps;
-	int value = (isfps) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL;
-	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, value);
+	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, (isfps) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 	tform.vel = glm::vec3();
 }
 
 void camera::script()
 {
 	if (isfps) {
-		move();
-		turn();
+		flymove();
+		flyturn();
 	}
 
-	upload();
+	if (ispov) {
+		// Shader objects render
+		engine::theshader.use();
+		upload();
+
+		// Skybox shader camera and skybox at origin
+		engine::shader_skybox.use();
+		glm::vec3 temp = tform.loc;
+		tform.loc = glm::vec3();
+		upload();
+		tform.loc = temp;
+	}
 }
 
 void camera::render()
 {
+	if (!ispov) object::render();
 }
 
-void camera::updatematrix()
+void camera::load()
 {
-	worldView = perspective	* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
-}
+	perspective = glm::perspective(engine::pi * .4f,		//fov
+		(float)engine::window.w / (float)engine::window.h,	//aspect ratio
+		.01f,												//z near
+		1000.f);											//z far
 
-void camera::start()
-{
-	perspective = glm::perspective(fov, (float)engine::window.w / (float)engine::window.h, zNear, zFar);
+	setisfps(isfps);
+
+	object::load();
 }
 
 void camera::upload()
 {
-	// Bake this in?
-	updatematrix();
+	worldView = perspective	* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
 
 	// World-view transform
 	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
@@ -64,23 +75,23 @@ void camera::upload()
 	glUniform3fv(6, 1, &tform.loc[0]);
 }
 
-void camera::move()
+void camera::flymove()
 {
-	// Move
 	glm::vec3 d;
-
 	if (engine::isdown(input_w)) d.z -= 1;
 	if (engine::isdown(input_a)) d.x -= 1;
 	if (engine::isdown(input_s)) d.z += 1;
 	if (engine::isdown(input_d)) d.x += 1;
+	//up and down w/ space and ctrl?
 
-	float d2 = glm::dot(d, d);
-	if (d2 != 0) d /= d2;	//sqrt d2?
+	// Try to normalize
+	float len = glm::length(d);
+	if (len != 0) d /= len;
 	
 	tform.vel = tform.R * d * maxspeed;
 }
 
-void camera::turn()
+void camera::flyturn()
 {
 	double &x = engine::cursor.x, &y = engine::cursor.y, &x0 = engine::cursor.x0, &y0 = engine::cursor.y0;
 

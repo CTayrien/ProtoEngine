@@ -74,6 +74,15 @@ struct timer {
 	float t = 0, dt = 0;
 };
 
+struct scene {
+	object* objects[256] = {};
+	int nobjs = 0;
+	void add(object* object) { 
+		if (nobjs < 256)
+			objects[nobjs++] = object;
+	}
+};
+
 class engine
 {
 public:
@@ -94,8 +103,9 @@ public:
 	// scene objects
 	static camera camera;
 	static skybox skybox;
+	static scene scene;
 
-	static bool start();
-	static void update();
-	static void stop();
+	static void start();
+	static void gameloop();
+	static void stop(std::string comment);
 };

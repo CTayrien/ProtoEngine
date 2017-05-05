@@ -26,7 +26,8 @@ public:
 	object();
 	virtual ~object();
 	
-	void load();
+	bool loaded();
+	virtual void load();
 	void unload();
 	
 	void update();

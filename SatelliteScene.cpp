@@ -7,31 +7,12 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 int main() 
 {
-	//scene is composed of objects
 	Globe globe;
 	globe.mod->filename = "engine/models/sphere2.dat";
 	
-	// play game should be built in
-	if(!engine::start()) return -1;
-
-	globe.load();
+	engine::scene.add(&globe);
 	
-	while (!engine::isdown(input_esc)) 
-	{
-		engine::update();
-
-		//if (engine::isdown(input_1))
-		//	engine::cam.setisfps(true);
-		//if (engine::isdown(input_2))
-		//	engine::cam.setisfps(false);
-
-		// these calls should be built in
-		globe.update();
-
-		globe.render();
-	}
-
-	engine::stop();
+	engine::start();
 
 	return 0;
 }
