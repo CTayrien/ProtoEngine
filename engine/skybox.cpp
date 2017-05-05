@@ -20,15 +20,6 @@ skybox::skybox()
 		"engine/textures/spacescape/spacescape_back6.png"		//expected: front
 	};
 
-	// For contrast, the following ordering (expected) works with skybox given at https://learnopengl.com/#!Advanced-OpenGL/Cubemaps
-	//std::string filenames[6] = {
-	//	"engine/textures/skybox/right.jpg",
-	//	"engine/textures/skybox/left.jpg",
-	//	"engine/textures/skybox/top.jpg",
-	//	"engine/textures/skybox/bottom.jpg",
-	//	"engine/textures/skybox/back.jpg",
-	//	"engine/textures/skybox/front.jpg"
-	//};
 	tex = new texture_cubemap(filenames);
 }
 
@@ -45,23 +36,14 @@ void skybox::script()
 
 void skybox::render()
 {
-	// Skybox Shader
+	// Render first
 	engine::shader_skybox.use();
+	glDisable(GL_DEPTH_TEST);
 
-	// World-View transform at origin (so I don't need a Model-World transform with skybox.loc = camera.loc)
-	glm::vec3 temp = engine::camera.tform.loc;
-	engine::camera.tform.loc = glm::vec3();
-	engine::camera.upload();
-	engine::camera.tform.loc = temp;
-	
-	// Draw skybox
 	glBindTexture(GL_TEXTURE_CUBE_MAP, tex->id);
 	glBindVertexArray(mod->vao);
 	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
 
-	// Clear depth buffer
-	glClear(GL_DEPTH_BUFFER_BIT);
-
-	// Reuse normal shader
-	engine::theshader.use();
+	glEnable(GL_DEPTH_TEST);
+	engine::shader_pblinn.use();
 }

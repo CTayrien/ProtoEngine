@@ -35,10 +35,10 @@ void camera::script()
 
 	if (ispov) {
 		// Shader objects render
-		engine::theshader.use();
+		engine::shader_pblinn.use();
 		upload();
 
-		// Skybox shader camera and skybox at origin
+		// Skybox shader camera and skybox at origin (or always move skybox to camera's location?)
 		engine::shader_skybox.use();
 		glm::vec3 temp = tform.loc;
 		tform.loc = glm::vec3();

@@ -2,7 +2,10 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine.h"
+
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -20,13 +23,13 @@ window engine::window;
 timer engine::timer;
 
 // Scene renderer assets
-shader engine::theshader("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
+shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
 shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
 
 // Scene objects
 camera engine::camera;
 skybox engine::skybox;
-scene engine::scene;
+scene engine::scene = { (int)2, {&engine::skybox, &engine::camera } };
 
 void engine::start()
 {
@@ -44,20 +47,16 @@ void engine::start()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(.45f, .45f, .9f, 1.f);
 
-	// Load assets
-	theshader.tryload();
-	if (!theshader.loaded) { stop("shader load failed"); }
+	// Load shaders & scene
+	shader_pblinn.tryload();
 	shader_skybox.tryload();
-	if (!shader_skybox.loaded) { stop("shader_skybox load failed"); }
-
-	camera.load();
-	if (!camera.loaded()) { stop("camera load failed"); }
-	skybox.load();
-	if (!skybox.loaded()) { stop("skybox load failed"); }
-
+	if (!shader_pblinn.loaded || !shader_skybox.loaded)
+		stop("shader load failed");
+	
 	for (int i = 0; i < scene.nobjs; i++) {
 		scene.objects[i]->load();
-		if (!scene.objects[i]->loaded()) { stop(scene.objects[i]->tag + "load failed"); }
+		if (!scene.objects[i]->loaded())
+			stop(scene.objects[i]->tag + " object load failed"); 
 	}
 
 	gameloop();
@@ -67,11 +66,11 @@ void engine::start()
 
 void engine::gameloop()
 {
-	while (!isdown(input_esc)) {
-		// End old frame, start new one
+	while (!isdown(input_esc)) 
+	{
 		glfwSwapBuffers(window.ptr);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 		glfwPollEvents();
 
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
@@ -79,19 +78,11 @@ void engine::gameloop()
 		cursor.x0 = cursor.x; cursor.y0 = cursor.y;
 		glfwGetCursorPos(window.ptr, &cursor.x, &cursor.y);
 
-		// Update scene
-		skybox.update();
-		camera.update();
-		for (int i = 0; i < scene.nobjs; i++) {
+		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-		}
 
-		// Render scene
-		skybox.render();
-		camera.render();
-		for (int i = 0; i < scene.nobjs; i++) {
+		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->render();
-		}
 	}
 }
 
@@ -99,15 +90,13 @@ void engine::stop(std::string comment)
 {
 	printf("\n%s\n", comment.c_str());
 
-	theshader.unload();
+	// Unload shaders & scene
+	shader_pblinn.unload();
 	shader_skybox.unload();
-	
-	// Unload scene
-	skybox.unload();
-	camera.unload();
-	for (int i = 0; i < scene.nobjs; i++) {
+	for (int i = 0; i < scene.nobjs; i++)
 		scene.objects[i]->unload();
-	}
 
 	glfwTerminate();
+
+	std::this_thread::sleep_for(std::chrono::seconds(1));
 }

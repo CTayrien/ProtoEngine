@@ -5,10 +5,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine\engine.h"
 #include "objects\globe\Globe.h"
 
-int main() 
+int main()
 {
 	Globe globe;
-	globe.mod->filename = "engine/models/sphere2.dat";
 	
 	engine::scene.add(&globe);
 	

@@ -75,8 +75,8 @@ struct timer {
 };
 
 struct scene {
-	object* objects[256] = {};
-	int nobjs = 0;
+	int nobjs;
+	object* objects[256];
 	void add(object* object) { 
 		if (nobjs < 256)
 			objects[nobjs++] = object;
@@ -96,8 +96,8 @@ public:
 	static cursor cursor;
 	static timer timer;
 
-	// renderer
-	static shader theshader;
+	// scene shaders
+	static shader shader_pblinn;
 	static shader shader_skybox;
 	
 	// scene objects
