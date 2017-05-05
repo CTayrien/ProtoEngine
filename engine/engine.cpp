@@ -24,7 +24,6 @@ timer engine::timer;
 
 // Scene renderer assets
 shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
-shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
 
 // Scene objects
 camera engine::camera;
@@ -47,11 +46,10 @@ void engine::start()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(.45f, .45f, .9f, 1.f);
 
-	// Load shaders & scene
+	// Load shader & scene
 	shader_pblinn.tryload();
-	shader_skybox.tryload();
-	if (!shader_pblinn.loaded || !shader_skybox.loaded)
-		stop("shader load failed");
+	if (!shader_pblinn.loaded) { stop("Shader load failed"); }
+	shader_pblinn.use();
 	
 	for (int i = 0; i < scene.nobjs; i++) {
 		scene.objects[i]->load();
@@ -70,7 +68,7 @@ void engine::gameloop()
 	{
 		glfwSwapBuffers(window.ptr);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
+		
 		glfwPollEvents();
 
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
@@ -80,7 +78,8 @@ void engine::gameloop()
 
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-
+		
+		engine::camera.upload();
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->render();
 	}
@@ -90,9 +89,7 @@ void engine::stop(std::string comment)
 {
 	printf("\n%s\n", comment.c_str());
 
-	// Unload shaders & scene
 	shader_pblinn.unload();
-	shader_skybox.unload();
 	for (int i = 0; i < scene.nobjs; i++)
 		scene.objects[i]->unload();
 

@@ -33,6 +33,16 @@ glm::vec3 transform::up()
 	return R[1];
 }
 
+glm::vec3 transform::right()
+{
+	return R[0];
+}
+
+glm::vec3 transform::lookat()
+{
+	return loc + forward();
+}
+
 void transform::setroll(float roll)
 {
 	rot.z = roll;
@@ -69,12 +79,5 @@ void transform::physicsupdate()
 
 void transform::derivematrix()
 {
-	transmat = glm::translate(loc);
-	rotmat = glm::yawPitchRoll(rot.y, rot.x, rot.z);
-	scalemat = glm::scale(scale);
-
-	R = (glm::mat3)rotmat;
-	
-	modelWorld = transmat * rotmat * scalemat;
-	normtform = glm::transpose(glm::inverse(glm::mat3(modelWorld)));
+	R = (glm::mat3)glm::yawPitchRoll(rot.y, rot.x, rot.z);
 }

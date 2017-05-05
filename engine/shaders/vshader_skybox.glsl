@@ -8,7 +8,8 @@
 layout (location = 0) in vec3 modelLoc;
 
 // Model-world-view transforms
-layout (location = 4) uniform mat4 worldView;
+layout (location = 5) uniform mat4 worldView;
+layout (location = 6) uniform vec3 camloc;
 
 out vec3 texdir;
 
@@ -18,5 +19,5 @@ void main()
 	texdir = modelLoc;
 
 	// Transform from model space into view space - cubemap doesn't rotate or scale, and if camera is at origin, then cubemap translation is 0 too:  as long as camera is located at origin, cubemap model-world is identity, implicitly included in the transformation below.
-	gl_Position = worldView * vec4(modelLoc, 1);
+	gl_Position = worldView * vec4(modelLoc + camloc, 1);
 }

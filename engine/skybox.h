@@ -3,14 +3,23 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
+#include "shader.h"
 
 class skybox
 	: public object
 {
 private:
 public:
+	shader skybox_shader = shader(
+		std::string("engine/shaders/vshader_skybox.glsl"),
+		std::string("engine/shaders/fshader_skybox.glsl"));
+
 	skybox();
 	~skybox();
+
+	void load() override;
+	bool loaded() override;
+	void unload() override;
 
 	void script() override;
 	void render() override;

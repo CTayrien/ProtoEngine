@@ -29,6 +29,23 @@ skybox::~skybox()
 	delete tex;
 }
 
+void skybox::load()
+{
+	skybox_shader.tryload();
+	object::load();
+}
+
+bool skybox::loaded()
+{
+	return (object::loaded() && skybox_shader.loaded);
+}
+
+void skybox::unload()
+{
+	skybox_shader.unload();
+	object::unload();
+}
+
 void skybox::script()
 {
 	// skybox has no behavior
@@ -36,14 +53,16 @@ void skybox::script()
 
 void skybox::render()
 {
-	// Render first
-	engine::shader_skybox.use();
-	glDisable(GL_DEPTH_TEST);
-
+	// Set up for skybox to render
+	skybox_shader.use();
+	engine::camera.upload();
+	
+	// Render skybox
 	glBindTexture(GL_TEXTURE_CUBE_MAP, tex->id);
 	glBindVertexArray(mod->vao);
 	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
 
-	glEnable(GL_DEPTH_TEST);
+	// Reset for regular objects to render
+	glClear(GL_DEPTH_BUFFER_BIT);
 	engine::shader_pblinn.use();
 }

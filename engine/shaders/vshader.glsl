@@ -6,17 +6,17 @@
 
 #version 430
 
-// Attributes (Model space)
+// Attributes (model space vertex data)
 layout (location = 0) in vec3 modelLoc;
 layout (location = 1) in vec2 modelUV;
 layout (location = 2) in vec3 modelNorm;
 
-// Uniforms (Transforms)
+// Uniforms (transformations of object and camera)
 layout (location = 3) uniform mat4 modelWorld;
-layout (location = 4) uniform mat4 worldView;
-layout (location = 5) uniform mat3 normtform;
+layout (location = 4) uniform mat3 normtform;
+layout (location = 5) uniform mat4 worldView;
 
-// Varyings (World space)
+// Varying (world space vertex and fragment data)
 out vec3 loc;
 out vec2 uv;
 out vec3 norm;

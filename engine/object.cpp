@@ -38,11 +38,11 @@ void object::update()
 
 void object::render()
 {
-	glUniformMatrix4fv(3, 1, GL_FALSE, &(tform.modelWorld[0][0]));		//normal transform matrix
-	glUniformMatrix3fv(5, 1, GL_FALSE, &(tform.normtform[0][0]));		//position transform matrix
-	glBindTexture(GL_TEXTURE_2D, tex->id);								//texture
-	glBindVertexArray(mod->vao);										//model
-	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);							//draw
+	glUniformMatrix4fv(3, 1, GL_FALSE, &(glm::translate(tform.loc) * glm::mat4(tform.R) * glm::scale(tform.scale))[0][0]);
+	glUniformMatrix3fv(4, 1, GL_FALSE, &(tform.R * glm::mat3(glm::scale(1.0f / tform.scale)))[0][0]);
+	glBindTexture(GL_TEXTURE_2D, tex->id);
+	glBindVertexArray(mod->vao);
+	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
 }
 
 template<>
@@ -100,7 +100,7 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 template<>
 bool object::collides<BOX, BOX>(const object& b) const
 {
-	// Is a way to derive best axis? This tight-bound collision test is computationally slow because naive algorithm is brute force
+	// Is there a way to derive best axis? This tight-bound collision test is computationally slow because naive algorithm is brute force
 
 	for (int i = 0; i < 3; i++)
 	{

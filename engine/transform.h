@@ -9,14 +9,7 @@ class transform
 public:
 	// Can/should I use quaternion instead of yaw pitch roll?
 	glm::vec3 loc, rot, scale;
-
-	// Do I really need to store all of these?
 	glm::mat3 R;
-	glm::mat3 normtform;
-	glm::mat4 rotmat;
-	glm::mat4 scalemat;
-	glm::mat4 transmat;
-	glm::mat4 modelWorld;
 
 	glm::vec3 vel, force;
 	float mass;
@@ -29,8 +22,8 @@ public:
 
 	glm::vec3 forward();
 	glm::vec3 up();
-	// right();
-	// lookat();
+	glm::vec3 right();
+	glm::vec3 lookat();
 
 	void setroll(float roll);
 	// void set yaw, pitch?
@@ -38,6 +31,5 @@ public:
 	void setforward(glm::vec3 f);
 
 	void physicsupdate();
-
 	void derivematrix();
 };

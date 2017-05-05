@@ -32,24 +32,14 @@ void camera::script()
 		flymove();
 		flyturn();
 	}
-
-	if (ispov) {
-		// Shader objects render
-		engine::shader_pblinn.use();
-		upload();
-
-		// Skybox shader camera and skybox at origin (or always move skybox to camera's location?)
-		engine::shader_skybox.use();
-		glm::vec3 temp = tform.loc;
-		tform.loc = glm::vec3();
-		upload();
-		tform.loc = temp;
-	}
 }
 
 void camera::render()
 {
-	if (!ispov) object::render();
+	if (!ispov){
+		// Render this
+		object::render();
+	}
 }
 
 void camera::load()
@@ -66,10 +56,10 @@ void camera::load()
 
 void camera::upload()
 {
-	worldView = perspective	* glm::lookAt(tform.loc, tform.loc + tform.forward(), tform.up());
+	worldView = perspective	* glm::lookAt(tform.loc, tform.lookat(), tform.up());
 
 	// World-view transform
-	glUniformMatrix4fv(4, 1, GL_FALSE, &worldView[0][0]);
+	glUniformMatrix4fv(5, 1, GL_FALSE, &worldView[0][0]);
 
 	// Lighting uniform variable
 	glUniform3fv(6, 1, &tform.loc[0]);
@@ -82,7 +72,8 @@ void camera::flymove()
 	if (engine::isdown(input_a)) d.x -= 1;
 	if (engine::isdown(input_s)) d.z += 1;
 	if (engine::isdown(input_d)) d.x += 1;
-	//up and down w/ space and ctrl?
+	if (engine::isdown(input_ctrl)) d.y -= 1;
+	if (engine::isdown(input_space)) d.y += 1;
 
 	// Try to normalize
 	float len = glm::length(d);

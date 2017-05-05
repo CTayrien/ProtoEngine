@@ -96,9 +96,8 @@ public:
 	static cursor cursor;
 	static timer timer;
 
-	// scene shaders
+	// scene shaders - should be on scene, skybox or camera? skybox shader is on skybox - that is normal (most objects should have a ref to their shader, and render manager uses them to prioritize render calls)
 	static shader shader_pblinn;
-	static shader shader_skybox;
 	
 	// scene objects
 	static camera camera;

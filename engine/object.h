@@ -26,9 +26,9 @@ public:
 	object();
 	virtual ~object();
 	
-	bool loaded();
+	virtual bool loaded();
 	virtual void load();
-	void unload();
+	virtual void unload();
 	
 	void update();
 	virtual void script() = 0;
