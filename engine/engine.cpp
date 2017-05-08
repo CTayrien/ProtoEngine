@@ -24,7 +24,7 @@ void cursor::update() {
 	double nx, ny;
 	glfwGetCursorPos(engine::window.ptr, &nx, &ny);
 	x += dx = (float)nx - x;
-	y += dy = (float)ny - y;	
+	y += dy = (float)ny - y;
 }
 
 input engine::input;
