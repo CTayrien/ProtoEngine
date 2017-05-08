@@ -1,0 +1,30 @@
+grade and emails
+change requirement list for final proj
+screen grab good game examples for class
+add final proj deadline
+ask some to demo theirs to their class on friday for bonus or whatever
+
+collection roll-a-ball
+infinite space shooter
+
+quaternion for spacewalk
+scene from a file
+multiple scenes pp
+deferred lighting / multiple lights
+imgui
+sound
+
+timetraveling resource islands in space spacecraft drone/space ranger/asteroid mining piracy situation
+platformer spacewalk (stuck to surface, up vector is normal, can leap and run like dodge-roll / run)
+jump/boost in space (visually like fade / homeworld trail, effectively a dodge-roll/run with glide)
+shooter (simple projectile, railgun, frag grenade, melee chain grapple like god of war or AoT)
+bot enemies
+cover & sneaking
+collection (health, armor, ammo, powerup, weapon)
+(earn points to buy better gear/skills)
+(kill enemies and complete objectives)
+(player made: mothership, resource harvesters, refinery, turrets, drone carriers, portals (portal rendering))
+
+spritesheet for trails / lightning weapons / explosions
+pairwise collision detection w/ structs & on collision enter and collision delta collision
+networking
