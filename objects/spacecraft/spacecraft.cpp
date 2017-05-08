@@ -20,5 +20,5 @@ spacecraft::~spacecraft()
 
 void spacecraft::script()
 {
-	tform.derivematrix();
+	//tform.derivematrix();
 }

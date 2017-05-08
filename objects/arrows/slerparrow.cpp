@@ -24,7 +24,7 @@ void slerparrow::script()
 		d *= -1.0f;
 		go = false;
 	}
-	if (engine::isdown(input_enter)) {
+	if (engine::input.down[input_enter]) {
 		go = true;
 	}
 	if (go) {
@@ -35,7 +35,7 @@ void slerparrow::script()
 	glm::quat qa(a->R);
 	glm::quat qb(b->R);
 	glm::quat qt = glm::slerp(qa, qb, t);
-	
+
 	// Set orientation of slerp object "spacecraft"
 	//tform.setforward((glm::vec3)glm::rotate(qt, glm::vec4(0, 0, -1, 1)));
 	//tform.setroll(?);
@@ -73,55 +73,49 @@ void slerparrow::script()
 	//qa
 	glm::vec3 qva = glm::vec3{ qa.x, qa.y, qa.z };
 	qavector->loc = qva;
-	qavector->setforward(-glm::normalize(qva));
-	qavector->setroll(-engine::pi * glm::length(qva));
-	qavector->derivematrix();
+	qavector->setforwardandroll(-glm::normalize(qva), -engine::pi * glm::length(qva));
 
 	//qb
 	glm::vec3 qvb = glm::vec3{ qb.x, qb.y, qb.z };
 	qbvector->loc = qvb;
-	qbvector->setforward(-glm::normalize(qvb));
-	qbvector->setroll(-engine::pi * glm::length(qvb));
-	qbvector->derivematrix();
+	qbvector->setforwardandroll(-glm::normalize(qvb), -engine::pi * glm::length(qvb));
 
 	// Set location/orientation of quaternion Vector object (screw / bolt)
 	glm::vec3 qv = glm::vec3{ qt.x, qt.y, qt.z };
 	glm::vec3 dv = qv - qtvector->loc;
 	qtvector->loc = qv;
-	qtvector->setforward(-glm::normalize(qv));
-	qtvector->setroll(-engine::pi * glm::length(qv));
-	qtvector->derivematrix();
+	qtvector->setforwardandroll(-glm::normalize(qv), -engine::pi * glm::length(qv));
 	
 	// Move orientation b "Beijing"
-	float c = 180.f / engine::pi;
-	float s = 60.0f * engine::timer.dt / c;
-	if (engine::isdown(input_right)) {
-		b->rot.x += 1.f * s;
-		printf("Yaw: %f\n", b->rot.y * c);
-	}
-	if (engine::isdown(input_left)) {
-		b->rot.x -= 1.f * s;
-		printf("Yaw: %f\n", b->rot.y * c);
-	}
-	if (engine::isdown(input_up)) {
-		b->rot.y += 1.f * s;
-		printf("Roll: %f\n", b->rot.x * c);
-	}
-	if (engine::isdown(input_down)) {
-		b->rot.y -= 1.f * s;
-		printf("Roll: %f\n", b->rot.x * c);
-	}
-	if (engine::isdown(GLFW_KEY_EQUAL)) {
-		b->rot.z += 1.f * s;
-		printf("Roll: %f\n", b->rot.z * c);
-	}
-	if (engine::isdown(GLFW_KEY_MINUS)) {
-		b->rot.z -= 1.f * s;
-		printf("Roll: %f\n", b->rot.z * c);
-	}
-	b->derivematrix();
+	//float c = 180.f / engine::pi;
+	//float s = 60.0f * engine::timer.dt / c;
+	//if (engine::isdown(input_right)) {
+	//	b->rot.x += 1.f * s;
+	//	printf("Yaw: %f\n", b->rot.y * c);
+	//}
+	//if (engine::isdown(input_left)) {
+	//	b->rot.x -= 1.f * s;
+	//	printf("Yaw: %f\n", b->rot.y * c);
+	//}
+	//if (engine::isdown(input_up)) {
+	//	b->rot.y += 1.f * s;
+	//	printf("Roll: %f\n", b->rot.x * c);
+	//}
+	//if (engine::isdown(input_down)) {
+	//	b->rot.y -= 1.f * s;
+	//	printf("Roll: %f\n", b->rot.x * c);
+	//}
+	//if (engine::isdown(GLFW_KEY_EQUAL)) {
+	//	b->rot.z += 1.f * s;
+	//	printf("Roll: %f\n", b->rot.z * c);
+	//}
+	//if (engine::isdown(GLFW_KEY_MINUS)) {
+	//	b->rot.z -= 1.f * s;
+	//	printf("Roll: %f\n", b->rot.z * c);
+	//}
+	//b->derivematrix();
 
 	// Set location/orientation of camera
-	if (engine::isdown(input_ctrl))
+	if (engine::input.down[input_ctrl])
 		engine::camera.tform.loc += dv;
 }

@@ -1,3 +1,6 @@
+Quaternion, torque, moment, etc.
+Satellite docking (Collision system parenting?)
+
 make orbit class (circular or _ w/ inclination and ...)
 all objects follow an orbit
 turn off transform update, turn on ellipse orbit update

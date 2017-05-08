@@ -16,5 +16,5 @@ moon::~moon()
 
 void moon::script()
 {
-	tform.derivematrix();
+	//tform.derivematrix();
 }

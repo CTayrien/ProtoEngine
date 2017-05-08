@@ -29,7 +29,7 @@ void object::update()
 {
 	script();
 	tform.physicsupdate();
-	tform.derivematrix();
+	//tform.derivematrix();
 }
 
 void object::render()

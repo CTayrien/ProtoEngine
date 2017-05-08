@@ -12,17 +12,24 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 // Variables declared static in engine class namespace, but allocated/instantiated once in global memory
 float engine::pi = glm::pi<float>();
-
-// Input
-bool engine::isdown(int key) {
-	return GLFW_PRESS == glfwGetKey(window.ptr, key);
-}
-
-cursor engine::cursor;
-window engine::window;
 timer engine::timer;
 
-// Scene renderer assets
+#define cllbck \
+	if (action == GLFW_REPEAT) return; \
+	engine::input.down[key] += engine::input.ddown[key] = action - engine::input.down[key];
+void kbcllbck(GLFWwindow* ptr, int key, int scancode, int action, int mods) { cllbck }
+void mscllbck(GLFWwindow* ptr, int key, int action, int mods) { cllbck }
+
+void cursor::update() {
+	double nx, ny;
+	glfwGetCursorPos(engine::window.ptr, &nx, &ny);
+	x += dx = (float)nx - x;
+	y += dy = (float)ny - y;	
+}
+
+input engine::input;
+cursor engine::cursor;
+window engine::window;
 shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
 
 // Scene objects
@@ -32,25 +39,31 @@ scene engine::scene = { (int)2, {&engine::skybox, &engine::camera } };
 
 void engine::start()
 {
-	// Start window w/ GLFW & start GLEW
+	// GLFW window & GLEW library
 	if (glfwInit() != GL_TRUE) { stop("GLFW init failed"); }
 	window.ptr = glfwCreateWindow(window.w, window.h, window.title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
 	if (nullptr == window.ptr) { stop("GLFW create window failed"); }
 	glfwMakeContextCurrent(window.ptr);
 	if (glewInit() != GLEW_OK) { stop("GLEW init failed"); }
 
-	// Renderer settings
+	// Renderer
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(.45f, .45f, .9f, 1.f);
 
-	// Load shader & scene
+	// Input & cursor
+	glfwSetKeyCallback(window.ptr, &kbcllbck);
+	glfwSetMouseButtonCallback(window.ptr, &mscllbck);
+	cursor.update();
+
+	// Shader
 	shader_pblinn.tryload();
 	if (!shader_pblinn.loaded) { stop("Shader load failed"); }
 	shader_pblinn.use();
 	
+	// Scene
 	for (int i = 0; i < scene.nobjs; i++) {
 		scene.objects[i]->load();
 		if (!scene.objects[i]->loaded())
@@ -64,22 +77,21 @@ void engine::start()
 
 void engine::gameloop()
 {
-	while (!isdown(input_esc)) 
+	while (!input.down[input_esc]) 
 	{
-		glfwSwapBuffers(window.ptr);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+		// Input from user		(all users with different windows/cursors and input states?)
 		glfwPollEvents();
+		input.ddown = {};
+		cursor.update();
 
+		// Process scene		(by server? predicted by users?
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
-
-		cursor.x0 = cursor.x; cursor.y0 = cursor.y;
-		glfwGetCursorPos(window.ptr, &cursor.x, &cursor.y);
-
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-		
-		engine::camera.upload();
+
+		// Output scene			(per user? all with different camera povs?)
+		glfwSwapBuffers(window.ptr);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->render();
 	}

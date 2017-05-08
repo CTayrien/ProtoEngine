@@ -2,34 +2,33 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
+
 #include "object.h"
+
 #include <string>
 
 class camera :
 	public object
 {
 private:
-	glm::mat4 perspective;
-	glm::mat4 worldView;
+	glm::mat4 perspective;	// break this into consituents so i can change zoom
 	
-	bool isfps = true;
+	bool isdebug = true;
 	const float maxspeed = 2.f;
 	const float sens = .005f;
 	
 public:
-	
 	camera();
 	~camera() override;
 
 	void load() override;
-	void upload();
+	void uploadpov();
 	
 	void script() override;
 	bool ispov = true;
 	void render() override;
 	
-	//void toggleisfps();
-	void setisfps(bool isfps);
-	void flymove();
-	void flyturn();
+	void setdebug(bool isdebug);
+	void debugmove();
+	void debugturn();
 };

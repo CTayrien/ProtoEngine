@@ -7,15 +7,18 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class transform
 {
 public:
-	// Can/should I use quaternion instead of yaw pitch roll?
-	glm::vec3 loc, rot, scale;
-	glm::mat3 R;
+	// Can/should I use quaternion instead of rot (yaw pitch roll) and R?
+	glm::vec3 loc, scale = {1,1,1};
+	
+	glm::vec3 rot;	// need for camera controls
+	glm::mat3 R;	// need for collision detection, camera matrix, etc.
+	//glm::quat q;	// could use for slerp and derive ypr and R from this?
 
 	glm::vec3 vel, force;
-	float mass;
+	float mass = 1;
 
 	glm::vec3 rotvel, torque;
-	float moment;
+	float moment = 1;	//should be derived per-axis?
 
 	transform();
 	~transform();
@@ -25,11 +28,12 @@ public:
 	glm::vec3 right();
 	glm::vec3 lookat();
 
-	void setroll(float roll);
-	// void set yaw, pitch?
+	//void setroll(float roll);
+	void setyawpitchroll(glm::vec3 rot);
+	//void setforward(glm::vec3 f);
+	void setforwardandroll(glm::vec3 f, float roll);
 
-	void setforward(glm::vec3 f);
+	static glm::mat3 slerp(const transform& a, const transform& b, float t);
 
 	void physicsupdate();
-	void derivematrix();
 };

@@ -7,7 +7,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 camera::camera()
 {
 	tag = "camera";
-	mod = new model("engine/models/camera2.dat");
+	mod = new model("engine/models/camera.dat");
 	tex = new texture("engine/textures/black.png");
 	tform.loc.z = 2;
 	tform.rot = glm::vec3{};
@@ -19,25 +19,27 @@ camera::~camera()
 	delete tex;
 }
 
-void camera::setisfps(bool isfps)
+void camera::setdebug(bool isdebug)
 {
-	this->isfps = isfps;
-	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, (isfps) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
+	this->isdebug = isdebug;
+	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, (isdebug) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 	tform.vel = glm::vec3();
 }
 
 void camera::script()
 {
-	if (isfps) {
-		flymove();
-		flyturn();
+	if (isdebug) {
+		debugmove();
+		debugturn();
 	}
 }
 
 void camera::render()
 {
+	if (ispov) {
+		uploadpov();
+	}
 	if (!ispov){
-		// Render this
 		object::render();
 	}
 }
@@ -49,52 +51,47 @@ void camera::load()
 		.01f,												//z near
 		1000.f);											//z far
 
-	setisfps(isfps);
+	setdebug(isdebug);
 
 	object::load();
 }
 
-void camera::upload()
+void camera::uploadpov()
 {
-	worldView = perspective	* glm::lookAt(tform.loc, tform.lookat(), tform.up());
-
-	// World-view transform
-	glUniformMatrix4fv(5, 1, GL_FALSE, &worldView[0][0]);
-
-	// Lighting uniform variable
+	// World-view transform & lighting
+	glUniformMatrix4fv(5, 1, GL_FALSE, &(perspective * glm::lookAt(tform.loc, tform.lookat(), tform.up()))[0][0]);
 	glUniform3fv(6, 1, &tform.loc[0]);
 }
 
-void camera::flymove()
+// Aggregate direction vector and apply normalized if non-zero
+void camera::debugmove()
 {
 	glm::vec3 d;
-	if (engine::isdown(input_w)) d.z -= 1;
-	if (engine::isdown(input_a)) d.x -= 1;
-	if (engine::isdown(input_s)) d.z += 1;
-	if (engine::isdown(input_d)) d.x += 1;
-	if (engine::isdown(input_ctrl)) d.y -= 1;
-	if (engine::isdown(input_space)) d.y += 1;
 
-	// Try to normalize
-	float len = glm::length(d);
-	if (len != 0) d /= len;
-	
+	if (engine::input.down[input_w]) d.z -= 1;
+	if (engine::input.down[input_a]) d.x -= 1;
+	if (engine::input.down[input_s]) d.z += 1;
+	if (engine::input.down[input_d]) d.x += 1;
+	if (engine::input.down[input_ctrl]) d.y -= 1;
+	if (engine::input.down[input_space]) d.y += 1;
+
+	if (d != glm::vec3()) d = glm::normalize(d);
 	tform.vel = tform.R * d * maxspeed;
 }
 
-void camera::flyturn()
+void camera::debugturn()
 {
-	double &x = engine::cursor.x, &y = engine::cursor.y, &x0 = engine::cursor.x0, &y0 = engine::cursor.y0;
-
 	// Yaw & Pitch (pitch clamped to +/- 90 deg)
-	tform.rot.y -= sens * (float)(x - x0);
-	tform.rot.x -= sens * (float)(y - y0);
+	tform.rot.y -= sens * engine::cursor.dx;
+	tform.rot.x -= sens * engine::cursor.dy;
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
-
-	// Clamp cursor to window
+	
+	tform.setyawpitchroll(tform.rot);
+	
+	// Should be possible to store / modify a quaternion instead? If I can, then transform.rot is obsolete class data. Should be able to set yaw pitch roll, and add delta yaw pitch roll. May need to derive ypr from q
 	glfwSetCursorPos(engine::window.ptr,
-		glm::clamp((int)x, 0, engine::window.w),
-		glm::clamp((int)y, 0, engine::window.h));
-	glfwGetCursorPos(engine::window.ptr, &x, &y);
-	x0 = x; y0 = y;
+		glm::clamp((int)engine::cursor.x, 0, engine::window.w),
+		glm::clamp((int)engine::cursor.y, 0, engine::window.h));
+	
+	engine::cursor.update();
 }

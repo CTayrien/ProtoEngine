@@ -40,7 +40,7 @@ builder::~builder()
 
 void builder::script()
 {
-	tform.derivematrix();
+	//tform.derivematrix();
 
 	//findNearestRes();
 	// init static data, how does a normal design pattern do this

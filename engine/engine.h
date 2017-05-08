@@ -60,7 +60,12 @@ struct window {
 	GLFWwindow* ptr = nullptr;
 };
 
-struct cursor { double x, y, x0, y0; };
+struct cursor { 
+	float x, y, dx, dy;
+	void update();
+};
+
+struct input { std::map<int, int> down, ddown; };
 
 struct timer { float t = 0, dt = 0; };
 
@@ -78,8 +83,7 @@ class engine
 public:
 	static float pi;
 
-	//input to do: enable registering a single keypress: tracking what is down vs what was down with 2 maps, update them each frame with input callbacks
-	static bool isdown(int key);
+	static input input;
 
 	static window window;
 	static cursor cursor;

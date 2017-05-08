@@ -31,7 +31,7 @@ planet::~planet()
 // update
 void planet::script()
 {
-	tform.derivematrix();
+	//tform.derivematrix();
 
 	if (collides<SPHERE,SPHERE>(engine::camera)) {
 		system("cls");

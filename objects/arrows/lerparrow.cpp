@@ -26,7 +26,7 @@ void lerparrow::script()
 	}
 	
 	// Try to start
-	if (engine::isdown(input_enter)) {
+	if (engine::input.down[input_enter]) {
 		go = true;
 	}
 	
@@ -41,5 +41,5 @@ void lerparrow::script()
 	// Derive delta r-axis or global r-axis from delta rot or tform.rot ?
 	// cross current <0,0,-1> with previous <0,0,-1> ?
 
-	tform.derivematrix();
+	//tform.derivematrix();
 }

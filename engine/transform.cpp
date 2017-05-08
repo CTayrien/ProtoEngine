@@ -10,13 +10,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 transform::transform()
 {
-	scale = { 1, 1, 1 };
-	
-	loc = vel = force = { 0, 0, 0 };
-	mass = 1;
-
-	rot = rotvel = torque = { 0, 0, 0 };
-	moment = 1;
 }
 
 transform::~transform()
@@ -43,20 +36,37 @@ glm::vec3 transform::lookat()
 	return loc + forward();
 }
 
-void transform::setroll(float roll)
+//void transform::setroll(float roll)
+//{
+//	rot.z = roll;
+//	setyawpitchroll(rot);
+//}
+
+void transform::setyawpitchroll(glm::vec3 rot)
 {
-	rot.z = roll;
-	derivematrix();
+	//this->rot = rot;
+	R = (glm::mat3)glm::yawPitchRoll(rot.y, rot.x, rot.z);
 }
 
-void transform::setforward(glm::vec3 f)
+//void transform::setforward(glm::vec3 f)
+//{
+//	float pitch = -asinf(f.y);
+//	float yaw = atan2(f.x, f.z);
+//
+//	setyawpitchroll(glm::vec3(pitch, yaw, 0));
+//}
+
+void transform::setforwardandroll(glm::vec3 f, float roll)
 {
 	float pitch = -asinf(f.y);
 	float yaw = atan2(f.x, f.z);
 
-	rot = glm::vec3{ pitch, yaw, rot.z };
-	
-	derivematrix();
+	setyawpitchroll(glm::vec3(pitch, yaw, roll));
+}
+
+glm::mat3 transform::slerp(const transform & a, const transform & b, float t)
+{
+	return glm::toMat3(glm::slerp(glm::quat(a.R), glm::quat(b.R), t));
 }
 
 void transform::physicsupdate()
@@ -65,14 +75,8 @@ void transform::physicsupdate()
 	loc += vel * engine::timer.dt;
 	force = { 0, 0, 0 };
 
-	rotvel += torque / moment * engine::timer.dt;
-	rot += rotvel * engine::timer.dt;
-	torque = { 0, 0, 0 };
-
-	derivematrix();
-}
-
-void transform::derivematrix()
-{
-	R = (glm::mat3)glm::yawPitchRoll(rot.y, rot.x, rot.z);
+	//rotvel += torque / moment * engine::timer.dt;
+	//rot += rotvel * engine::timer.dt;
+	//torque = { 0, 0, 0 };
+	//setyawpitchroll(rot);
 }
