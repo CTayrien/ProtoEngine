@@ -26,8 +26,8 @@ void main()
 	vec3 ambclr = vec3(.1, .1, .1);
 	
 	// Light const (direct light rgb brightness, could be per light)
-	vec3 litloc = vec3(23481, 1, 1);	//23481 earth radii = 1 astronomical unit
-	vec3 dirclr = vec3(1, 1, 1);		//could be scaled by dist
+	vec3 litloc = normalize(vec3(1, 1, 1)) * 23481;	//23481 earth radii = 1 astronomical unit
+	vec3 dirclr = vec3(1, 1, 1);				//could be scaled by dist
 
 	// Texturing
 	vec4 texel = texture(tex2D, uv); 

@@ -77,7 +77,7 @@ void engine::start()
 
 void engine::gameloop()
 {
-	while (!input.down[input_esc]) 
+	while (!glfwWindowShouldClose(engine::window.ptr)) 
 	{
 		// Input from user		(all users with different windows/cursors and input states?)
 		input.ddown = {};
@@ -104,7 +104,7 @@ void engine::stop(std::string comment)
 	shader_pblinn.unload();
 	for (int i = 0; i < scene.nobjs; i++)
 		scene.objects[i]->unload();
-
+	
 	glfwTerminate();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));

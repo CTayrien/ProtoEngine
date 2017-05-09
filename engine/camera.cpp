@@ -34,6 +34,8 @@ void camera::setdebug(bool isdebug)
 void camera::script()
 {
 	if (isdebug) {
+		if (engine::input.down[input_esc])
+			glfwSetWindowShouldClose(engine::window.ptr, true);
 		debugmove();
 		debugturn();
 	}

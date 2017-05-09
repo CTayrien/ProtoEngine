@@ -69,7 +69,7 @@
     <ClCompile Include="objects\planet\planet.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
     <ClCompile Include="rollaball.cpp" />
-    <ClCompile Include="SatelliteScene.cpp" />
+    <ClCompile Include="SceneRollABall.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>

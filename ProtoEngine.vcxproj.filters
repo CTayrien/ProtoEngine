@@ -136,9 +136,6 @@
     <ClCompile Include="engine\texture_cubemap.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="SatelliteScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\asset.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -173,6 +170,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="collectible.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRollABall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

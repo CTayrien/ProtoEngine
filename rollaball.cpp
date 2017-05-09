@@ -4,33 +4,33 @@
 
 void rollaball::script()
 {
-	//std::cout << "Timer: " << engine::timer.t << std::endl;
-	//if (engine::timer.t > 10) {
-	//	engine::stop("You collected: " + score);
-	//}
+	// Drag - should be on tform?
+	glm::vec3 d = tform.vel;
+	if (d != glm::vec3()) d = glm::normalize(d);
+	float x = glm::length(tform.vel);
+	float a = 1, b = 1, c = 1;
+	tform.force -= d * (a * x * x + b * x + c);
 
-	for (int i = 0; i < ncollectibles; i++) {
-		if (collectibles[i].isactive && collectibles[i].collides<BOX, SPHERE>(*this)) {
-			engine::scene.remove(&collectibles[i]);
-			std::cout << ++score;
-			collectibles[i].isactive = false;
-		}
-	}
-
+	// Debug toggle
 	if (engine::input.ddown[input_tilde] == 1) engine::camera.toggledebug();
 	if (engine::camera.isdebug) return;
 
-	float power = 1;
-	glm::vec3 d;
-	if (engine::input.down[input_w]) d.z--;
-	if (engine::input.down[input_a]) d.x--;
-	if (engine::input.down[input_s]) d.z++;
-	if (engine::input.down[input_d]) d.x++;
-	if (d != glm::vec3()) d = glm::normalize(d);
-	tform.force += d * power;
+	// Move
+	float power = 80;
+	glm::vec3 md;
+	if (engine::input.down[input_w]) md.y++;
+	if (engine::input.down[input_a]) md.x--;
+	if (engine::input.down[input_s]) md.y--;
+	if (engine::input.down[input_d]) md.x++;
+	if (md != glm::vec3()) md = glm::normalize(md);
+	tform.force += md * power;
 
-	float drag = 1;
-	tform.force -= tform.vel * tform.vel * drag;
+	// Roll
+	if (tform.vel == glm::vec3()) return;
+	float radius = 1;
+	float angle = glm::length(tform.vel) * radius * engine::timer.dt;
+	glm::vec3 axis = glm::normalize(glm::cross(glm::vec3(0, 0, 1), tform.vel));
+	tform.R = glm::mat3(glm::rotate(angle, axis)) * tform.R;
 }
 
 rollaball::rollaball()
