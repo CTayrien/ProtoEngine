@@ -11,7 +11,7 @@ void rollaball::script()
 	float a = 1, b = 1, c = 1;
 	tform.force -= d * (a * x * x + b * x + c);
 
-	// Debug toggle
+	// Toggle control (ball vs debug cam)
 	if (engine::input.ddown[input_tilde] == 1) engine::camera.toggledebug();
 	if (engine::camera.isdebug) return;
 
@@ -25,7 +25,7 @@ void rollaball::script()
 	if (md != glm::vec3()) md = glm::normalize(md);
 	tform.force += md * power;
 
-	// Roll
+	// Roll - should be a delta-rotate function on tform?
 	if (tform.vel == glm::vec3()) return;
 	float radius = 1;
 	float angle = glm::length(tform.vel) * radius * engine::timer.dt;
