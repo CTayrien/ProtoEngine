@@ -49,7 +49,7 @@ template<> bool object::collides<SPHERE, SPHERE>(const object& b) const
 {
 	// Collider radius - cache me 
 	float as = glm::dot(tform.scale, glm::vec3(1)) / 3.f;
-	float ra = mod->r * as; 
+	float ra = mod->r * as;
 	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
 	float rb = b.mod->r * bs;
 	
