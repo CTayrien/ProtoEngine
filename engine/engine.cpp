@@ -80,8 +80,8 @@ void engine::gameloop()
 	while (!input.down[input_esc]) 
 	{
 		// Input from user		(all users with different windows/cursors and input states?)
-		glfwPollEvents();
 		input.ddown = {};
+		glfwPollEvents();
 		cursor.update();
 
 		// Process scene		(by server? predicted by users?

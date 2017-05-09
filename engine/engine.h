@@ -76,6 +76,14 @@ struct scene {
 		if (nobjs < 256)
 			objects[nobjs++] = object;
 	}
+	void remove(object* object) {
+		bool removed = false;
+		for (int i = 0; i < nobjs; i++) {
+			if (objects[i] == object) removed = true;
+			if (removed && i < nobjs-1) objects[i] = objects[i + 1];
+		}
+		if (removed) nobjs--;
+	}
 };
 
 class engine

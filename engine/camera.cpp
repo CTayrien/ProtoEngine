@@ -19,10 +19,15 @@ camera::~camera()
 	delete tex;
 }
 
+void camera::toggledebug()
+{
+	setdebug(!isdebug);
+}
+
 void camera::setdebug(bool isdebug)
 {
 	this->isdebug = isdebug;
-	glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, (isdebug) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
+	if (engine::window.ptr) glfwSetInputMode(engine::window.ptr, GLFW_CURSOR, (isdebug) ? GLFW_CURSOR_HIDDEN : GLFW_CURSOR_NORMAL);
 	tform.vel = glm::vec3();
 }
 

@@ -101,6 +101,12 @@
     <ClInclude Include="objects\arrows\Arrow.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="rollaball.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="collectible.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -162,6 +168,12 @@
     </ClCompile>
     <ClCompile Include="objects\arrows\lerparrow.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="rollaball.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="collectible.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -32,6 +32,10 @@ void object::update()
 	//tform.derivematrix();
 }
 
+void object::script()
+{
+}
+
 void object::render()
 {
 	glUniformMatrix4fv(3, 1, GL_FALSE, &(glm::translate(tform.loc) * glm::mat4(tform.R) * glm::scale(tform.scale))[0][0]);

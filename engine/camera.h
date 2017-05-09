@@ -13,7 +13,6 @@ class camera :
 private:
 	glm::mat4 perspective;	// break this into consituents so i can change zoom
 	
-	bool isdebug = true;
 	const float maxspeed = 2.f;
 	const float sens = .005f;
 	
@@ -25,9 +24,11 @@ public:
 	void uploadpov();
 	
 	void script() override;
+	bool isdebug = true;
 	bool ispov = true;
 	void render() override;
 	
+	void toggledebug();
 	void setdebug(bool isdebug);
 	void debugmove();
 	void debugturn();

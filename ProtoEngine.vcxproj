@@ -25,6 +25,7 @@
     <None Include="engine\shaders\vshader_skybox.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="collectible.h" />
     <ClInclude Include="engine\asset.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
@@ -44,8 +45,10 @@
     <ClInclude Include="objects\orbit\orbit.h" />
     <ClInclude Include="objects\planet\planet.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
+    <ClInclude Include="rollaball.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="collectible.cpp" />
     <ClCompile Include="engine\asset.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
@@ -65,6 +68,7 @@
     <ClCompile Include="objects\orbit\orbit.cpp" />
     <ClCompile Include="objects\planet\planet.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
+    <ClCompile Include="rollaball.cpp" />
     <ClCompile Include="SatelliteScene.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
