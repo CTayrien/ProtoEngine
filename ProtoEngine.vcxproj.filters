@@ -187,9 +187,6 @@
     <ClCompile Include="collectible.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSpaceShooter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="playarea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -203,6 +200,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="playerbullet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRollABall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
