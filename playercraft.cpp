@@ -1,8 +1,17 @@
-#include "rollaball.h"
+#include "playercraft.h"
 #include "engine\engine.h"
-#include <iostream>
 
-void rollaball::script()
+
+playercraft::playercraft()
+{
+}
+
+
+playercraft::~playercraft()
+{
+}
+
+void playercraft::script()
 {
 	// Drag - should be on tform?
 	glm::vec3 d = tform.vel;
@@ -15,7 +24,7 @@ void rollaball::script()
 	if (engine::camera.isdebug) return;
 
 	// Move
-	float power = 80;
+	float power = 1000;
 	glm::vec3 md;
 	if (engine::input.down[input_w]) md.y++;
 	if (engine::input.down[input_a]) md.x--;
@@ -24,19 +33,11 @@ void rollaball::script()
 	if (md != glm::vec3()) md = glm::normalize(md);
 	tform.force += md * power;
 
-	// Roll - should be a delta-rotate function on tform?
-	if (tform.vel == glm::vec3()) return;
-	float radius = 1;
-	float angle = glm::length(tform.vel) * radius * engine::timer.dt;
-	glm::vec3 axis = glm::normalize(glm::cross(glm::vec3(0, 0, 1), tform.vel));
-	tform.R = glm::mat3(glm::rotate(angle, axis)) * tform.R;
-}
-
-rollaball::rollaball()
-{
-}
-
-
-rollaball::~rollaball()
-{
+	// Shoot
+	if (engine::input.ddown[input_mouse_left] == 1) {
+		bulletprefab.tform.loc = tform.loc;
+		bullets[cbullet] = bulletprefab;
+		engine::scene.add(&bullets[cbullet]);
+		cbullet = (cbullet + 1) % nbullets;
+	}
 }

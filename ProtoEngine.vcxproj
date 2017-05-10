@@ -25,7 +25,9 @@
     <None Include="engine\shaders\vshader_skybox.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="asteroid.h" />
     <ClInclude Include="collectible.h" />
+    <ClInclude Include="enemycraft.h" />
     <ClInclude Include="engine\asset.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
@@ -45,10 +47,15 @@
     <ClInclude Include="objects\orbit\orbit.h" />
     <ClInclude Include="objects\planet\planet.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
+    <ClInclude Include="playarea.h" />
+    <ClInclude Include="playerbullet.h" />
+    <ClInclude Include="playercraft.h" />
     <ClInclude Include="rollaball.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="asteroid.cpp" />
     <ClCompile Include="collectible.cpp" />
+    <ClCompile Include="enemycraft.cpp" />
     <ClCompile Include="engine\asset.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
@@ -68,8 +75,11 @@
     <ClCompile Include="objects\orbit\orbit.cpp" />
     <ClCompile Include="objects\planet\planet.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
+    <ClCompile Include="playarea.cpp" />
+    <ClCompile Include="playerbullet.cpp" />
+    <ClCompile Include="playercraft.cpp" />
     <ClCompile Include="rollaball.cpp" />
-    <ClCompile Include="SceneRollABall.cpp" />
+    <ClCompile Include="SceneSpaceShooter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>

@@ -107,6 +107,21 @@
     <ClInclude Include="collectible.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="playarea.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playercraft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemycraft.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="asteroid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playerbullet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -172,7 +187,22 @@
     <ClCompile Include="collectible.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneRollABall.cpp">
+    <ClCompile Include="SceneSpaceShooter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playarea.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playercraft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="enemycraft.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="asteroid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playerbullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

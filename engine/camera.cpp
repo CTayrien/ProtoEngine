@@ -33,6 +33,18 @@ void camera::setdebug(bool isdebug)
 
 void camera::script()
 {
+	if (engine::input.ddown[input_tilde] == 1)
+	{
+		toggledebug();
+		if (!isdebug) {
+			printf("loc: %f, %f, %f", tform.loc.x, tform.loc.y, tform.loc.z);
+			printf("Yaw, Pitch, Roll: %f, %f, %f", tform.rot.x, tform.rot.y, tform.rot.z);
+		}
+		else {
+			printf("\nDebug cam on.\n");
+		}
+	}
+		
 	if (isdebug) {
 		if (engine::input.down[input_esc])
 			glfwSetWindowShouldClose(engine::window.ptr, true);
