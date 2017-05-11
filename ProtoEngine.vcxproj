@@ -79,7 +79,7 @@
     <ClCompile Include="playerbullet.cpp" />
     <ClCompile Include="playercraft.cpp" />
     <ClCompile Include="rollaball.cpp" />
-    <ClCompile Include="SceneRollABall.cpp" />
+    <ClCompile Include="SceneSpaceShooter.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>

@@ -1,3 +1,6 @@
+/* Proto Engine : free open-source educational prototype game engine for prototyping simple games.
+Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
+GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "playercraft.h"
 #include "engine\engine.h"
 
@@ -35,9 +38,15 @@ void playercraft::script()
 
 	// Shoot
 	if (engine::input.ddown[input_mouse_left] == 1) {
+		
 		bulletprefab.tform.loc = tform.loc;
-		bullets[cbullet] = bulletprefab;
-		engine::scene.add(&bullets[cbullet]);
+
+		if (!bullets[cbullet].isactive) {
+			bullets[cbullet] = bulletprefab;
+			bulletprefab.load();
+			engine::scene.add(&bullets[cbullet]);		//CAUSES THEM TO GET UPDATED TWICE
+		}
+		
 		cbullet = (cbullet + 1) % nbullets;
 	}
 }

@@ -21,6 +21,10 @@ void spawnenemies(const enemycraft& prefab, enemycraft* enemies, int nenemies) {
 
 int main()
 {
+	// scene should store new'd pointers via spawn function
+	// they are erase-removed and deleted by the despawn func. when game exits, all are despawned, then resource maps are unloaded
+	// all objects have their own assets. these get their integer vals from the map. the map stores ptrs. the derived class provide a way to new and delete texs from the single polymorphic map? yes - texture.load would have a new if necessary, and texture.unload would delete things. could keep ref counter and/or use smart pointer, and auto-unload when despawning
+
 	srand(time(0));
 
 	model models[4] = {
