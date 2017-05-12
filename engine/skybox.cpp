@@ -40,11 +40,6 @@ bool skybox::loaded()
 	return (object::loaded() && skybox_shader.loaded);
 }
 
-void skybox::unload()
-{
-	object::unload();
-}
-
 void skybox::script()
 {
 	// skybox has no behavior

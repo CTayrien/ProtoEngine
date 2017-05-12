@@ -19,7 +19,6 @@ public:
 
 	bool load() override;
 	bool loaded() override;
-	void unload() override;
 
 	void script() override;
 	void render() override;
