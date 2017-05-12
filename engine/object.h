@@ -19,16 +19,15 @@ class object
 {
 public:
 	std::string tag = "default tag";
-	model* mod = nullptr;
-	texture* tex = nullptr;
+	model* mod = nullptr;		//	can make these obj not ptr
+	texture* tex = nullptr;		//	no need for polymorphism.
 	transform tform;
 
 	object();
 	virtual ~object();
 	
 	virtual bool loaded();
-	virtual void load();
-	virtual void unload();
+	virtual bool load();
 	
 	void update();
 	virtual void script();

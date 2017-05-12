@@ -30,7 +30,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 //		guarantee it simplifies the code base
 //		guarantee no object unloads resources of other objects
 
-std::map<std::string, asset*> asset::manager;
+std::map<std::string, asset*> asset::assets;
 
 char * asset::read(const char * filename)
 {
@@ -52,29 +52,14 @@ char * asset::read(const char * filename)
 	return bytes;
 }
 
-asset::asset(std::string filename)
+asset::asset(std::vector<std::string> filenames)
 {
-	this->filename = filename;
+	this->filenames = filenames;
+	for (auto& file : filenames) {
+		key += file + " ";
+	}
 }
 
 asset::~asset()
 {
-}
-
-void asset::tryload()
-{
-	if (!loaded) {
-		if (manager[filename]) {
-			*this = *manager[filename];	//polymorphism (fail)/(win)?
-		}
-		else {
-			loaded = load();
-			if (loaded) {
-				manager[filename] = this;	//polymorphism (fail)/(win)?
-				// if the asset moves, this is bad
-				// if we copy the contents, polymorphism fails
-				// if we create a copy on the heap ... how can polymorphism work??
-			}
-		}
-	}
 }

@@ -39,7 +39,7 @@ scene engine::scene = { (int)2, {&engine::skybox, &engine::camera } };
 
 void engine::start()
 {
-	// GLFW window & GLEW library
+	// GLFW, window, & GLEW
 	if (glfwInit() != GL_TRUE) { stop("GLFW init failed"); }
 	window.ptr = glfwCreateWindow(window.w, window.h, window.title.c_str(), NULL, NULL); //glfwGetPrimaryMonitor(), NULL
 	if (nullptr == window.ptr) { stop("GLFW create window failed"); }
@@ -59,16 +59,14 @@ void engine::start()
 	cursor.update();
 
 	// Shader
-	shader_pblinn.tryload();
-	if (!shader_pblinn.loaded) { stop("Shader load failed"); }
+	if (!shader_pblinn.load())
+		stop("Shader load failed");
 	shader_pblinn.use();
 	
 	// Scene
-	for (int i = 0; i < scene.nobjs; i++) {
-		scene.objects[i]->load();
-		if (!scene.objects[i]->loaded())
+	for (int i = 0; i < scene.nobjs; i++)
+		if (!scene.objects[i]->load())
 			stop(scene.objects[i]->tag + " object load failed"); 
-	}
 
 	gameloop();
 
@@ -101,10 +99,9 @@ void engine::stop(std::string comment)
 {
 	printf("\n%s\n", comment.c_str());
 
-	shader_pblinn.unload();
-	for (int i = 0; i < scene.nobjs; i++)
-		scene.objects[i]->unload();
-	
+	for (auto& pair : asset::assets)
+		pair.second->unload();
+
 	glfwTerminate();
 
 	std::this_thread::sleep_for(std::chrono::seconds(1));

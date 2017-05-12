@@ -7,10 +7,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <iostream>
 
 shader::shader(std::string filenamev, std::string filenamef)
-	:asset(filenamev + " and " + filenamef)
+	:asset(std::vector<std::string>{filenamev, filenamef})
 {
-	this->filenames[0] = filenamev;
-	this->filenames[1] = filenamef;
 }
 
 shader::~shader()
@@ -18,7 +16,13 @@ shader::~shader()
 }
 
 bool shader::load()
-{	
+{
+	// If already loaded, copy from asset map instead of loading again
+	if (nullptr != assets[key]) {
+		*this = *(shader*)(assets[key]);
+		return true;
+	}
+
 	// Create program & shaders in memory
 	id = glCreateProgram();
 	ids[0] = glCreateShader(GL_VERTEX_SHADER);
@@ -68,6 +72,11 @@ bool shader::load()
 		delete[] log;
 		return false;
 	}
+
+	loaded = true;
+
+	// Save a copy of this asset in the asset manager
+	assets[key] = new shader(*this);
 
 	return true;
 }

@@ -8,8 +8,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
-model::model(std::string filename)
-	:asset(filename)
+model::model(std::vector<std::string> filenames)
+	:asset(filenames)
 {
 }
 
@@ -19,13 +19,19 @@ model::~model()
 
 bool model::load()
 {
+	// If already loaded, copy from asset map instead of loading again
+	if (nullptr != assets[key]) {
+		*this = *(model*)(assets[key]);
+		return true;
+	}
+
 	GLsizei locsize = sizeof(glm::vec3);
 	GLsizei uvsize = sizeof(glm::vec2);
 	GLsizei normsize = sizeof(glm::vec3);
 	GLsizei vertsize = locsize + uvsize + normsize;
 	
 	// Open & read file & allocate on heap
-	char* modelBytes = read(filename.c_str());
+	char* modelBytes = read(filenames[0].c_str());
 	if (modelBytes == nullptr) return false;
 
 	// Process file data
@@ -63,6 +69,13 @@ bool model::load()
 	// Unbind
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	loaded = true;
+
+	// Save a copy of this asset in the asset manager
+	assets[key] = new model(*this);
+
+	return true;
 
 	return true;
 }

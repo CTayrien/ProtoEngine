@@ -4,22 +4,23 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #pragma once
 #include <map>
-
+#include <vector>
+#include <string>
+ 
 class asset
 {
 public:
-	// Using pointers allows polymorphism to work - stores address of first asset to load - subsequent assets with same name copy its data - may become invalid if first asset moves or is deleted (when would it? can the map store its own?)
-	static std::map<std::string, asset*> manager;
+	// Using pointers allows polymorphism to work - owns (on the heap) a copy of the first asset to load. subsequent assets with same key copy its data
+	static std::map<std::string, asset*> assets;
 	static char* read(const char* filename);
 
-	std::string filename;
+	std::string key;
+	std::vector<std::string> filenames;
 	bool loaded = false;
 
-	asset(std::string filename);
+	asset(std::vector<std::string> filenames);
 	virtual ~asset();
 
-	void tryload();
-	
 	virtual bool load() = 0;
 	virtual void unload() = 0;
  };

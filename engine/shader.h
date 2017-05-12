@@ -11,9 +11,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class shader
 	:public asset
 {
-public:
-	std::string filenames[2];
-	
+public:	
 	uint32_t id = 0, ids[2];
 
 	shader(std::string filenamev, std::string filenamef);

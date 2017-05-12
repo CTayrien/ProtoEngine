@@ -17,7 +17,7 @@ public:
 	skybox();
 	~skybox();
 
-	void load() override;
+	bool load() override;
 	bool loaded() override;
 	void unload() override;
 

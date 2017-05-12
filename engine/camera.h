@@ -20,7 +20,7 @@ public:
 	camera();
 	~camera() override;
 
-	void load() override;
+	bool load() override;
 	void uploadpov();
 	
 	void script() override;

@@ -68,9 +68,6 @@
     <ClInclude Include="engine\transform.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\texture_cubemap.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\asset.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -146,9 +143,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\transform.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\texture_cubemap.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\asset.cpp">

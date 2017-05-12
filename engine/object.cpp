@@ -13,16 +13,11 @@ bool object::loaded()
 	return (mod->loaded && tex->loaded);
 }
 
-void object::load()
+bool object::load()
 {
-	if (mod) mod->tryload();
-	if (tex) tex->tryload();
-}
-
-void object::unload()
-{
-	if (mod && mod->loaded) mod->unload();
-	if (tex && tex->loaded) tex->unload();
+	if (!mod || !mod->load()) return false;
+	if (!tex || !tex->load()) return false;
+	return true;
 }
 
 void object::update()

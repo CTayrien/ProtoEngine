@@ -11,10 +11,12 @@ class texture
 public:
 	uint32_t id = 0;
 	
-	texture(std::string filename);
+	texture(std::vector<std::string> filenames);
 	virtual ~texture();
 
-	virtual bool load() override;
+	bool load() override;
+	bool load2dtexture();
+	bool loadcubemap();
 
-	virtual void unload() override;
+	void unload() override;
 };

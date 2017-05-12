@@ -3,15 +3,15 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "skybox.h"
 #include "engine.h"
-#include "texture_cubemap.h"
+//#include "texture_cubemap.h"
 
 skybox::skybox()
 {
 	tag = "skybox";
-	mod = new model("engine/models/skybox.dat");
+	mod = new model({ "engine/models/skybox.dat" });
 	
 	// Space-scape skybox images given out of order. If order changed to expected, seams don't line up, regardless of flipping images vert & horiz. There was no "OpenGL" export option so I chose Ogre3D - bad choice? Perhaps -z is not forward in that engine, so the names understood to refer to +/- z are swapped. After checking http://www.ogre3d.org/forums/viewtopic.php?t=18856, it seems that Ogre3D is OpenGL-like (right handed, -z into screen). Unity is +z into screen. unreal is +z up. 3ds max is +z up. Maybe spacespace names them back and front because they assume +z is the front? who knows.
-	std::string filenames[6] = {
+	std::vector<std::string>filenames = {
 		"engine/textures/spacescape/spacescape_right1.png",
 		"engine/textures/spacescape/spacescape_left2.png",
 		"engine/textures/spacescape/spacescape_top3.png",
@@ -20,7 +20,7 @@ skybox::skybox()
 		"engine/textures/spacescape/spacescape_back6.png"		//expected: front
 	};
 
-	tex = new texture_cubemap(filenames);
+	tex = new texture(filenames);
 }
 
 skybox::~skybox()
@@ -29,10 +29,10 @@ skybox::~skybox()
 	delete tex;
 }
 
-void skybox::load()
+bool skybox::load()
 {
-	skybox_shader.tryload();
-	object::load();
+	if(!skybox_shader.load()) return false;
+	return object::load();
 }
 
 bool skybox::loaded()
@@ -42,7 +42,6 @@ bool skybox::loaded()
 
 void skybox::unload()
 {
-	skybox_shader.unload();
 	object::unload();
 }
 

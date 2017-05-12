@@ -36,7 +36,6 @@
     <ClInclude Include="engine\shader.h" />
     <ClInclude Include="engine\skybox.h" />
     <ClInclude Include="engine\texture.h" />
-    <ClInclude Include="engine\texture_cubemap.h" />
     <ClInclude Include="engine\transform.h" />
     <ClInclude Include="objects\arrows\Arrow.h" />
     <ClInclude Include="objects\arrows\lerparrow.h" />
@@ -64,7 +63,6 @@
     <ClCompile Include="engine\shader.cpp" />
     <ClCompile Include="engine\skybox.cpp" />
     <ClCompile Include="engine\texture.cpp" />
-    <ClCompile Include="engine\texture_cubemap.cpp" />
     <ClCompile Include="engine\transform.cpp" />
     <ClCompile Include="objects\arrows\Arrow.cpp" />
     <ClCompile Include="objects\arrows\lerparrow.cpp" />

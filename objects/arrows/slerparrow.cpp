@@ -9,7 +9,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 slerparrow::slerparrow()
 {
 	delete tex;
-	tex = new texture("engine/textures/green.png");
+	tex = new texture({ "engine/textures/green.png" });
 }
 
 slerparrow::~slerparrow()

@@ -7,8 +7,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 camera::camera()
 {
 	tag = "camera";
-	mod = new model("engine/models/camera.dat");
-	tex = new texture("engine/textures/black.png");
+	mod = new model({ "engine/models/camera.dat" });
+	tex = new texture({ "engine/textures/black.png" });
 	tform.loc.z = 2;
 	tform.rot = glm::vec3{};
 }
@@ -63,7 +63,7 @@ void camera::render()
 	}
 }
 
-void camera::load()
+bool camera::load()
 {
 	perspective = glm::perspective(engine::pi * .4f,		//fov
 		(float)engine::window.w / (float)engine::window.h,	//aspect ratio
@@ -72,7 +72,7 @@ void camera::load()
 
 	setdebug(isdebug);
 
-	object::load();
+	return object::load();
 }
 
 void camera::uploadpov()

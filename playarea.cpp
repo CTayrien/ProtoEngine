@@ -18,7 +18,7 @@ void playarea::script()
 {
 	// lerp player to clamp
 
-	for (int i = 0; i < player->nbullets; i++) {
+	for (int i = 0; i < player->nbullets; i++) {		//box-sphere failed for no reason?
 		if (player->bullets[i].isactive && !collides<SPHERE, SPHERE>(player->bullets[i])) {
 			player->bullets[i].isactive = false;
 			engine::scene.remove(&player->bullets[i]);
