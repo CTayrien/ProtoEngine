@@ -8,56 +8,39 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "rollaball.h"
 #include "collectible.h"
 
-void spawnitems(const collectible& prefab, collectible* collectibles, int n) {
+void spawnitems(rollaball* player , int n)
+{
+	srand(time(0));
+
 	for (int i = 0; i < 10; i++) {
-		collectibles[i] = prefab;
-		collectibles[i].tform.loc.x = (float)rand() / (float)RAND_MAX * 20 - 10;
-		collectibles[i].tform.loc.y = (float)rand() / (float)RAND_MAX * 20 - 10;
-		engine::scene.add(&collectibles[i]);
+		engine::scene.spawn(new collectible);
+		collectible& c = *(collectible*)engine::scene.back();
+		c.player = player;
+		c.tform.loc.x = (float)rand() / (float)RAND_MAX * 20 - 10;
+		c.tform.loc.y = (float)rand() / (float)RAND_MAX * 20 - 10;
 	}
 }
 
 int main()
 {
-	srand(time(0));
-
-	model models[2] = {
-		"engine/models/sphere.dat",
-		"engine/models/box.dat" };
-
-	texture textures[6] = {
-		"engine/textures/white.png",
-		"engine/textures/black.png",
-		"engine/textures/red.png",
-		"engine/textures/green.png",
-		"engine/textures/blue.png",
-		"engine/textures/earth.png"
-	};
-
-	object background;
-	background.mod = &models[1];
-	background.tex = &textures[0];
+	// Background
+	engine::scene.spawn(new object);
+	object& background = *engine::scene.back();
+	background.tag = "background";
+	background.mod = model({ "engine/models/quad.dat" });
+	background.tex = texture({ "engine/textures/white.png" });
 	background.tform.scale = { 20, 20, 1 };
 	background.tform.loc.z = -2;
-	engine::scene.add(&background);
 
-	rollaball player;
-	player.mod = &models[0];
-	player.tex = &textures[5];
-	engine::scene.add(&player);
+	// Player
+	engine::scene.spawn(new rollaball);
+	rollaball& player = *(rollaball*)engine::scene.back();
 
-	collectible prefab;
-	prefab.mod = &models[1];
-	prefab.tex = &textures[3];
-	prefab.tform.scale = { .1, .1, .1 };
-	prefab.player = &player;
-	prefab.tform.rotvel = { 1,1,1 };
+	// Collectibles
+	spawnitems(&player, 10);
 
-	collectible collectibles[10];
-	spawnitems(prefab, collectibles, 10);
-
-	engine::camera.tform.loc.z = 16;
-	engine::camera.setdebug(false);
+	engine::cam.tform.loc.z = 16;
+	engine::cam.setdebug(false);
 
 	engine::start();
 

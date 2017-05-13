@@ -22,6 +22,7 @@ public:
 	// Radius of the tightest fit bounding sphere
 	float r;
 
+	model();
 	model(std::vector<std::string> filenames);
 	~model();
 

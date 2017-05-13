@@ -6,7 +6,7 @@ spacecraft::spacecraft()
 {
 }
 
-spacecraft::spacecraft(model * mod, texture * tex)
+spacecraft::spacecraft(model mod, texture tex)
 {
 	this->mod = mod;
 	this->tex = tex;

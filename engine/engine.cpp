@@ -33,9 +33,9 @@ window engine::window;
 shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
 
 // Scene objects
-camera engine::camera;
-skybox engine::skybox;
-scene engine::scene = { (int)2, {&engine::skybox, &engine::camera } };
+scene engine::scene;
+skybox& engine::sky = *(skybox*)(engine::scene.objects[0]);
+camera& engine::cam = *(camera*)(engine::scene.objects[1]);
 
 void engine::start()
 {
@@ -66,8 +66,8 @@ void engine::start()
 	// Scene
 	for (int i = 0; i < scene.nobjs; i++)
 		if (!scene.objects[i]->load())
-			stop(scene.objects[i]->tag + " object load failed"); 
-
+			stop(scene.objects[i]->tag + " object load failed");
+	
 	gameloop();
 
 	stop("Game over");
@@ -86,6 +86,7 @@ void engine::gameloop()
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
+		scene.clean();
 
 		// Output scene			(per user? all with different camera povs?)
 		glfwSwapBuffers(window.ptr);
@@ -99,8 +100,17 @@ void engine::stop(std::string comment)
 {
 	printf("\n%s\n", comment.c_str());
 
+	//assets.unload
 	for (auto& pair : asset::assets)
 		pair.second->unload();
+	asset::assets = {};
+	
+	// delete objects from scene
+	for (int i = 0; i < scene.nobjs; i++) {
+		delete scene.objects[i];
+		scene.objects[i] = nullptr;
+	}
+	scene.nobjs = 0;
 
 	glfwTerminate();
 

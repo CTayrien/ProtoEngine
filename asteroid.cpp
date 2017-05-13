@@ -5,6 +5,11 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 asteroid::asteroid()
 {
+	tag = "asteroid";
+	mod = model({ "engine/models/sphere.dat" });
+	tex = texture({ "engine/textures/brown.png" });
+	tform.loc.y = 20;
+	tform.vel.y = -20;
 }
 
 asteroid::~asteroid()

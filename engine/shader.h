@@ -14,6 +14,7 @@ class shader
 public:	
 	uint32_t id = 0, ids[2];
 
+	shader();
 	shader(std::string filenamev, std::string filenamef);
 	~shader();
 	

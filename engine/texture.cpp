@@ -7,6 +7,10 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GL\glew.h>
 #include <iostream>
 
+texture::texture()
+{
+}
+
 texture::texture(std::vector<std::string> filenames)
 	:asset(filenames)
 {

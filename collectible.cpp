@@ -4,6 +4,11 @@
 
 collectible::collectible()
 {
+	tag = "collectible";
+	mod = model({ "engine/models/box.dat" });
+	tex = texture({ "engine/textures/blue.png" });
+	tform.scale = { .1, .1, .1 };
+	tform.rotvel = { 1,1,1 };
 }
 
 collectible::~collectible()
@@ -12,10 +17,9 @@ collectible::~collectible()
 
 void collectible::script()
 {
-	if (isactive && collides<BOX, SPHERE>(*player)) {
-		engine::scene.remove(this);
+	if (collides<BOX, SPHERE>(*player)) {
+		garbage = true;
 		std::cout << "Nice! Score: " << ++player->score << std::endl;
-		isactive = false;
 		if (player->score == 10) {
 			std::cout << "A winner is you!!!!1" << std::endl;
 			glfwSetWindowShouldClose(engine::window.ptr, GLFW_TRUE);

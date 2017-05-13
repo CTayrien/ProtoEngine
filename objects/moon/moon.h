@@ -6,7 +6,7 @@ class moon :
 {
 public:
 	moon();
-	moon(model* mod, texture* tex);
+	moon(model mod, texture tex);
 
 	~moon() override;
 

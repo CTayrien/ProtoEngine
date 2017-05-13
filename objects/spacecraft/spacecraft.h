@@ -5,7 +5,7 @@ class spacecraft :
 {
 public:
 	spacecraft();
-	spacecraft(model* mod, texture* tex);
+	spacecraft(model mod, texture tex);
 	~spacecraft() override;
 	void script() override;
 };

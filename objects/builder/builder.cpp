@@ -25,7 +25,7 @@ builder::builder()
 	tform.loc = { .5, 0, 0 };
 }
 
-builder::builder(model * mod, texture * tex)
+builder::builder(model mod, texture tex)
 {
 	this->mod = mod;
 	this->tex = tex;

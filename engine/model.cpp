@@ -8,6 +8,10 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
+model::model()
+{
+}
+
 model::model(std::vector<std::string> filenames)
 	:asset(filenames)
 {

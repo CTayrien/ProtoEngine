@@ -8,8 +8,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 slerparrow::slerparrow()
 {
-	delete tex;
-	tex = new texture({ "engine/textures/green.png" });
+	tex = texture({ "engine/textures/green.png" });
 }
 
 slerparrow::~slerparrow()
@@ -117,5 +116,5 @@ void slerparrow::script()
 
 	// Set location/orientation of camera
 	if (engine::input.down[input_ctrl])
-		engine::camera.tform.loc += dv;
+		engine::cam.tform.loc += dv;
 }

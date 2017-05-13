@@ -7,6 +7,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 playercraft::playercraft()
 {
+	tag = "player";
+	mod = model({ "engine/models/tet.dat" });
+	tex = texture({ "engine/textures/yellow.png" });
 }
 
 
@@ -24,7 +27,7 @@ void playercraft::script()
 	tform.force -= d * (a * x * x + b * x + c);
 
 	// Toggle control (ball vs debug cam)
-	if (engine::camera.isdebug) return;
+	if (engine::cam.isdebug) return;
 
 	// Move
 	float power = 1000;
@@ -37,16 +40,8 @@ void playercraft::script()
 	tform.force += md * power;
 
 	// Shoot
-	if (engine::input.ddown[input_mouse_left] == 1) {
-		
-		bulletprefab.tform.loc = tform.loc;
-
-		if (!bullets[cbullet].isactive) {
-			bullets[cbullet] = bulletprefab;
-			bulletprefab.load();
-			engine::scene.add(&bullets[cbullet]);		//CAUSES THEM TO GET UPDATED TWICE
-		}
-		
-		cbullet = (cbullet + 1) % nbullets;
+	if (engine::input.ddown[input_mouse_left] == 1) {	
+		engine::scene.spawn(new playerbullet);
+		engine::scene.back()->tform.loc = tform.loc;
 	}
 }

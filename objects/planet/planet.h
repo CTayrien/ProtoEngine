@@ -21,7 +21,7 @@ private:
 public:
 	void push(object* objs);
 	// 3) Create a constructor that initializes the obj member data "string tag" and "model"
-	planet(model* mod, texture* tex);
+	planet(model mod, texture tex);
 
 	// 4) Override the destructor. If c'tor allocates memory, d'tor deallocates it.
 	~planet() override;

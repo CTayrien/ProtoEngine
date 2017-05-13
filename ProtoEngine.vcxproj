@@ -33,6 +33,7 @@
     <ClInclude Include="engine\engine.h" />
     <ClInclude Include="engine\model.h" />
     <ClInclude Include="engine\object.h" />
+    <ClInclude Include="engine\scene.h" />
     <ClInclude Include="engine\shader.h" />
     <ClInclude Include="engine\skybox.h" />
     <ClInclude Include="engine\texture.h" />
@@ -60,6 +61,7 @@
     <ClCompile Include="engine\engine.cpp" />
     <ClCompile Include="engine\model.cpp" />
     <ClCompile Include="engine\object.cpp" />
+    <ClCompile Include="engine\scene.cpp" />
     <ClCompile Include="engine\shader.cpp" />
     <ClCompile Include="engine\skybox.cpp" />
     <ClCompile Include="engine\texture.cpp" />
@@ -77,7 +79,7 @@
     <ClCompile Include="playerbullet.cpp" />
     <ClCompile Include="playercraft.cpp" />
     <ClCompile Include="rollaball.cpp" />
-    <ClCompile Include="SceneSpaceShooter.cpp" />
+    <ClCompile Include="SceneRollABall.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>

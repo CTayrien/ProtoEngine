@@ -18,6 +18,7 @@ public:
 	std::vector<std::string> filenames;
 	bool loaded = false;
 
+	asset();
 	asset(std::vector<std::string> filenames);
 	virtual ~asset();
 

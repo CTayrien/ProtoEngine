@@ -4,7 +4,7 @@ moon::moon()
 {
 }
 
-moon::moon(model * mod, texture * tex)
+moon::moon(model mod, texture tex)
 {
 	this->mod = mod;
 	this->tex = tex;

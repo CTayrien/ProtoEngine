@@ -8,8 +8,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 lerparrow::lerparrow()
 {
-	delete tex;
-	tex = new texture({ "engine/textures/red.png" });
+	tex = texture({ "engine/textures/red.png" });
 }
 
 lerparrow::~lerparrow()

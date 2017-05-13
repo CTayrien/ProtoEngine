@@ -11,6 +11,7 @@ class texture
 public:
 	uint32_t id = 0;
 	
+	texture();
 	texture(std::vector<std::string> filenames);
 	virtual ~texture();
 

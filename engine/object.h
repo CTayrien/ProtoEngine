@@ -19,8 +19,9 @@ class object
 {
 public:
 	std::string tag = "default tag";
-	model* mod = nullptr;		//	can make these obj not ptr
-	texture* tex = nullptr;		//	no need for polymorphism.
+	bool garbage = false;
+	model mod;
+	texture tex;
 	transform tform;
 
 	object();

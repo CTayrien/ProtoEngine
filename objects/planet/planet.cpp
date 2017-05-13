@@ -13,7 +13,7 @@ void planet::push(object * obj)
 }
 
 // c'tor
-planet::planet(model * mod, texture * tex)
+planet::planet(model mod, texture tex)
 {
 	tag = "myobjtag";
 	this->mod = mod;
@@ -33,7 +33,7 @@ void planet::script()
 {
 	//tform.derivematrix();
 
-	if (collides<SPHERE,SPHERE>(engine::camera)) {
+	if (collides<SPHERE,SPHERE>(engine::cam)) {
 		system("cls");
 		printf("Collision.\n");
 	}

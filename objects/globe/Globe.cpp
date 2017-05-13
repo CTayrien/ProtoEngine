@@ -6,14 +6,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 Globe::Globe()
 {
-	this->tex = new texture({ "objects/planet/earth.png" });
-	this->mod = new model({ "engine/models/sphere.dat" });
+	this->tex = texture({ "objects/planet/earth.png" });
+	this->mod = model({ "engine/models/sphere.dat" });
 }
 
 Globe::~Globe()
 {
-	delete tex;
-	delete mod;
+
 }
 
 void Globe::script()

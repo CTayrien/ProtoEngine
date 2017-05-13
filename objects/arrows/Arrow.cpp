@@ -6,8 +6,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 Arrow::Arrow()
 {
-	mod = new model({ "engine/models/arrow.dat" });
-	tex = new texture({"engine/textures/white.png"});
+	mod = model({ "engine/models/arrow.dat" });
+	tex = texture({"engine/textures/white.png"});
 	tform.scale.x *= .1f;
 	tform.scale.y *= .1f;
 	tform.scale.z *= 1.1f;
@@ -16,8 +16,6 @@ Arrow::Arrow()
 
 Arrow::~Arrow()
 {
-	delete mod;
-	delete tex;
 }
 
 void Arrow::script()

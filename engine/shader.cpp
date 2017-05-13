@@ -6,6 +6,10 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GL/glew.h>
 #include <iostream>
 
+shader::shader()
+{
+}
+
 shader::shader(std::string filenamev, std::string filenamef)
 	:asset(std::vector<std::string>{filenamev, filenamef})
 {

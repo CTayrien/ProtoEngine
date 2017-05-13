@@ -7,7 +7,7 @@ class playerbullet :
 	public object
 {
 public:
-	bool isactive = false;
+	float lifetime = 0;
 
 	playerbullet();
 	~playerbullet();

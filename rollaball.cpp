@@ -12,7 +12,7 @@ void rollaball::script()
 	tform.force -= d * (a * x * x + b * x + c);
 
 	// Toggle control (ball vs debug cam)
-	if (engine::camera.isdebug) return;
+	if (engine::cam.isdebug) return;
 
 	// Move
 	float power = 80;
@@ -34,6 +34,9 @@ void rollaball::script()
 
 rollaball::rollaball()
 {
+	tag = "player";
+	mod = model({ "engine/models/sphere.dat" });
+	tex = texture({ "engine/textures/earth.png" });
 }
 
 

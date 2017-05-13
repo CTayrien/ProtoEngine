@@ -52,6 +52,10 @@ char * asset::read(const char * filename)
 	return bytes;
 }
 
+asset::asset()
+{
+}
+
 asset::asset(std::vector<std::string> filenames)
 {
 	this->filenames = filenames;

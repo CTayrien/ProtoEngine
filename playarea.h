@@ -22,6 +22,7 @@ public:
 	playarea();
 	~playarea();
 
+	void render() override;
+	bool load() override;
 	void script() override;
 };
-

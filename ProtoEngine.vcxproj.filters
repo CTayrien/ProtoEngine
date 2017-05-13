@@ -119,6 +119,9 @@
     <ClInclude Include="playerbullet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="engine\scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -196,7 +199,10 @@
     <ClCompile Include="playerbullet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SceneSpaceShooter.cpp">
+    <ClCompile Include="engine\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneRollABall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

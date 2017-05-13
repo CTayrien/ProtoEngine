@@ -10,6 +10,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "camera.h"
 #include "skybox.h"
 #include "shader.h"
+#include "scene.h"
 
 #pragma region GLFW_INPUT_INTERFACE
 
@@ -69,24 +70,8 @@ struct input { std::map<int, int> down, ddown; };
 
 struct timer { float t = 0, dt = 0; };
 
-struct scene {
-	int nobjs;
-	object* objects[256];
-	void add(object* object) { 
-		if (nobjs < 256) {
-			objects[nobjs++] = object;
-			//object->load();		// if engine has started, load the object...
-		}
-	}
-	void remove(object* object) {	// should remove once per update cycle
-		bool removed = false;
-		for (int i = 0; i < nobjs; i++) {
-			if (objects[i] == object) removed = true;
-			if (removed && i < nobjs-1) objects[i] = objects[i + 1];
-		}
-		if (removed) nobjs--;
-	}
-};
+// scene should store new'd pointers via spawn function
+// they are erase-removed and deleted by the despawn func. when game exits, all are despawned, then resource maps are unloaded
 
 class engine
 {
@@ -102,8 +87,8 @@ public:
 	// scene shaders - should be on scene, skybox or camera? skybox shader is on skybox - that is normal (most objects should have a ref to their shader, and render manager uses them to prioritize render calls)
 	static shader shader_pblinn;
 	
-	static camera camera;
-	static skybox skybox;
+	static camera& cam;
+	static skybox& sky;
 	static scene scene;
 
 	static void start();

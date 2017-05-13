@@ -10,13 +10,13 @@ object::~object() { }
 
 bool object::loaded()
 {
-	return (mod->loaded && tex->loaded);
+	return (mod.loaded && tex.loaded);
 }
 
 bool object::load()
 {
-	if (!mod || !mod->load()) return false;
-	if (!tex || !tex->load()) return false;
+	if (!mod.load()) return false;
+	if (!tex.load()) return false;
 	return true;
 }
 
@@ -35,18 +35,18 @@ void object::render()
 {
 	glUniformMatrix4fv(3, 1, GL_FALSE, &(glm::translate(tform.loc) * glm::mat4(tform.R) * glm::scale(tform.scale))[0][0]);
 	glUniformMatrix3fv(4, 1, GL_FALSE, &(tform.R * glm::mat3(glm::scale(1.0f / tform.scale)))[0][0]);
-	glBindTexture(GL_TEXTURE_2D, tex->id);
-	glBindVertexArray(mod->vao);
-	glDrawArrays(GL_TRIANGLES, 0, mod->nverts);
+	glBindTexture(GL_TEXTURE_2D, tex.id);
+	glBindVertexArray(mod.vao);
+	glDrawArrays(GL_TRIANGLES, 0, mod.nverts);
 }
 
 template<> bool object::collides<SPHERE, SPHERE>(const object& b) const
 {
 	// Collider radius - cache me 
 	float as = glm::dot(tform.scale, glm::vec3(1)) / 3.f;
-	float ra = mod->r * as;
+	float ra = mod.r * as;
 	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
-	float rb = b.mod->r * bs;
+	float rb = b.mod.r * bs;
 	
 	// If dist^2 less than sum of radii squared, then colliding
 	float rab = ra + rb;
@@ -58,8 +58,8 @@ template<> bool object::collides<SPHERE, SPHERE>(const object& b) const
 template<> bool object::collides<BOX, SPHERE>(const object& b) const {
 	// Cache these: box half-width and sphere collider radius
 	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
-	float rb = b.mod->r * bs;
-	glm::vec3 e = mod->max * tform.scale;
+	float rb = b.mod.r * bs;
+	glm::vec3 e = mod.max * tform.scale;
 	
 	glm::vec3 p = tform.loc + tform.R * glm::clamp((b.tform.loc - tform.loc) * tform.R, -e, e);
 	float d = glm::distance(p, b.tform.loc);
@@ -73,8 +73,8 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 	if (glm::length(L) != 1.0f) return false;
 
 	// Collider half-width - cache me 
-	glm::vec3 ea = a.mod->max * a.tform.scale;
-	glm::vec3 eb = b.mod->max * b.tform.scale;
+	glm::vec3 ea = a.mod.max * a.tform.scale;
+	glm::vec3 eb = b.mod.max * b.tform.scale;
 
 	// Radial vectors (corner vector that is most aligned along L)
 	glm::vec3 ra = a.tform.R * (glm::sign(L * a.tform.R) * ea);

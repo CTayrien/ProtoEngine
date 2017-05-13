@@ -7,16 +7,14 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 camera::camera()
 {
 	tag = "camera";
-	mod = new model({ "engine/models/camera.dat" });
-	tex = new texture({ "engine/textures/black.png" });
+	mod = model({ "engine/models/camera.dat" });
+	tex = texture({ "engine/textures/black.png" });
 	tform.loc.z = 2;
 	tform.rot = glm::vec3{};
 }
 
 camera::~camera()
 {
-	delete mod;
-	delete tex;
 }
 
 void camera::toggledebug()
