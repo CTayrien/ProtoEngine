@@ -3,17 +3,18 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
-#include "playercraft.h"
+#include "objects/playercraft/playercraft.h"
 
-class asteroid :
+class enemycraft :
 	public object
 {
 public:
 	playercraft* player = nullptr;
 	bool isactive = false;
 
-	asteroid();
-	~asteroid();
+	enemycraft();
+	~enemycraft();
 
 	void script() override;
 };
+

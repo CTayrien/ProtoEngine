@@ -3,18 +3,16 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
-#include "playercraft.h"
+#include "objects/rollaball/rollaball.h"
 
-class enemycraft :
+class collectible :
 	public object
 {
 public:
-	playercraft* player = nullptr;
-	bool isactive = false;
+	rollaball* player = nullptr;
 
-	enemycraft();
-	~enemycraft();
-
+	collectible();
+	~collectible();
 	void script() override;
 };
 

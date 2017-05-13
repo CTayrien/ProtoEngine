@@ -2,8 +2,8 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "playercraft.h"
-#include "engine\engine.h"
-
+#include "engine.h"
+#include "objects/playerbullet/playerbullet.h"
 
 playercraft::playercraft()
 {
@@ -11,7 +11,6 @@ playercraft::playercraft()
 	mod = model({ "engine/models/tet.dat" });
 	tex = texture({ "engine/textures/yellow.png" });
 }
-
 
 playercraft::~playercraft()
 {

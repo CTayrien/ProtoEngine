@@ -98,29 +98,29 @@
     <ClInclude Include="objects\arrows\Arrow.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
-    <ClInclude Include="rollaball.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="collectible.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="playarea.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="playercraft.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="enemycraft.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="asteroid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="playerbullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="engine\scene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\asteroid\asteroid.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\collectible\collectible.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\enemycraft\enemycraft.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\playarea\playarea.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\playerbullet\playerbullet.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\playercraft\playercraft.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="objects\rollaball\rollaball.h">
+      <Filter>Header Files\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -178,32 +178,32 @@
     <ClCompile Include="objects\arrows\lerparrow.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="rollaball.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="collectible.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playarea.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playercraft.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="enemycraft.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="asteroid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="playerbullet.cpp">
+    <ClCompile Include="SceneRollABall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="engine\scene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="SceneRollABall.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="objects\asteroid\asteroid.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\collectible\collectible.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\enemycraft\enemycraft.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\playarea\playarea.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\playerbullet\playerbullet.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\playercraft\playercraft.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\rollaball\rollaball.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

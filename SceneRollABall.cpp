@@ -5,8 +5,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include "engine\engine.h"
 
-#include "rollaball.h"
-#include "collectible.h"
+#include "objects/rollaball/rollaball.h"
+#include "objects/collectible/collectible.h"
 
 void spawnitems(rollaball* player , int n)
 {

@@ -3,20 +3,17 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
+#include "objects/playercraft/playercraft.h"
 
-class scene
+class asteroid :
+	public object
 {
 public:
-	int nobjs;
+	playercraft* player = nullptr;
+	bool isactive = false;
 
-	object* objects[512];
+	asteroid();
+	~asteroid();
 
-	void spawn(object* object);
-	
-	void clean();
-
-	object* back();
-
-	scene();
-	~scene();
+	void script() override;
 };

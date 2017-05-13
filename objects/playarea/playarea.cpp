@@ -2,15 +2,13 @@
 Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "playarea.h"
-#include "engine\engine.h"
-
+#include "engine.h"
 
 playarea::playarea()
 {
 	tag = "play area";
 	tform.scale = { 20, 20, 20 };
 }
-
 
 playarea::~playarea()
 {

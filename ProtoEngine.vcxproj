@@ -25,9 +25,6 @@
     <None Include="engine\shaders\vshader_skybox.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="asteroid.h" />
-    <ClInclude Include="collectible.h" />
-    <ClInclude Include="enemycraft.h" />
     <ClInclude Include="engine\asset.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
@@ -41,21 +38,21 @@
     <ClInclude Include="objects\arrows\Arrow.h" />
     <ClInclude Include="objects\arrows\lerparrow.h" />
     <ClInclude Include="objects\arrows\slerparrow.h" />
+    <ClInclude Include="objects\asteroid\asteroid.h" />
     <ClInclude Include="objects\builder\builder.h" />
+    <ClInclude Include="objects\collectible\collectible.h" />
+    <ClInclude Include="objects\enemycraft\enemycraft.h" />
     <ClInclude Include="objects\globe\Globe.h" />
     <ClInclude Include="objects\moon\moon.h" />
     <ClInclude Include="objects\orbit\orbit.h" />
     <ClInclude Include="objects\planet\planet.h" />
+    <ClInclude Include="objects\playarea\playarea.h" />
+    <ClInclude Include="objects\playerbullet\playerbullet.h" />
+    <ClInclude Include="objects\playercraft\playercraft.h" />
+    <ClInclude Include="objects\rollaball\rollaball.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
-    <ClInclude Include="playarea.h" />
-    <ClInclude Include="playerbullet.h" />
-    <ClInclude Include="playercraft.h" />
-    <ClInclude Include="rollaball.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="asteroid.cpp" />
-    <ClCompile Include="collectible.cpp" />
-    <ClCompile Include="enemycraft.cpp" />
     <ClCompile Include="engine\asset.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
@@ -69,16 +66,19 @@
     <ClCompile Include="objects\arrows\Arrow.cpp" />
     <ClCompile Include="objects\arrows\lerparrow.cpp" />
     <ClCompile Include="objects\arrows\slerparrow.cpp" />
+    <ClCompile Include="objects\asteroid\asteroid.cpp" />
     <ClCompile Include="objects\builder\builder.cpp" />
+    <ClCompile Include="objects\collectible\collectible.cpp" />
+    <ClCompile Include="objects\enemycraft\enemycraft.cpp" />
     <ClCompile Include="objects\globe\Globe.cpp" />
     <ClCompile Include="objects\moon\moon.cpp" />
     <ClCompile Include="objects\orbit\orbit.cpp" />
     <ClCompile Include="objects\planet\planet.cpp" />
+    <ClCompile Include="objects\playarea\playarea.cpp" />
+    <ClCompile Include="objects\playerbullet\playerbullet.cpp" />
+    <ClCompile Include="objects\playercraft\playercraft.cpp" />
+    <ClCompile Include="objects\rollaball\rollaball.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
-    <ClCompile Include="playarea.cpp" />
-    <ClCompile Include="playerbullet.cpp" />
-    <ClCompile Include="playercraft.cpp" />
-    <ClCompile Include="rollaball.cpp" />
     <ClCompile Include="SceneRollABall.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -134,7 +134,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,7 +142,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

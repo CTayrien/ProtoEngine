@@ -3,26 +3,15 @@ Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Insti
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #pragma once
 #include "object.h"
-#include "asteroid.h"
-#include "playercraft.h"
-#include "enemycraft.h"
 
-class playarea :
+class rollaball :
 	public object
 {
 public:
-	asteroid* asteroids = nullptr;
-	int nasteroids = 0;
+	int score = 0;
 
-	playercraft* player = nullptr;
-	
-	enemycraft* enemies = nullptr;
-	int nenemies = 0;
-	
-	playarea();
-	~playarea();
-
-	void render() override;
-	bool load() override;
 	void script() override;
+	rollaball();
+	~rollaball();
 };
+
