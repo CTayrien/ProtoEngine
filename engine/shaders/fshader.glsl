@@ -13,6 +13,7 @@ layout (location = 6) uniform vec3 camloc;
 in vec3 loc;
 in vec2 uv;
 in vec3 norm;
+in vec3 normmod;
 
 // Out
 out vec4 fragColor;
@@ -20,10 +21,10 @@ out vec4 fragColor;
 void main()
 {
 	// Material const (diffuse vs specular, specular alpha)
-	vec2 mtrl = vec2(.8, 32);
+	vec2 mtrl = vec2(.01, 128);
 	
 	// Scene const (ambient light rgb brightness)
-	vec3 ambclr = vec3(.1, .1, .1);
+	vec3 ambclr = vec3(.01, .01, .01);
 	
 	// Light const (direct light rgb brightness, could be per light)
 	vec3 litloc = normalize(vec3(1, 1, 1)) * 23481;	//23481 earth radii = 1 astronomical unit
@@ -45,5 +46,5 @@ void main()
 	vec3 litclr = ambclr + dirclr * (dif + spec);
 	
 	// Color
-	fragColor = vec4(litclr * texel.rgb, texel.a);
+	fragColor = vec4(litclr * abs(normmod), texel.a);
 }

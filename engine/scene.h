@@ -9,7 +9,7 @@ class scene
 public:
 	int nobjs;
 
-	object* objects[512];
+	object* objects[1024];
 
 	void spawn(object* object);
 	

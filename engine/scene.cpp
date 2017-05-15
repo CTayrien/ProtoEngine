@@ -6,7 +6,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 void scene::spawn(object * object)
 {
-	if (nobjs < 512) {
+	if (nobjs < 1024) {
 		objects[nobjs++] = object;
 		
 		// if engine started, load object

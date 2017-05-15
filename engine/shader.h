@@ -12,14 +12,11 @@ class shader
 	:public asset
 {
 public:	
-	uint32_t id = 0, ids[2];
+	uint32_t id = 0, sids[2];
 
 	shader();
 	shader(std::string filenamev, std::string filenamef);
 	~shader();
-	
-	char* vshaderCode = nullptr;
-	char* fshaderCode = nullptr;
 
 	bool load() override;
 	void use();

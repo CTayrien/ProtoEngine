@@ -59,9 +59,11 @@ template<> bool object::collides<BOX, SPHERE>(const object& b) const {
 	// Cache these: box half-width and sphere collider radius
 	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
 	float rb = b.mod.r * bs;
-	glm::vec3 e = mod.max * tform.scale;
 	
+	// This can be a 4x4 matrix operation... T * clamp(DR, -max, max)
+	glm::vec3 e = mod.max * tform.scale;
 	glm::vec3 p = tform.loc + tform.R * glm::clamp((b.tform.loc - tform.loc) * tform.R, -e, e);
+	
 	float d = glm::distance(p, b.tform.loc);
 	return (d < rb);
 }
@@ -76,6 +78,7 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 	glm::vec3 ea = a.mod.max * a.tform.scale;
 	glm::vec3 eb = b.mod.max * b.tform.scale;
 
+	// Could these be 4x4 matrix ops too?
 	// Radial vectors (corner vector that is most aligned along L)
 	glm::vec3 ra = a.tform.R * (glm::sign(L * a.tform.R) * ea);
 	glm::vec3 rb = b.tform.R * (glm::sign(L * b.tform.R) * eb);

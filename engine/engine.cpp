@@ -100,9 +100,9 @@ void engine::stop(std::string comment)
 {
 	printf("\n%s\n", comment.c_str());
 
-	//assets.unload
+	// assets.unload
 	for (auto& pair : asset::assets)
-		pair.second->unload();
+		if(pair.second) pair.second->unload();
 	asset::assets = {};
 	
 	// delete objects from scene

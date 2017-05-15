@@ -20,6 +20,7 @@ layout (location = 5) uniform mat4 worldView;
 out vec3 loc;
 out vec2 uv;
 out vec3 norm;
+out vec3 normmod;
 
 void main()
 {
@@ -27,6 +28,7 @@ void main()
 	loc = (modelWorld * vec4(modelLoc, 1)).xyz;
 	uv = modelUV;
 	norm = normalize(normtform * modelNorm);
+	normmod = modelNorm;
 
 	// View space
 	gl_Position = worldView * vec4(loc, 1);

@@ -50,6 +50,7 @@
     <ClInclude Include="objects\playerbullet\playerbullet.h" />
     <ClInclude Include="objects\playercraft\playercraft.h" />
     <ClInclude Include="objects\rollaball\rollaball.h" />
+    <ClInclude Include="objects\satellite\satellite.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
   </ItemGroup>
   <ItemGroup>
@@ -78,6 +79,7 @@
     <ClCompile Include="objects\playerbullet\playerbullet.cpp" />
     <ClCompile Include="objects\playercraft\playercraft.cpp" />
     <ClCompile Include="objects\rollaball\rollaball.cpp" />
+    <ClCompile Include="objects\satellite\satellite.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
     <ClCompile Include="SceneRollABall.cpp" />
   </ItemGroup>

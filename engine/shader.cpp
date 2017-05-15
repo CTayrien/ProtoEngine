@@ -29,8 +29,8 @@ bool shader::load()
 
 	// Create program & shaders in memory
 	id = glCreateProgram();
-	ids[0] = glCreateShader(GL_VERTEX_SHADER);
-	ids[1] = glCreateShader(GL_FRAGMENT_SHADER);
+	sids[0] = glCreateShader(GL_VERTEX_SHADER);
+	sids[1] = glCreateShader(GL_FRAGMENT_SHADER);
 	
 	for (int i = 0; i < 2; i++)
 	{
@@ -43,16 +43,16 @@ bool shader::load()
 		}
 
 		// Try upload & compile
-		glShaderSource(ids[i], 1, &shaderCode, 0);
+		glShaderSource(sids[i], 1, &shaderCode, 0);
 		delete[] shaderCode;
-		glCompileShader(ids[i]);
+		glCompileShader(sids[i]);
 		GLint compiled;
-		glGetShaderiv(ids[i], GL_COMPILE_STATUS, &compiled);
+		glGetShaderiv(sids[i], GL_COMPILE_STATUS, &compiled);
 		if (!compiled) {
 			GLint logLength;
-			glGetShaderiv(ids[i], GL_INFO_LOG_LENGTH, &logLength);
+			glGetShaderiv(sids[i], GL_INFO_LOG_LENGTH, &logLength);
 			GLchar *log = new GLchar[logLength];
-			glGetShaderInfoLog(ids[i], logLength, 0, log);
+			glGetShaderInfoLog(sids[i], logLength, 0, log);
 			printf ("\nShader failed to compile: %s\n", log);
 			delete[] log;
 			unload();
@@ -61,8 +61,8 @@ bool shader::load()
 	}
 	
 	// Try attach & link program
-	glAttachShader(id, ids[0]);
-	glAttachShader(id, ids[1]);
+	glAttachShader(id, sids[0]);
+	glAttachShader(id, sids[1]);
 	glLinkProgram(id);
 	GLint linked;
 	glGetProgramiv(id, GL_LINK_STATUS, &linked);
@@ -93,8 +93,8 @@ void shader::use()
 void shader::unload()
 {	
 	glDeleteProgram(id);
-	glDeleteShader(ids[0]);
-	glDeleteShader(ids[1]);
+	glDeleteShader(sids[0]);
+	glDeleteShader(sids[1]);
 	
-	id = ids[0] = ids[1] = 0;
+	id = sids[0] = sids[1] = 0;
 }

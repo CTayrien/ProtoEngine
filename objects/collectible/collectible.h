@@ -10,6 +10,7 @@ class collectible :
 {
 public:
 	rollaball* player = nullptr;
+	object* satellite[4];
 
 	collectible();
 	~collectible();

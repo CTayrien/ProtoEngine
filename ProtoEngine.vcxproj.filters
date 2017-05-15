@@ -122,6 +122,9 @@
     <ClInclude Include="objects\rollaball\rollaball.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="objects\satellite\satellite.h">
+      <Filter>Header Files\Objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -203,6 +206,9 @@
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="objects\rollaball\rollaball.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="objects\satellite\satellite.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
