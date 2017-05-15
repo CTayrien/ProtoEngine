@@ -60,20 +60,20 @@ void engine::gameloop()
 {
 	while (!glfwWindowShouldClose(engine::window.ptr)) 
 	{
-		// Input from user		(all users with different windows/cursors and input states?)
+		// Input from user		(per user)
 		input.update();
 
-		// Process scene		(by server? predicted by users?
+		// Process scene		(predicted by users, corrected by server?)
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-		scene.clean();
+		scene.clean();			//(removes objects with .garbage == true, sometimes crashes)
 
-		// Output scene			(per user? all with different camera povs?)
+		// Output scene			(per user - how to handle multiple povs?)
 		glfwSwapBuffers(window.ptr);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		for (int i = 0; i < scene.nobjs; i++)
-			scene.objects[i]->render();
+			scene.objects[i]->render();		//(skybox, then camera, then others...strange?)
 	}
 }
 

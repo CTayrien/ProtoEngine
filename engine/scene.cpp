@@ -13,12 +13,12 @@ void scene::spawn(object * object)
 		if (engine::window.ptr)
 			object->load();
 	}
+	else {
+		printf("Scene full - object spawn failed.");
+	}
 }
 
-//void scene::remove(object * object)
-//{
-//}
-
+// currently causes crashes sometimes (deleting random 10 out of 100 on first frame?)
 void scene::clean()
 {
 	// Number removed
