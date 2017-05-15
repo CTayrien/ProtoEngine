@@ -99,16 +99,16 @@ void camera::debugmove()
 void camera::debugturn()
 {
 	// Yaw & Pitch (pitch clamped to +/- 90 deg)
-	tform.rot.y -= sens * engine::cursor.dx;
-	tform.rot.x -= sens * engine::cursor.dy;
+	tform.rot.y -= sens * engine::input.cursor.dx;
+	tform.rot.x -= sens * engine::input.cursor.dy;
 	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
 	
 	tform.setyawpitchroll(tform.rot);
 	
 	// Should be possible to store / modify a quaternion instead? If I can, then transform.rot is obsolete class data. Should be able to set yaw pitch roll, and add delta yaw pitch roll. May need to derive ypr from q
 	glfwSetCursorPos(engine::window.ptr,
-		glm::clamp((int)engine::cursor.x, 0, engine::window.w),
-		glm::clamp((int)engine::cursor.y, 0, engine::window.h));
+		glm::clamp((int)engine::input.cursor.x, 0, engine::window.w),
+		glm::clamp((int)engine::input.cursor.y, 0, engine::window.h));
 	
-	engine::cursor.update();
+	engine::input.cursor.update();
 }

@@ -125,6 +125,9 @@
     <ClInclude Include="objects\satellite\satellite.h">
       <Filter>Header Files\Objects</Filter>
     </ClInclude>
+    <ClInclude Include="engine\input.h">
+      <Filter>Header Files\Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -210,6 +213,9 @@
     </ClCompile>
     <ClCompile Include="objects\satellite\satellite.cpp">
       <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="engine\input.cpp">
+      <Filter>Source Files\Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

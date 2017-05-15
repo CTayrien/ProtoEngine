@@ -13,7 +13,7 @@ layout (location = 6) uniform vec3 camloc;
 in vec3 loc;
 in vec2 uv;
 in vec3 norm;
-in vec3 normmod;
+in vec3 normmod;	//don't need
 
 // Out
 out vec4 fragColor;
@@ -21,7 +21,7 @@ out vec4 fragColor;
 void main()
 {
 	// Material const (diffuse vs specular, specular alpha)
-	vec2 mtrl = vec2(.01, 128);
+	vec2 mtrl = vec2(.01, 128);		//strange mtrl
 	
 	// Scene const (ambient light rgb brightness)
 	vec3 ambclr = vec3(.01, .01, .01);
@@ -46,5 +46,5 @@ void main()
 	vec3 litclr = ambclr + dirclr * (dif + spec);
 	
 	// Color
-	fragColor = vec4(litclr * abs(normmod), texel.a);
+	fragColor = vec4(litclr * abs(normmod), texel.a);	//use texel
 }

@@ -13,22 +13,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 // Variables declared static in engine class namespace, but allocated/instantiated once in global memory
 float engine::pi = glm::pi<float>();
 timer engine::timer;
-
-#define cllbck \
-	if (action == GLFW_REPEAT) return; \
-	engine::input.down[key] += engine::input.ddown[key] = action - engine::input.down[key];
-void kbcllbck(GLFWwindow* ptr, int key, int scancode, int action, int mods) { cllbck }
-void mscllbck(GLFWwindow* ptr, int key, int action, int mods) { cllbck }
-
-void cursor::update() {
-	double nx, ny;
-	glfwGetCursorPos(engine::window.ptr, &nx, &ny);
-	x += dx = (float)nx - x;
-	y += dy = (float)ny - y;
-}
-
 input engine::input;
-cursor engine::cursor;
 window engine::window;
 shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
 
@@ -53,10 +38,8 @@ void engine::start()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(.45f, .45f, .9f, 1.f);
 
-	// Input & cursor
-	glfwSetKeyCallback(window.ptr, &kbcllbck);
-	glfwSetMouseButtonCallback(window.ptr, &mscllbck);
-	cursor.update();
+	// Input
+	input.start();
 
 	// Shader
 	if (!shader_pblinn.load())
@@ -78,9 +61,7 @@ void engine::gameloop()
 	while (!glfwWindowShouldClose(engine::window.ptr)) 
 	{
 		// Input from user		(all users with different windows/cursors and input states?)
-		input.ddown = {};
-		glfwPollEvents();
-		cursor.update();
+		input.update();
 
 		// Process scene		(by server? predicted by users?
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);

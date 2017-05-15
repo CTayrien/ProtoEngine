@@ -28,6 +28,7 @@
     <ClInclude Include="engine\asset.h" />
     <ClInclude Include="engine\camera.h" />
     <ClInclude Include="engine\engine.h" />
+    <ClInclude Include="engine\input.h" />
     <ClInclude Include="engine\model.h" />
     <ClInclude Include="engine\object.h" />
     <ClInclude Include="engine\scene.h" />
@@ -57,6 +58,7 @@
     <ClCompile Include="engine\asset.cpp" />
     <ClCompile Include="engine\camera.cpp" />
     <ClCompile Include="engine\engine.cpp" />
+    <ClCompile Include="engine\input.cpp" />
     <ClCompile Include="engine\model.cpp" />
     <ClCompile Include="engine\object.cpp" />
     <ClCompile Include="engine\scene.cpp" />
