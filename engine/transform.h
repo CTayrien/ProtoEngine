@@ -10,7 +10,6 @@ public:
 	// Can/should I use quaternion instead of rot (yaw pitch roll) and R?
 	glm::vec3 loc, scale = {1,1,1};
 	
-	glm::vec3 rot;	// need for camera controls
 	glm::mat3 R;	// need for collision detection, camera matrix, etc.
 	//glm::quat q;	// could use for slerp and derive ypr and R from this?
 
@@ -18,7 +17,7 @@ public:
 	float mass = 1;
 
 	glm::vec3 rotvel, torque;
-	float moment = 1;	//should be derived per-axis?
+	float moment = 1;	//should be derived per-axis? is there an inertia tensor?
 
 	transform();
 	~transform();
@@ -28,10 +27,13 @@ public:
 	glm::vec3 right();
 	glm::vec3 lookat();
 
-	//void setroll(float roll);
 	void setyawpitchroll(glm::vec3 rot);
-	//void setforward(glm::vec3 f);
 	void setforwardandroll(glm::vec3 f, float roll);
+	//void setroll(float roll);
+	//void setforward(glm::vec3 f);
+	
+	void drotin(glm::vec3 dyawpitrol);
+	void drotex(glm::vec3 dyawpitrol);
 
 	static glm::mat3 slerp(const transform& a, const transform& b, float t);
 

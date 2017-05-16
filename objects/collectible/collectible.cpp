@@ -11,11 +11,11 @@ collectible::collectible()
 	mod = model({ "engine/models/box.dat" });
 	tex = texture({ "engine/textures/blue.png" });
 	tform.scale = { .1, .1, .1 };
-	tform.rotvel = { 1,1,1 };
+	tform.rotvel = { 1,1,0 };
 
-	float y = 2*3.14f*(float)rand() / (float)RAND_MAX;
-	float p = 2*3.14f*(float)rand() / (float)RAND_MAX;
-	tform.rot = { y, p, 0 };
+	float y = 2 * 3.14f*(float)rand() / (float)RAND_MAX;
+	float p = 2 * 3.14f*(float)rand() / (float)RAND_MAX;
+	tform.setyawpitchroll({ p, y, 0.f });
 }
 
 collectible::~collectible()
@@ -63,7 +63,13 @@ void collectible::script()
 
 	// this code should be on transform, but then the earth doesn't rotate properly (at all)
 	tform.rotvel += tform.torque / tform.moment * engine::timer.dt;
-	tform.rot += tform.rotvel * engine::timer.dt;
+	
+	float yaw = atan2f(-tform.right().z, tform.right().x);
+	float pitch = asinf(tform.forward().y);
+	yaw += tform.rotvel.y * engine::timer.dt;
+	pitch += tform.rotvel.x * engine::timer.dt;
+	tform.setyawpitchroll(glm::vec3{ pitch,yaw,0 });
+	//tform.dextrinrot(tform, tform.rotvel.y * engine::timer.dt, tform.rotvel.x * engine::timer.dt);
+
 	tform.torque = { 0, 0, 0 };
-	tform.setyawpitchroll(tform.rot);
 }

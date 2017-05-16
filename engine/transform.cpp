@@ -64,6 +64,21 @@ void transform::setforwardandroll(glm::vec3 f, float roll)
 	setyawpitchroll(glm::vec3(pitch, yaw, roll));
 }
 
+// What is the dif between R = R * D and R = D * R? Camera needs first, rollaball needs 2nd.
+void transform::drotin(glm::vec3 dyawpitrol)
+{
+	R = R * glm::mat3(glm::yawPitchRoll(dyawpitrol.y, dyawpitrol.x, dyawpitrol.z));
+}
+
+// To Do: Does not account for roll. Yaw & Pitch (pitch clamped to +/- 90 deg) could use alternate func "accumulate" that works intrinsicly for dogfight
+void transform::drotex(glm::vec3 dyawpitrol)
+{
+	glm::vec3 ypr = glm::vec3(asinf(forward().y), atan2f(-right().z, right().x), 0);
+	ypr += dyawpitrol;
+	ypr.x = glm::clamp(ypr.x, -engine::pi / 2, engine::pi / 2);
+	setyawpitchroll(ypr);
+}
+
 glm::mat3 transform::slerp(const transform & a, const transform & b, float t)
 {
 	return glm::toMat3(glm::slerp(glm::quat(a.R), glm::quat(b.R), t));

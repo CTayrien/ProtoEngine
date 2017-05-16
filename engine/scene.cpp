@@ -4,7 +4,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "scene.h"
 #include "engine.h"
 
-void scene::spawn(object * object)
+object * scene::spawn(object * object)
 {
 	if (nobjs < 1024) {
 		objects[nobjs++] = object;
@@ -16,6 +16,8 @@ void scene::spawn(object * object)
 	else {
 		printf("Scene full - object spawn failed.");
 	}
+
+	return object;
 }
 
 // currently causes crashes sometimes (deleting random 10 out of 100 on first frame?)

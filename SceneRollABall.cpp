@@ -14,8 +14,7 @@ void spawnitems(rollaball* player , object* satellite[4], int n)
 	srand(time(0));
 
 	for (int i = 0; i < n; i++) {
-		engine::scene.spawn(new collectible);
-		collectible& c = *(collectible*)engine::scene.back();
+		collectible& c = *(collectible*)engine::scene.spawn(new collectible);
 		c.player = player;
 		c.satellite[0] = satellite[0];
 		c.satellite[1] = satellite[1];
@@ -29,6 +28,10 @@ void spawnitems(rollaball* player , object* satellite[4], int n)
 
 int main()
 {
+	// build game "roll-a-ball" could just be a func in a header in the games folder
+	// each func can have a name
+	// keys can be printed to prompt the user: 1) rollaball, 2) arch, etc...
+
 	// Background
 	//engine::scene.spawn(new object);
 	//object& background = *engine::scene.back();
@@ -39,19 +42,14 @@ int main()
 	//background.tform.loc.z = -2;
 
 	// Player
-	engine::scene.spawn(new rollaball);
-	rollaball& player = *(rollaball*)engine::scene.back();
+	rollaball& player = *(rollaball*)engine::scene.spawn(new rollaball);;
 
+	// Satellites
 	object* sats[4];
-
-	engine::scene.spawn(new satellite(&player, 0.f));
-	sats[0] = engine::scene.back();
-	engine::scene.spawn(new satellite(&player, .25f));
-	sats[1] = engine::scene.back();
-	engine::scene.spawn(new satellite(&player, .50f));
-	sats[2] = engine::scene.back();
-	engine::scene.spawn(new satellite(&player, .75f));
-	sats[3] = engine::scene.back();
+	sats[0] = engine::scene.spawn(new satellite(&player, 0.f));
+	sats[1] = engine::scene.spawn(new satellite(&player, .25f));
+	sats[2] = engine::scene.spawn(new satellite(&player, .50f));
+	sats[3] = engine::scene.spawn(new satellite(&player, .75f));
 
 	// Collectibles
 	spawnitems(&player, sats, 1000);

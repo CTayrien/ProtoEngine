@@ -10,7 +10,6 @@ camera::camera()
 	mod = model({ "engine/models/camera.dat" });
 	tex = texture({ "engine/textures/black.png" });
 	tform.loc.z = 2;
-	tform.rot = glm::vec3{};
 }
 
 camera::~camera()
@@ -36,7 +35,7 @@ void camera::script()
 		toggledebug();
 		if (!isdebug) {
 			printf("loc: %f, %f, %f", tform.loc.x, tform.loc.y, tform.loc.z);
-			printf("Yaw, Pitch, Roll: %f, %f, %f", tform.rot.x, tform.rot.y, tform.rot.z);
+			//printf("Yaw, Pitch, Roll: %f, %f, %f", tform.rot.x, tform.rot.y, tform.rot.z);
 		}
 		else {
 			printf("\nDebug cam on.\n");
@@ -97,18 +96,15 @@ void camera::debugmove()
 }
 
 void camera::debugturn()
-{
-	// Yaw & Pitch (pitch clamped to +/- 90 deg)
-	tform.rot.y -= sens * engine::input.cursor.dx;
-	tform.rot.x -= sens * engine::input.cursor.dy;
-	tform.rot.x = glm::clamp(tform.rot.x, -engine::pi/2, engine::pi/2);
-	
-	tform.setyawpitchroll(tform.rot);
-	
-	// Should be possible to store / modify a quaternion instead? If I can, then transform.rot is obsolete class data. Should be able to set yaw pitch roll, and add delta yaw pitch roll. May need to derive ypr from q
+{	
+	// Switch to drotin for dogfight controls instead of fps controls
+	tform.drotex(glm::vec3(
+		-sens * engine::input.cursor.dy,
+		-sens * engine::input.cursor.dx,
+		0));
+
 	glfwSetCursorPos(engine::window.ptr,
 		glm::clamp((int)engine::input.cursor.x, 0, engine::window.w),
-		glm::clamp((int)engine::input.cursor.y, 0, engine::window.h));
-	
+		glm::clamp((int)engine::input.cursor.y, 0, engine::window.h));	
 	engine::input.cursor.update();
 }

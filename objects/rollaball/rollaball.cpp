@@ -34,6 +34,7 @@ void rollaball::script()
 	float angle = glm::length(tform.vel) * radius * engine::timer.dt;
 	glm::vec3 axis = glm::normalize(glm::cross(glm::vec3(0, 0, 1), tform.vel));
 	tform.R = glm::mat3(glm::rotate(angle, axis)) * tform.R;
+
 }
 
 rollaball::rollaball()

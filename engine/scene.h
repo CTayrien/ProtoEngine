@@ -11,7 +11,7 @@ public:
 
 	object* objects[1024];
 
-	void spawn(object* object);
+	object * spawn(object* object);
 	
 	void clean();
 

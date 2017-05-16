@@ -34,8 +34,8 @@ void lerparrow::script()
 		t += d * f * engine::timer.dt;
 	}
 
-	// Lerp
-	tform.rot = glm::mix(a->rot, b->rot, t);
+	// Lerp (matrix - different from ypr?)
+	tform.R = glm::mix(a->R, b->R, t);
 
 	// Derive delta r-axis or global r-axis from delta rot or tform.rot ?
 	// cross current <0,0,-1> with previous <0,0,-1> ?
