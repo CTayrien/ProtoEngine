@@ -10,10 +10,11 @@ class texture
 {
 public:
 	uint32_t id = 0;
+	uint32_t bindpt;
 	
 	texture();
 	texture(std::vector<std::string> filenames);
-	virtual ~texture();
+	~texture();
 
 	bool load() override;
 	bool load2dtexture();

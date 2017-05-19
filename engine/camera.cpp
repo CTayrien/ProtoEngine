@@ -50,16 +50,6 @@ void camera::script()
 	}
 }
 
-void camera::render()
-{
-	if (ispov) {
-		uploadpov();
-	}
-	if (!ispov){
-		object::render();
-	}
-}
-
 bool camera::load()
 {
 	perspective = glm::perspective(transform::pi * .4f,		//fov

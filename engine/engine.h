@@ -8,19 +8,21 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include "object.h"
 #include "camera.h"
-#include "skybox.h"
 #include "shader.h"
 #include "scene.h"
 #include "input.h"
 
 /* prioritized to do:
-visuals: lighting & shadows, particle fx,
-ai stuff: creatures
-external stuff: imgui, nsight,  
-physics stuff: quat & torque, predictor corrector, collider systems & manifolds, fluids & softbody, relativity
-game-y stuff: scenes, levels, animation, sound, networking, save/load
-graphic optimizations: element array rendering, instanced rendering, render lists
-parallelization: multithreading, gpu physics
+    asset mngmnt: smart ptr asset mngmnt, factory?
+    visuals: lighting & shadows, particle fx, 
+    game-y stuff: scenes, save/load, 
+    external stuff: imgui, nsight, 
+	ai stuff: creatures & satellites, 
+    collision stuff: collision system w/ struct, swept volume, 
+    physics stuff: corrector (L or H?), quat moment tensor torque collision, fluids & softbody, relativity, 
+    use assets: levels, sound, animation, spritesheet, 
+    graphics: element array rendering, instanced rendering, render lists, 
+    parallelization: multithreading, gpu physics, networking
 */
 
 struct window {
@@ -39,11 +41,11 @@ public:
 
 	static input input;
 
-	// scene shaders - should be on scene, skybox or camera? skybox shader is on skybox - that is normal (most objects should have a ref to their shader, and does render manager uses them to prioritize render calls?)
 	static shader shader_pblinn;
-	
+	static shader shader_skybox;
+
 	static camera& cam;
-	static skybox& sky;
+	static object& sky;
 	static scene scene;
 
 	static void start();

@@ -26,7 +26,6 @@ public:
 	void script() override;
 	bool isdebug = true;
 	bool ispov = true;
-	void render() override;
 	
 	void toggledebug();
 	void setdebug(bool isdebug);

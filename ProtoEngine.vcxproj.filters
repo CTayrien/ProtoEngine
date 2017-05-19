@@ -59,9 +59,6 @@
     <ClInclude Include="engine\shader.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="engine\skybox.h">
-      <Filter>Header Files\Engine</Filter>
-    </ClInclude>
     <ClInclude Include="engine\texture.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
@@ -143,9 +140,6 @@
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\shader.cpp">
-      <Filter>Source Files\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="engine\skybox.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
     <ClCompile Include="engine\texture.cpp">

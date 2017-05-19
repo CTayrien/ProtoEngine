@@ -15,10 +15,11 @@ timer engine::timer;
 input engine::input;
 window engine::window;
 shader engine::shader_pblinn("engine/shaders/vshader.glsl", "engine/shaders/fshader.glsl");
+shader engine::shader_skybox("engine/shaders/vshader_skybox.glsl", "engine/shaders/fshader_skybox.glsl");
 
 // Scene objects
 scene engine::scene;
-skybox& engine::sky = *(skybox*)(engine::scene.objects[0]);
+object& engine::sky = *(engine::scene.objects[0]);
 camera& engine::cam = *(camera*)(engine::scene.objects[1]);
 
 void engine::start()
@@ -40,11 +41,10 @@ void engine::start()
 	// Input
 	input.start();
 
-	// Shader
-	if (!shader_pblinn.load())
-		stop("Shader load failed");
-	shader_pblinn.use();
-	
+	// Shaders
+	if (!shader_pblinn.load()) stop("Shader load failed");
+	if (!shader_skybox.load()) stop("Skybox shader load failed");
+
 	// Scene
 	for (int i = 0; i < scene.nobjs; i++)
 		if (!scene.objects[i]->load())
@@ -68,11 +68,19 @@ void engine::gameloop()
 			scene.objects[i]->update();
 		scene.clean();			//(removes objects with .garbage == true, sometimes crashes)
 
-		// Output scene			(per user - how to handle multiple povs?)
+		// Render sky and scene(per user - how to handle multiple povs?)
 		glfwSwapBuffers(window.ptr);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		for (int i = 0; i < scene.nobjs; i++)
-			scene.objects[i]->render();		//(skybox, then camera, then others...strange?)
+		
+		shader_skybox.use();
+		cam.uploadpov();
+		sky.render();
+		glClear(GL_DEPTH_BUFFER_BIT);
+		
+		shader_pblinn.use();
+		cam.uploadpov();
+		for (int i = 2; i < scene.nobjs; i++)
+			scene.objects[i]->render();
 	}
 }
 

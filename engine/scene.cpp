@@ -6,17 +6,15 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 object * scene::spawn(object * object)
 {
-	if (nobjs < 1024) {
-		objects[nobjs++] = object;
-		
-		// if engine started, load object
-		if (engine::window.ptr)
-			object->load();
-	}
-	else {
+	if (nobjs >= 1024) {
 		printf("Scene full - object spawn failed.");
+		return nullptr;
 	}
-
+	
+	objects[nobjs++] = object;
+		
+	if (engine::window.ptr) object->load();
+	
 	return object;
 }
 
@@ -49,9 +47,21 @@ object * scene::back()
 
 scene::scene()
 {
-	nobjs = 2;
-	objects[0] = new skybox;
-	objects[1] = new camera;
+	// Skybox
+	std::string tag = "skybox";
+	std::string modelfile = "engine/models/skybox.dat";
+	std::vector<std::string> skytexs = {
+		"engine/textures/spacescape/spacescape_right1.png",
+		"engine/textures/spacescape/spacescape_left2.png",
+		"engine/textures/spacescape/spacescape_top3.png",
+		"engine/textures/spacescape/spacescape_bottom4.png",
+		"engine/textures/spacescape/spacescape_front5.png",		//expected: back
+		"engine/textures/spacescape/spacescape_back6.png"		//expected: front
+	};
+	spawn(new object(tag, model({modelfile}), texture(skytexs)));
+
+	// Cam
+	spawn(new camera);
 }
 
 scene::~scene()

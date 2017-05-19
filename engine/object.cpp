@@ -6,6 +6,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 object::object() { }
 
+object::object(std::string tag, model mod, texture tex)
+{
+	this->tag = tag;
+	this->mod = mod;
+	this->tex = tex;
+}
+
 object::~object() { }
 
 bool object::loaded()
@@ -37,7 +44,7 @@ void object::render()
 {
 	glUniformMatrix4fv(3, 1, GL_FALSE, &(glm::translate(tform.loc) * glm::mat4(tform.R) * glm::scale(tform.scale))[0][0]);
 	glUniformMatrix3fv(4, 1, GL_FALSE, &(tform.R * glm::mat3(glm::scale(1.0f / tform.scale)))[0][0]);
-	glBindTexture(GL_TEXTURE_2D, tex.id);
+	glBindTexture(tex.bindpt, tex.id);
 	glBindVertexArray(mod.vao);
 	glDrawArrays(GL_TRIANGLES, 0, mod.nverts);
 }

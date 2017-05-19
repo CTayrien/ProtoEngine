@@ -46,12 +46,14 @@ bool texture::load()
 
 bool texture::load2dtexture()
 {
+	bindpt = GL_TEXTURE_2D;
+
 	// Allocate vram
 	glGenTextures(1, &id);
 
 	// Bind texture & set texture filters (Set min filter to linear instead of mipmap linear)
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glBindTexture(bindpt, id);
+	glTexParameteri(bindpt, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
 	// Try open and get file type
 	const char* file = filenames[0].c_str();
@@ -59,7 +61,7 @@ bool texture::load2dtexture()
 
 	if (FIF_UNKNOWN == fif) {
 		unload();
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(bindpt, 0);
 		printf("\nError: Texture file path/type unknown: %s\n", file);
 		return false;
 	}
@@ -73,7 +75,7 @@ bool texture::load2dtexture()
 	FreeImage_Unload(image);
 
 	// Upload (ram->vram)
-	glTexImage2D(GL_TEXTURE_2D,
+	glTexImage2D(bindpt,
 		0,
 		GL_SRGB_ALPHA,
 		FreeImage_GetWidth(image32Bit),
@@ -86,23 +88,25 @@ bool texture::load2dtexture()
 	FreeImage_Unload(image32Bit);
 
 	// Unbind
-	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindTexture(bindpt, 0);
 
 	return true;
 }
 
 bool texture::loadcubemap()
 {
+	bindpt = GL_TEXTURE_CUBE_MAP;
+
 	// Allocate vram for texture
 	glGenTextures(1, &id);
 	
 	// Bind texture to cubemap binding point & set cubemap filters
-	glBindTexture(GL_TEXTURE_CUBE_MAP, id);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+	glBindTexture(bindpt, id);
+	glTexParameteri(bindpt , GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(bindpt , GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(bindpt , GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(bindpt , GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(bindpt , GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	
 	// Load and upload six cubemap textures
 	for (int i = 0; i < 6; i++)
@@ -131,7 +135,7 @@ bool texture::loadcubemap()
 	}
 	
 	// Unbind texture from cubemap binding point
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	glBindTexture(bindpt, 0);
 	
 	loaded = true;
 	

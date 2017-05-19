@@ -28,6 +28,7 @@ public:
 	float r;
 
 	object();
+	object(std::string tag, model mod, texture tex);
 	virtual ~object();
 	
 	virtual bool loaded();

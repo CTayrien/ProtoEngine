@@ -33,7 +33,6 @@
     <ClInclude Include="engine\object.h" />
     <ClInclude Include="engine\scene.h" />
     <ClInclude Include="engine\shader.h" />
-    <ClInclude Include="engine\skybox.h" />
     <ClInclude Include="engine\texture.h" />
     <ClInclude Include="engine\transform.h" />
     <ClInclude Include="objects\arrows\Arrow.h" />
@@ -63,7 +62,6 @@
     <ClCompile Include="engine\object.cpp" />
     <ClCompile Include="engine\scene.cpp" />
     <ClCompile Include="engine\shader.cpp" />
-    <ClCompile Include="engine\skybox.cpp" />
     <ClCompile Include="engine\texture.cpp" />
     <ClCompile Include="engine\transform.cpp" />
     <ClCompile Include="objects\arrows\Arrow.cpp" />
