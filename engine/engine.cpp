@@ -68,15 +68,16 @@ void engine::gameloop()
 			scene.objects[i]->update();
 		scene.clean();			//(removes objects with .garbage == true, sometimes crashes)
 
-		// Render sky and scene(per user - how to handle multiple povs?)
+		// Render sky and scene  (per user - how to handle multiple povs?)
 		glfwSwapBuffers(window.ptr);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
+		glDisable(GL_DEPTH_TEST);
 		shader_skybox.use();
 		cam.uploadpov();
 		sky.render();
-		glClear(GL_DEPTH_BUFFER_BIT);
 		
+		glEnable(GL_DEPTH_TEST);
 		shader_pblinn.use();
 		cam.uploadpov();
 		for (int i = 2; i < scene.nobjs; i++)

@@ -13,21 +13,25 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "input.h"
 
 /* prioritized to do:
-    asset mngmnt: smart ptr asset mngmnt, factory?
-    visuals: lighting & shadows, particle fx, 
-    game-y stuff: scenes, save/load, 
+    ai: satellite creatures, 
+	visuals: lighting & shadows, particle fx,
+	
+	collision stuff: collision system w/ struct, 
+	asset mngmnt: smart ptr asset mngmnt, 
     external stuff: imgui, nsight, 
-	ai stuff: creatures & satellites, 
-    collision stuff: collision system w/ struct, swept volume, 
-    physics stuff: corrector (L or H?), quat moment tensor torque collision, fluids & softbody, relativity, 
-    use assets: levels, sound, animation, spritesheet, 
+	
+    classical mechanics: swept volume, predictor-corrector (L or H?), quat moment tensor torque collision manifold, 
+	fluid dynamics: fluids & softbody,
+	crazy physics: electrodynamics, relativity, quantum 
+	
+	game-y stuff: scenes, save/load, levels, sound, animation, spritesheet, 
     graphics: element array rendering, instanced rendering, render lists, 
     parallelization: multithreading, gpu physics, networking
 */
 
 struct window {
 	std::string title = "Proto Engine";
-	int w = 1200, h = 900;
+	int w = 1200, h = 800;
 	GLFWwindow* ptr = nullptr;
 };
 
