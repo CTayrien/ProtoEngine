@@ -15,8 +15,11 @@ bool object::loaded()
 
 bool object::load()
 {
-	if (!mod.load()) return false;
 	if (!tex.load()) return false;
+	if (!mod.load()) return false;
+	e = mod.max * tform.scale;
+	r = mod.r * (tform.scale.x + tform.scale.y + tform.scale.z) / 3.f;
+
 	return true;
 }
 
@@ -24,7 +27,6 @@ void object::update()
 {
 	script();
 	tform.physicsupdate();
-	//tform.derivematrix();
 }
 
 void object::script()
@@ -42,30 +44,20 @@ void object::render()
 
 template<> bool object::collides<SPHERE, SPHERE>(const object& b) const
 {
-	// Collider radius - cache me 
-	float as = glm::dot(tform.scale, glm::vec3(1)) / 3.f;
-	float ra = mod.r * as;
-	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
-	float rb = b.mod.r * bs;
-	
 	// If dist^2 less than sum of radii squared, then colliding
-	float rab = ra + rb;
+	float rab = r + b.r;
 	glm::vec3 diff = tform.loc - b.tform.loc;
 	return (glm::dot(diff, diff) < rab*rab);
 }
 
 // Collision if dist from sphere to nearest point on box < sphere radius
 template<> bool object::collides<BOX, SPHERE>(const object& b) const {
-	// Cache these: box half-width and sphere collider radius
-	float bs = glm::dot(b.tform.scale, glm::vec3(1)) / 3.f;
-	float rb = b.mod.r * bs;
 	
 	// This can be a 4x4 matrix operation... T * clamp(DR, -max, max)
-	glm::vec3 e = mod.max * tform.scale;
 	glm::vec3 p = tform.loc + tform.R * glm::clamp((b.tform.loc - tform.loc) * tform.R, -e, e);
 	
 	float d = glm::distance(p, b.tform.loc);
-	return (d < rb);
+	return (d < r);
 }
 
 // Return true if separated
@@ -74,14 +66,10 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 	// Watch for infinite or 0 vectors
 	if (glm::length(L) != 1.0f) return false;
 
-	// Collider half-width - cache me 
-	glm::vec3 ea = a.mod.max * a.tform.scale;
-	glm::vec3 eb = b.mod.max * b.tform.scale;
-
 	// Could these be 4x4 matrix ops too?
 	// Radial vectors (corner vector that is most aligned along L)
-	glm::vec3 ra = a.tform.R * (glm::sign(L * a.tform.R) * ea);
-	glm::vec3 rb = b.tform.R * (glm::sign(L * b.tform.R) * eb);
+	glm::vec3 ra = a.tform.R * a.e * glm::sign(L * a.tform.R);
+	glm::vec3 rb = b.tform.R * b.e * glm::sign(L * b.tform.R);
 
 	// If projected distance greater than sum of projected sizes, colliders are separated
 	return abs(glm::dot(L, a.tform.loc - b.tform.loc)) > abs(glm::dot(L, ra)) + abs(glm::dot(L, rb));

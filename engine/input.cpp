@@ -42,3 +42,12 @@ void input::cursor::update()
 	x += dx = (float)nx - x;
 	y += dy = (float)ny - y;
 }
+
+void input::cursor::clamp()
+{
+	glfwSetCursorPos(engine::window.ptr,
+		glm::clamp((int)x, 0, engine::window.w),
+		glm::clamp((int)y, 0, engine::window.h));
+	
+	update();
+}

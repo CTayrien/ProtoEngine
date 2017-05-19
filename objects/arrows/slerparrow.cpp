@@ -72,18 +72,18 @@ void slerparrow::script()
 	//qa
 	glm::vec3 qva = glm::vec3{ qa.x, qa.y, qa.z };
 	qavector->loc = qva;
-	qavector->setforwardandroll(-glm::normalize(qva), -engine::pi * glm::length(qva));
+	qavector->setforwardandroll(-glm::normalize(qva), -transform::pi * glm::length(qva));
 
 	//qb
 	glm::vec3 qvb = glm::vec3{ qb.x, qb.y, qb.z };
 	qbvector->loc = qvb;
-	qbvector->setforwardandroll(-glm::normalize(qvb), -engine::pi * glm::length(qvb));
+	qbvector->setforwardandroll(-glm::normalize(qvb), -transform::pi * glm::length(qvb));
 
 	// Set location/orientation of quaternion Vector object (screw / bolt)
 	glm::vec3 qv = glm::vec3{ qt.x, qt.y, qt.z };
 	glm::vec3 dv = qv - qtvector->loc;
 	qtvector->loc = qv;
-	qtvector->setforwardandroll(-glm::normalize(qv), -engine::pi * glm::length(qv));
+	qtvector->setforwardandroll(-glm::normalize(qv), -transform::pi * glm::length(qv));
 	
 	// Move orientation b "Beijing"
 	//float c = 180.f / engine::pi;

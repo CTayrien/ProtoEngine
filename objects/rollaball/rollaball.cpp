@@ -21,20 +21,20 @@ void rollaball::script()
 	// Move
 	float power = 80;
 	glm::vec3 md;
-	if (engine::input.down[input_w]) md.y++;
-	if (engine::input.down[input_a]) md.x--;
-	if (engine::input.down[input_s]) md.y--;
-	if (engine::input.down[input_d]) md.x++;
-	if (md != glm::vec3()) md = glm::normalize(md);
-	tform.force += md * power;
+	md.y += engine::input.down[input_w];
+	md.x -= engine::input.down[input_a];
+	md.y -= engine::input.down[input_s];
+	md.x += engine::input.down[input_d];
+	tform.force += transform::norm(md) * power;
 
-	// Roll - should be a delta-rotate function on tform?
-	if (tform.vel == glm::vec3()) return;
-	float radius = 1;
-	float angle = glm::length(tform.vel) * radius * engine::timer.dt;
-	glm::vec3 axis = glm::normalize(glm::cross(glm::vec3(0, 0, 1), tform.vel));
-	tform.R = glm::mat3(glm::rotate(angle, axis)) * tform.R;
-
+	// concatenate delta rotation, from rodriguez, in world space, pre-multiplied (post-multiplied in model space from tait-bryant works for dogfight cam)
+	float radius = mod.r * tform.scale.x;
+	float angvelmag = glm::length(tform.vel) * radius;
+	
+	float angle = angvelmag * engine::timer.dt;
+	glm::vec3 axis = transform::norm(glm::cross(glm::vec3(0, 0, 1), tform.vel));
+	
+	tform.R = transform::rodrigz(axis, angle) * tform.R;
 }
 
 rollaball::rollaball()
@@ -43,7 +43,6 @@ rollaball::rollaball()
 	mod = model({ "engine/models/sphere.dat" });
 	tex = texture({ "engine/textures/earth.png" });
 }
-
 
 rollaball::~rollaball()
 {

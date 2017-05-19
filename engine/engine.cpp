@@ -11,7 +11,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <GLFW/glfw3.h>
 
 // Variables declared static in engine class namespace, but allocated/instantiated once in global memory
-float engine::pi = glm::pi<float>();
 timer engine::timer;
 input engine::input;
 window engine::window;
@@ -50,7 +49,7 @@ void engine::start()
 	for (int i = 0; i < scene.nobjs; i++)
 		if (!scene.objects[i]->load())
 			stop(scene.objects[i]->tag + " object load failed");
-	
+
 	gameloop();
 
 	stop("Game over");
@@ -83,7 +82,7 @@ void engine::stop(std::string comment)
 
 	// assets.unload
 	for (auto& pair : asset::assets)
-		if(pair.second) pair.second->unload();
+		if (pair.second) pair.second->unload();
 	asset::assets = {};
 	
 	// delete objects from scene

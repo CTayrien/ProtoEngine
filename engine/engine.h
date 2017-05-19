@@ -13,6 +13,16 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "scene.h"
 #include "input.h"
 
+/* prioritized to do:
+visuals: lighting & shadows, particle fx,
+ai stuff: creatures
+external stuff: imgui, nsight,  
+physics stuff: quat & torque, predictor corrector, collider systems & manifolds, fluids & softbody, relativity
+game-y stuff: scenes, levels, animation, sound, networking, save/load
+graphic optimizations: element array rendering, instanced rendering, render lists
+parallelization: multithreading, gpu physics
+*/
+
 struct window {
 	std::string title = "Proto Engine";
 	int w = 1200, h = 900;
@@ -21,20 +31,15 @@ struct window {
 
 struct timer { float t = 0, dt = 0; };
 
-// scene should store new'd pointers via spawn function
-// they are erase-removed and deleted by the despawn func. when game exits, all are despawned, then resource maps are unloaded
-
 class engine
 {
 public:
-	static float pi;
-
-	static input input;
-
 	static window window;
 	static timer timer;
 
-	// scene shaders - should be on scene, skybox or camera? skybox shader is on skybox - that is normal (most objects should have a ref to their shader, and render manager uses them to prioritize render calls)
+	static input input;
+
+	// scene shaders - should be on scene, skybox or camera? skybox shader is on skybox - that is normal (most objects should have a ref to their shader, and does render manager uses them to prioritize render calls?)
 	static shader shader_pblinn;
 	
 	static camera& cam;

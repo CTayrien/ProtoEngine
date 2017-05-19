@@ -49,9 +49,11 @@ class input
 {
 public:
 	std::map<int, int> down, ddown;
-	struct cursor {
+	class cursor {
+	public:
 		float x, y, dx, dy;
 		void update();
+		void clamp();
 	} cursor;
 
 	input();

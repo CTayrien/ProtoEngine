@@ -62,7 +62,7 @@ void camera::render()
 
 bool camera::load()
 {
-	perspective = glm::perspective(engine::pi * .4f,		//fov
+	perspective = glm::perspective(transform::pi * .4f,		//fov
 		(float)engine::window.w / (float)engine::window.h,	//aspect ratio
 		.01f,												//z near
 		1000.f);											//z far
@@ -84,27 +84,23 @@ void camera::debugmove()
 {
 	glm::vec3 d;
 
-	if (engine::input.down[input_w]) d.z -= 1;
-	if (engine::input.down[input_a]) d.x -= 1;
-	if (engine::input.down[input_s]) d.z += 1;
-	if (engine::input.down[input_d]) d.x += 1;
-	if (engine::input.down[input_ctrl]) d.y -= 1;
-	if (engine::input.down[input_space]) d.y += 1;
+	d.z -= engine::input.down[input_w];
+	d.x -= engine::input.down[input_a];
+	d.z += engine::input.down[input_s];
+	d.x += engine::input.down[input_d];
+	d.y -= engine::input.down[input_ctrl];
+	d.y += engine::input.down[input_space];
 
-	if (d != glm::vec3()) d = glm::normalize(d);
-	tform.vel = tform.R * d * maxspeed;
+	tform.vel = tform.R * transform::norm(d) * maxspeed;
 }
 
 void camera::debugturn()
 {	
 	// Switch to drotin for dogfight controls instead of fps controls
-	tform.drotex(glm::vec3(
+	tform.drotin(glm::vec3(
 		-sens * engine::input.cursor.dy,
 		-sens * engine::input.cursor.dx,
 		0));
 
-	glfwSetCursorPos(engine::window.ptr,
-		glm::clamp((int)engine::input.cursor.x, 0, engine::window.w),
-		glm::clamp((int)engine::input.cursor.y, 0, engine::window.h));	
-	engine::input.cursor.update();
+	engine::input.cursor.clamp();
 }

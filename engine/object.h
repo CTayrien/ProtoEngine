@@ -23,6 +23,9 @@ public:
 	model mod;
 	texture tex;
 	transform tform;
+	
+	glm::vec3 e;
+	float r;
 
 	object();
 	virtual ~object();

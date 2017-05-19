@@ -8,6 +8,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include <glm\gtx\euler_angles.hpp>
 #include <glm\gtx\quaternion.hpp>
 
+float transform::pi = glm::pi<float>();
+
 transform::transform()
 {
 }
@@ -44,8 +46,7 @@ glm::vec3 transform::lookat()
 
 void transform::setyawpitchroll(glm::vec3 rot)
 {
-	//this->rot = rot;
-	R = (glm::mat3)glm::yawPitchRoll(rot.y, rot.x, rot.z);
+	R = taitbryant(rot);
 }
 
 //void transform::setforward(glm::vec3 f)
@@ -64,24 +65,47 @@ void transform::setforwardandroll(glm::vec3 f, float roll)
 	setyawpitchroll(glm::vec3(pitch, yaw, roll));
 }
 
-// What is the dif between R = R * D and R = D * R? Camera needs first, rollaball needs 2nd.
+//the drot in cam is measured in cam frame
+//the drot in rollaball is in world frame
+// concatenates rotations 
+// should overload a version that takes axis-angle
+// should have a version that slerps (slerp is not most direct path, however - overload again)
+// What is the dif between R = R * D and R = D * R? dogfight camera needs first, rollaball needs 2nd. rollaball should try 1st with -1 times the delta it currently uses
 void transform::drotin(glm::vec3 dyawpitrol)
 {
-	R = R * glm::mat3(glm::yawPitchRoll(dyawpitrol.y, dyawpitrol.x, dyawpitrol.z));
+	R = R * taitbryant(dyawpitrol);
 }
 
+// does not concatenate rotations
 // To Do: Does not account for roll. Yaw & Pitch (pitch clamped to +/- 90 deg) could use alternate func "accumulate" that works intrinsicly for dogfight
 void transform::drotex(glm::vec3 dyawpitrol)
 {
 	glm::vec3 ypr = glm::vec3(asinf(forward().y), atan2f(-right().z, right().x), 0);
 	ypr += dyawpitrol;
-	ypr.x = glm::clamp(ypr.x, -engine::pi / 2, engine::pi / 2);
+	ypr.x = glm::clamp(ypr.x, -pi / 2, pi / 2);
 	setyawpitchroll(ypr);
 }
 
 glm::mat3 transform::slerp(const transform & a, const transform & b, float t)
 {
 	return glm::toMat3(glm::slerp(glm::quat(a.R), glm::quat(b.R), t));
+}
+
+glm::mat3 transform::rodrigz(glm::vec3 axis, float angle)
+{
+	if (axis == glm::vec3()) return glm::mat3();
+	return glm::mat3(glm::rotate(angle, axis));
+}
+
+glm::vec3 transform::norm(glm::vec3 v)
+{
+	if (v == glm::vec3()) return glm::vec3();
+	return glm::normalize(v);
+}
+
+glm::mat3 transform::taitbryant(glm::vec3 pityawrol)
+{
+	return glm::mat3(glm::yawPitchRoll(pityawrol.y, pityawrol.x, pityawrol.z));
 }
 
 void transform::physicsupdate()

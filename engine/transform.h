@@ -35,7 +35,11 @@ public:
 	void drotin(glm::vec3 dyawpitrol);
 	void drotex(glm::vec3 dyawpitrol);
 
+	static float pi;
 	static glm::mat3 slerp(const transform& a, const transform& b, float t);
+	static glm::mat3 rodrigz(glm::vec3 axis, float angle);
+	static glm::vec3 norm(glm::vec3 v);
+	static glm::mat3 taitbryant(glm::vec3 pityawrol);
 
 	void physicsupdate();
 };
