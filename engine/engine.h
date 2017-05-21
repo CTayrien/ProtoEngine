@@ -12,21 +12,13 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "scene.h"
 #include "input.h"
 
-/* prioritized to do:
-    ai: satellite creatures, 
-	visuals: lighting & shadows, particle fx,
-	
-	collision stuff: collision system w/ struct, 
-	asset mngmnt: smart ptr asset mngmnt, 
-    external stuff: imgui, nsight, 
-	
-    classical mechanics: swept volume, predictor-corrector (L or H?), quat moment tensor torque collision manifold, 
-	fluid dynamics: fluids & softbody,
-	crazy physics: electrodynamics, relativity, quantum 
-	
-	game-y stuff: scenes, save/load, levels, sound, animation, spritesheet, 
-    graphics: element array rendering, instanced rendering, render lists, 
-    parallelization: multithreading, gpu physics, networking
+/* future cs & physics engine / scene development:
+    interests: scenes, center on start-up, imgui, nsight, collision system w/ struct, lighting & shadows, particle fx, flocking (& docking?), fluids & softbody, 
+	game engine: smart ptr asset mngmnt, save/load, levels, sound, animation, spritesheet, networking, 
+	physics: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?),
+    graphics optimization: element array rendering, instanced rendering, render lists, 
+    parallel: multithreading, gpu physics,
+    adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
 */
 
 struct window {

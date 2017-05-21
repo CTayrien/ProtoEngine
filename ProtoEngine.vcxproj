@@ -52,6 +52,7 @@
     <ClInclude Include="objects\rollaball\rollaball.h" />
     <ClInclude Include="objects\satellite\satellite.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
+    <ClInclude Include="scenes\gravaball.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\asset.cpp" />
@@ -81,7 +82,8 @@
     <ClCompile Include="objects\rollaball\rollaball.cpp" />
     <ClCompile Include="objects\satellite\satellite.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
-    <ClCompile Include="SceneRollABall.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="scenes\gravaball.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{79258F7C-6F0F-43A0-8590-8392AAB3852E}</ProjectGuid>
@@ -136,7 +138,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(ProjectDir)scenes;$(ProjectDir)objects;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -144,7 +146,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)engine;$(ProjectDir)include;$(ProjectDir)include/imgui;$(ProjectDir);$(ProjectDir)scenes;$(ProjectDir)objects;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

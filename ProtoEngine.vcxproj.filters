@@ -28,6 +28,12 @@
     <Filter Include="Source Files\Objects">
       <UniqueIdentifier>{7b0a3a3c-94cb-442c-a0fc-93881288df17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{ff8d50b6-c969-4384-85a7-01f9e9790f17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{867738b8-084a-455a-bb08-17be40af9a67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="engine\shaders\fshader.glsl">
@@ -125,6 +131,9 @@
     <ClInclude Include="engine\input.h">
       <Filter>Header Files\Engine</Filter>
     </ClInclude>
+    <ClInclude Include="scenes\gravaball.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine\camera.cpp">
@@ -178,9 +187,6 @@
     <ClCompile Include="objects\arrows\lerparrow.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="SceneRollABall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="engine\scene.cpp">
       <Filter>Source Files\Engine</Filter>
     </ClCompile>
@@ -210,6 +216,12 @@
     </ClCompile>
     <ClCompile Include="engine\input.cpp">
       <Filter>Source Files\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="scenes\gravaball.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

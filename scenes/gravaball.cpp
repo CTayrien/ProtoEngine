@@ -1,15 +1,16 @@
-/* Proto Engine : free open-source educational prototype game engine for prototyping simple games.
-Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
+/* Grav-a-Ball: free open-source prototype gravity simulation with 1000 falling cubes.
+Copyright(C) 2017  Cyprian Tayrien
 GNU General Public License <http://www.gnu.org/licenses/>./**/
+
+#include "gravaball.h"
+
 #include <ctime>
-
 #include "engine.h"
-
 #include "objects/rollaball/rollaball.h"
 #include "objects/collectible/collectible.h"
 #include "objects/satellite/satellite.h"
 
-void spawnitems(rollaball* player , object* satellite[4], int n)
+void spawnitems(rollaball* player, object* satellite[4], int n)
 {
 	srand(time(0));
 
@@ -26,21 +27,7 @@ void spawnitems(rollaball* player , object* satellite[4], int n)
 	}
 }
 
-int main()
-{
-	// build game "roll-a-ball" could just be a func in a header in the games folder
-	// each func can have a name
-	// keys can be printed to prompt the user: 1) rollaball, 2) arch, etc...
-
-	// Background
-	//engine::scene.spawn(new object);
-	//object& background = *engine::scene.back();
-	//background.tag = "background";
-	//background.mod = model({ "engine/models/quad.dat" });
-	//background.tex = texture({ "engine/textures/white.png" });
-	//background.tform.scale = { 20, 20, 1 };
-	//background.tform.loc.z = -2;
-
+void gravaball() {
 	// Player
 	rollaball& player = *(rollaball*)engine::scene.spawn(new rollaball);;
 
@@ -56,8 +43,4 @@ int main()
 
 	engine::cam.tform.loc.z = 16;
 	engine::cam.setdebug(false);
-
-	engine::start();
-
-	return 0;
 }
