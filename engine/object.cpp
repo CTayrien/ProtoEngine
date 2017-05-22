@@ -57,14 +57,13 @@ template<> bool object::collides<SPHERE, SPHERE>(const object& b) const
 	return (glm::dot(diff, diff) < rab*rab);
 }
 
-// Collision if dist from sphere to nearest point on box < sphere radius
 template<> bool object::collides<BOX, SPHERE>(const object& b) const {
-	
+
+	// Collision if dist from sphere to nearest point on box < sphere radius
 	// This can be a 4x4 matrix operation... T * clamp(DR, -max, max)
 	glm::vec3 p = tform.loc + tform.R * glm::clamp((b.tform.loc - tform.loc) * tform.R, -e, e);
-	
-	float d = glm::distance(p, b.tform.loc);
-	return (d < r);
+	glm::vec3 Dp = b.tform.loc - p;
+	return (glm::dot(Dp,Dp) < b.r * b.r);
 }
 
 // Return true if separated
@@ -73,7 +72,7 @@ inline bool testSepAxis(const glm::vec3 & L, const object& a, const object& b)
 	// Watch for infinite or 0 vectors
 	if (glm::length(L) != 1.0f) return false;
 
-	// Could these be 4x4 matrix ops too?
+	// Could these be 4x4 matrix ops?
 	// Radial vectors (corner vector that is most aligned along L)
 	glm::vec3 ra = a.tform.R * a.e * glm::sign(L * a.tform.R);
 	glm::vec3 rb = b.tform.R * b.e * glm::sign(L * b.tform.R);
@@ -89,7 +88,7 @@ template<> bool object::collides<BOX, BOX>(const object& b) const
 		if (testSepAxis(tform.R[i], *this, b)) return false;
 		if (testSepAxis(b.tform.R[i], *this, b)) return false;
 		for (int j = 0; j < 3; j++)
-			if (testSepAxis(glm::normalize(glm::cross(tform.R[i], b.tform.R[j])), *this, b)) return false;
+			if (testSepAxis(transform::norm(glm::cross(tform.R[i], b.tform.R[j])), *this, b)) return false;
 	}
 	return true;
 }

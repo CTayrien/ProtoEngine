@@ -35,7 +35,6 @@ void camera::script()
 		toggledebug();
 		if (!isdebug) {
 			printf("loc: %f, %f, %f", tform.loc.x, tform.loc.y, tform.loc.z);
-			//printf("Yaw, Pitch, Roll: %f, %f, %f", tform.rot.x, tform.rot.y, tform.rot.z);
 		}
 		else {
 			printf("\nDebug cam on.\n");
@@ -87,7 +86,7 @@ void camera::debugmove()
 void camera::debugturn()
 {	
 	// Switch to drotin for dogfight controls instead of fps controls
-	tform.drotin(glm::vec3(
+	tform.drotex(glm::vec3(
 		-sens * engine::input.cursor.dy,
 		-sens * engine::input.cursor.dx,
 		0));

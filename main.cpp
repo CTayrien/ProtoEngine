@@ -15,6 +15,7 @@ int main()
 	{
 		{ "Grav-a-ball", &gravaball }
 		// Developers: Add more scenes here
+		// flocking (& docking?), fluids & softbody,
 	};
 
 	printf("Welcome to Proto Engine\n\nfree open-source educational prototype game engine for prototyping simple games\n");

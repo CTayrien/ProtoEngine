@@ -66,7 +66,7 @@ void engine::gameloop()
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-		scene.clean();			//(removes objects with .garbage == true, sometimes crashes)
+		scene.clean();			//(removes objects with .garbage == true, sometimes crashes on scene with 1000 objects deleting many first frame)
 
 		// Render sky and scene  (per user - how to handle multiple povs?)
 		glfwSwapBuffers(window.ptr);

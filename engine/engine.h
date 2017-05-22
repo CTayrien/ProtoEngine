@@ -12,8 +12,8 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "scene.h"
 #include "input.h"
 
-/* future cs & physics engine / scene development:
-    interests: scenes, center on start-up, imgui, nsight, collision system w/ struct, lighting & shadows, particle fx, flocking (& docking?), fluids & softbody, 
+/* future cs & physics:
+    interests: center window on start-up, imgui, nsight, collision system w/ struct, lighting & shadows, particle fx, 
 	game engine: smart ptr asset mngmnt, save/load, levels, sound, animation, spritesheet, networking, 
 	physics: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?),
     graphics optimization: element array rendering, instanced rendering, render lists, 

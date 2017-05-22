@@ -49,10 +49,9 @@ void collectible::script()
 		float dist = glm::length(d);
 		if (dist > 1)
 			tform.force -= 1.f * d / dist;
-
 	}
 
-	//if (collides<BOX, SPHERE>(*player)) {
+	//if (collides<BOX, SPHERE>(*player)) //{
 		//garbage = true;
 		//std::cout << "Nice! Score: " << ++player->score << std::endl;
 		//if (player->score == 10) {
