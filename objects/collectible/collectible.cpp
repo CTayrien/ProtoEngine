@@ -63,12 +63,8 @@ void collectible::script()
 	// this code should be on transform, but then the earth doesn't rotate properly (at all)
 	tform.rotvel += tform.torque / tform.moment * engine::timer.dt;
 	
-	float yaw = atan2f(-tform.right().z, tform.right().x);
-	float pitch = asinf(tform.forward().y);
-	yaw += tform.rotvel.y * engine::timer.dt;
-	pitch += tform.rotvel.x * engine::timer.dt;
-	tform.setyawpitchroll(glm::vec3{ pitch,yaw,0 });
-	//tform.dextrinrot(tform, tform.rotvel.y * engine::timer.dt, tform.rotvel.x * engine::timer.dt);
+	// Objects don't seem to pitch, just yaw, despite rotvel.x is nonzero...
+	tform.drotex(tform.rotvel * engine::timer.dt);
 
 	tform.torque = { 0, 0, 0 };
 }

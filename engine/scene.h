@@ -7,12 +7,14 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class scene
 {
 public:
-	int nobjs;
-
+	// Up to 1024 objects per scene (includes cam & sky)
 	object* objects[1024];
+	int nobjs = 0;
 
-	object * spawn(object* object);
+	// object* obj = spawn(new object); (scene will delete it if garbage or when game over)
+	object* spawn(object* object);
 	
+	// Removes objects with .garbage == true (crashes on scene with 1000 objects when many are deleted in first frame)
 	void clean();
 
 	object* back();
