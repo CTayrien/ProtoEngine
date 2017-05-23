@@ -1,21 +1,36 @@
 /* Proto Engine : free open-source educational prototype game engine for prototyping simple games.
-Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
+Copyright(C) 2017  Cyprian Tayrien
 GNU General Public License <http://www.gnu.org/licenses/>./**/
-
-#include "engine.h"
 #include <vector>
 #include <string>
 #include <iostream>
+#include "engine.h"
 
 #include "gravaball.h"
 
 int main()
 {
+	/* 
+	future work:
+
+	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, 
+	
+	eng: collision system w/ struct, lighting & shadows, particle fx, 
+	eng: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?), 
+
+	adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
+	
+	game engine: smart ptr asset mngmnt, sound, animation, spritesheet, networking, imgui, nsight, 
+
+	graphics optimization: element array rendering, instanced rendering, render lists, 
+	
+	parallel: multithreading, gpu physics, 
+	*/
+
 	std::vector<std::pair<std::string, void (*)()>> games =
 	{
 		{ "Grav-a-ball", &gravaball }
 		// Developers: Add more scenes here
-		// flocking (& docking?), fluids & softbody,
 	};
 
 	printf("Welcome to Proto Engine\n\nfree open-source educational prototype game engine for prototyping simple games\n");

@@ -12,15 +12,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "scene.h"
 #include "input.h"
 
-/* future cs & physics:
-    interests: center window on start-up, imgui, nsight, collision system w/ struct, lighting & shadows, particle fx, 
-	game engine: smart ptr asset mngmnt, save/load, levels, sound, animation, spritesheet, networking, 
-	physics: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?),
-    graphics optimization: element array rendering, instanced rendering, render lists, 
-    parallel: multithreading, gpu physics,
-    adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
-*/
-
 struct window {
 	std::string title = "Proto Engine";
 	int w = 1200, h = 800;

@@ -1,5 +1,5 @@
 /* Proto Engine : free open-source educational prototype game engine for prototyping simple games.
-Copyright(C) 2017  Cyprian Tayrien, Interactive Games and Media, Rochester Institute of Technology
+Copyright(C) 2017  Cyprian Tayrien
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "collectible.h"
 #include "engine\engine.h"
@@ -25,6 +25,8 @@ collectible::~collectible()
 void collectible::script()
 {
 	//for (auto& obj : engine::scene.objects) {
+	//	
+	//	// Gravitate to collectibles
 	//	if (obj && obj->tag == "collectible") {
 	//		glm::vec3 d = tform.loc - obj->tform.loc;
 	//		if (d == glm::vec3{}) continue;
@@ -32,6 +34,8 @@ void collectible::script()
 	//		float dist = glm::length(d);
 	//		tform.force -= .1f * d / dist;
 	//	}
+	//
+	//	// Gravitate to player
 	//	if (obj && obj->tag == "player") {
 	//		glm::vec3 d = tform.loc - obj->tform.loc;
 	//		if (d == glm::vec3{}) continue;
@@ -39,11 +43,10 @@ void collectible::script()
 	//		float dist = glm::length(d);
 	//		tform.force -= .5f * d / dist;
 	//	}
-	//
 	//}
 
-	for (size_t i = 0; i < 4; i++)
-	{
+	// Gravitate to satellites
+	for (size_t i = 0; i < 4; i++) {
 		glm::vec3 d = tform.loc - satellite[i]->tform.loc;
 		glm::vec3 dir = glm::normalize(d);
 		float dist = glm::length(d);
@@ -51,6 +54,7 @@ void collectible::script()
 			tform.force -= 1.f * d / dist;
 	}
 
+	// Pick-up
 	//if (collides<BOX, SPHERE>(*player)) //{
 		//garbage = true;
 		//std::cout << "Nice! Score: " << ++player->score << std::endl;
@@ -60,11 +64,11 @@ void collectible::script()
 		//}
 	//}
 
-	// this code should be on transform, but then the earth doesn't rotate properly (at all)
-	tform.rotvel += tform.torque / tform.moment * engine::timer.dt;
+	// Rotate
+	// This code should be on transform, but then the earth doesn't rotate properly (at all)
+	//tform.rotvel += tform.torque / tform.moment * engine::timer.dt;
+	//tform.torque = { 0, 0, 0 };
 	
 	// Objects don't seem to pitch, just yaw, despite rotvel.x is nonzero...
 	tform.drotex(tform.rotvel * engine::timer.dt);
-
-	tform.torque = { 0, 0, 0 };
 }
