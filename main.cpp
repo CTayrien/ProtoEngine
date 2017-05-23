@@ -10,21 +10,19 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 int main()
 {
-	/* 
-	future work:
+	/*	Future work:
 
-	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, 
-	
+		Compelling problems and visuals
+	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, object avoidance 
 	eng: collision system w/ struct, lighting & shadows, particle fx, 
 	eng: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?), 
-
 	adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
 	
+		Delegate engine dev:
 	game engine: smart ptr asset mngmnt, sound, animation, spritesheet, networking, imgui, nsight, 
-
 	graphics optimization: element array rendering, instanced rendering, render lists, 
-	
 	parallel: multithreading, gpu physics, 
+	
 	*/
 
 	std::vector<std::pair<std::string, void (*)()>> games =
