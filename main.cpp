@@ -12,13 +12,15 @@ int main()
 {
 	/*	Future work:
 
-		Compelling problems and visuals
-	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, object avoidance 
-	eng: collision system w/ struct, lighting & shadows, particle fx, 
+		Compelling Problems and Visuals
+	eng: imgui, collision system w/ struct, advanced lighting & shadows, 
+	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, atoms, Optrix, astroadaptation game
+
+		Challenges
 	eng: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?), 
 	adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
 	
-		Delegate engine dev:
+		Engine Dev (Delegate)
 	game engine: smart ptr asset mngmnt, sound, animation, spritesheet, networking, imgui, nsight, 
 	graphics optimization: element array rendering, instanced rendering, render lists, 
 	parallel: multithreading, gpu physics, 
@@ -31,7 +33,7 @@ int main()
 		// Developers: Add more scenes here
 	};
 
-	printf("Welcome to Proto Engine\n\nfree open-source educational prototype game engine for prototyping simple games\n");
+	printf("Welcome to Proto Engine\n\nFree open-source educational prototype game engine for prototyping simple games\n\nPress ~ to toggle WASD-bound debug camera\n");
 
 	bool invalid = true, quit = false;
 	do
@@ -43,6 +45,7 @@ int main()
 
 		int num;
 		std::cin >> num;
+		std::cin.ignore();
 
 		if (num == -1) {
 			quit = true;

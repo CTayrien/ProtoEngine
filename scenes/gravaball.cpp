@@ -2,10 +2,13 @@
 Copyright(C) 2017  Cyprian Tayrien
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 
+#include <ctime>
+#include <iostream>
+
+#include "engine.h"
+
 #include "gravaball.h"
 
-#include <ctime>
-#include "engine.h"
 #include "objects/rollaball/rollaball.h"
 #include "objects/collectible/collectible.h"
 #include "objects/satellite/satellite.h"
@@ -28,6 +31,9 @@ void spawnitems(rollaball* player, object* satellite[4], int n)
 }
 
 void gravaball() {
+	printf("\n\nWelcome to Grav-a-Ball: a prototype physics simulation inspired by the Roll-a-Ball collectible game\nUse directional keys to move the earth\nFour satellites attract an ocean of non-collectibles\n\nPress enter to begin");
+	std::cin.get();
+
 	// Player
 	rollaball& player = *(rollaball*)engine::scene.spawn(new rollaball);;
 
