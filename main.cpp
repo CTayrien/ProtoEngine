@@ -13,17 +13,18 @@ int main()
 	/*	Future work:
 
 		Compelling Problems and Visuals
-	eng: imgui, collision system w/ struct, HDR & bloom, 
-	scenes/obj: flocking, docking, sakura, fireworks, glow vapor trail, atoms, Optrix, astroadaptation game (time travel?)
+	smart ptr asset mngmnt, multithreading, imgui, collision system w/ struct, quat moment tensor torque, 
 
-		Challenges
-	eng: quat moment tensor torque, collision manifold, swept volume, predictor-corrector (L or H?), 
-	adv physics: n-body, astrodynamics, relativity, electrodynamics, quantum, 
+		AI Objects Challenges
+	flocking, docking, sakura, fireworks, glow vapor trail, atoms, Optrix, astroadaptation game (time travel?)
+
+		Physics Challenges
+	predictor-corrector (L or H?), swept volume, collision manifold & reaction, 
+	n-body, astrodynamics, relativity, electrodynamics, quantum, 
 	
 		Engine Dev (Delegate)
-	game engine: smart ptr asset mngmnt, sound, animation, spritesheet, networking, imgui, nsight, 
-	graphics optimization: element array rendering, instanced rendering, render lists, deferred shading, shadows
-	parallel: multithreading, gpu physics, 
+	game engine: sound, animation, spritesheet, networking, nsight, gpu physics
+	graphics optimization: element array rendering, instanced rendering, render lists, deferred shading, shadows, crepuscular rays, lens flare, HDR, bloom, 
 	
 	*/
 
