@@ -5,9 +5,10 @@
 #version 430
 
 // Uniforms
-uniform sampler2D tex2D;
-
 layout (location = 6) uniform vec3 camloc;
+
+layout (location = 7) uniform vec4 mtl[2];
+uniform sampler2D tex2D;
 
 // Varyings (world coordinates)
 in vec3 loc;
@@ -19,11 +20,8 @@ out vec4 fragColor;
 
 void main()
 {
-	// Material const (diffuse vs specular, specular alpha)
-	vec2 mtrl = vec2(.5, 32);		//strange mtrl
-	
 	// Scene const (ambient light rgb brightness)
-	vec3 ambclr = vec3(1, 1, 1) * .5;
+	vec3 ambclr = vec3(1, 1, 1) * mtl[0][0];
 	
 	// Light const (direct light rgb brightness, could be per light)
 	vec3 litloc = normalize(vec3(1, 1, 1)) * 23481;	//23481 earth radii = 1 astronomical unit
@@ -38,12 +36,12 @@ void main()
 	vec3 H = normalize( L + V );			// Halfway vector
 	vec3 N = normalize( norm );				// Fragment normal
 	
-	float dif = mtrl[0] * max(dot(L, N), 0);
-	float spec = (1-mtrl[0]) * pow(max(dot(H, N), 0), mtrl[1]);
+	float dif = mtl[0][1] * max(dot(L, N), 0);
+	float spec = (mtl[0][2]) * pow(max(dot(H, N), 0), mtl[0][3]);
 	
 	// Incoming surface light color = Ambient + Diffuse + Specular
 	vec3 litclr = ambclr + dirclr * (dif + spec);
 	
 	// Color
-	fragColor = vec4(litclr, 1) * texel;
+	fragColor = vec4(litclr, 1) * texel * mtl[1];
 }

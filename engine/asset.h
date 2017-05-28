@@ -10,8 +10,10 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 class asset
 {
 public:
-	// Using pointers allows polymorphism to work - owns (on the heap) a copy of the first asset to load. subsequent assets with same key copy its data
+	// Asset manager: owns (on the heap) a copy of the first asset to load. subsequent assets with same key copy its data. Using pointers allows polymorphism to work. Should use shared_ptr since data copies are wasteful, etc.
 	static std::map<std::string, asset*> assets;
+	
+	// Read file contents into new char array on heap and return ptr
 	static char* read(const char* filename);
 
 	std::string key;

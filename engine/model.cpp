@@ -80,8 +80,6 @@ bool model::load()
 	assets[key] = new model(*this);
 
 	return true;
-
-	return true;
 }
 
 void model::unload()

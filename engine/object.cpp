@@ -44,6 +44,7 @@ void object::render()
 {
 	glUniformMatrix4fv(3, 1, GL_FALSE, &(glm::translate(tform.loc) * glm::mat4(tform.R) * glm::scale(tform.scale))[0][0]);
 	glUniformMatrix3fv(4, 1, GL_FALSE, &(tform.R * glm::mat3(glm::scale(1.0f / tform.scale)))[0][0]);
+	glUniform4fv(7, 2, &mtl.adsa[0]);
 	glBindTexture(tex.bindpt, tex.id);
 	glBindVertexArray(mod.vao);
 	glDrawArrays(GL_TRIANGLES, 0, mod.nverts);
