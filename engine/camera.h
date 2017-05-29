@@ -24,7 +24,7 @@ public:
 	void uploadpov();
 	
 	void script() override;
-	bool isdebug = true;
+	bool isdebug = false;
 	bool ispov = true;
 	
 	void toggledebug();

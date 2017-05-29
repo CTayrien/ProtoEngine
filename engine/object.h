@@ -15,12 +15,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 enum collider { SPHERE, BOX };
 
-struct material {
-	// ambient, diffuse, specular, alpha
-	glm::vec4 adsa = { .5, .5, .5, 32 };
-	glm::vec4 rgba = { 1, 1, 1, 1 };
-};
-
 class object
 {
 public:
@@ -29,14 +23,17 @@ public:
 	transform tform;
 	model mod;
 	texture tex;
-	//glm::vec4 mtl[2] = {{ .5, .5, .5, 32 },	//ambient, diffuse, specular, alpha
-	//					 { 1, 1, 1, 1 }};	//rgba
-	material mtl;
+	struct mtl {
+		// ambient, diffuse, specular, alpha
+		glm::vec4 adsa = { .5, .5, .5, 32 };
+		glm::vec4 rgba = { 1, 1, 1, 1 };
+	} mtl;
 
 	glm::vec3 e;
 	float r;
 
 	object();
+	object(std::string tag);
 	object(std::string tag, model mod, texture tex);
 	virtual ~object();
 	

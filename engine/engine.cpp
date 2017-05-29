@@ -57,6 +57,7 @@ void engine::start()
 
 void engine::gameloop()
 {
+	timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
 	while (!glfwWindowShouldClose(engine::window.ptr)) 
 	{
 		// Input from user		(per user)

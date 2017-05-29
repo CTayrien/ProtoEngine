@@ -4,7 +4,17 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "object.h"
 #include "engine.h"
 
-object::object() { }
+object::object()
+{
+	this->mod = model({ "engine/models/sphere.dat" });
+	this->tex = texture({ "engine/textures/white.png" });
+}
+
+object::object(std::string tag) {
+	this->tag = tag;
+	this->mod = model({"engine/models/sphere.dat"});
+	this->tex = texture({"engine/textures/white.png"});
+}
 
 object::object(std::string tag, model mod, texture tex)
 {

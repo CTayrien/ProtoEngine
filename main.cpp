@@ -7,20 +7,25 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "engine.h"
 
 #include "gravaball.h"
+#include "pong.h"
+#include "demoquat.h"
+#include "wrecksite.h"
+// Developers: Add more scenes here
 
+// Call a scene building function and then engine::start. Prompt user to choose which scene. Should multithread, start engine first, and put this menu in imgui.
 int main()
 {
-	
-
 	std::vector<std::pair<std::string, void (*)()>> scenelist =
 	{
-		{ "Grav-a-ball", &gravaball }
+		{ "Grav-a-ball", &gravaball },
+		{ "Pong", &pong },
+		{ "Demo Qaternions", &demoquat },
+		{ "Wrecksite", &wrecksite }
 		// Developers: Add more scenes here
 	};
 
 	printf("Welcome to Proto Engine\n\nFree open-source educational prototype game engine for prototyping simple games\n\nPress ~ to toggle WASD-bound debug camera\n");
 
-	// Chose a scene from the list, then start engine. Should multithread, start engine first, and put this menu in imgui.
 	bool invalid = true, quit = false;
 	do {
 		printf("\nBuild a scene\n");
@@ -42,7 +47,6 @@ int main()
 			printf("Error: Scene building func is null pointer: %s\n", scenelist[num].first.c_str());
 		}
 		else {
-			// Build scene with function that calls engine.spawn, etc
 			(*scenelist[num].second)();
 			invalid = false;
 		}

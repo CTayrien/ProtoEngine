@@ -9,7 +9,7 @@ camera::camera()
 	tag = "camera";
 	mod = model({ "engine/models/camera.dat" });
 	tex = texture({ "engine/textures/black.png" });
-	tform.loc.z = 2;
+	tform.loc.z = 10;
 }
 
 camera::~camera()

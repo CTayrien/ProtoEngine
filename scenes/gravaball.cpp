@@ -17,6 +17,7 @@ void spawnitems(rollaball* player, object* satellite[4], int n)
 {
 	srand(time(0));
 
+	// try using prefab to speed things up. even better: try loading it first
 	for (int i = 0; i < n; i++) {
 		collectible& c = *(collectible*)engine::scene.spawn(new collectible);
 		c.player = player;

@@ -8,7 +8,8 @@ satellite::satellite(object* player, float phase)
 {
 	tag = "satellite";
 	mod = model({ "engine/models/sphere.dat" });
-	tex = texture({ "engine/textures/red.png" });
+	tex = texture({ "engine/textures/white.png" });
+	this->mtl.rgba = { 1,0,0,1 };
 	this->player = player;
 	this->phase = phase;
 }
