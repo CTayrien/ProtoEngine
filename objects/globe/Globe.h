@@ -12,4 +12,5 @@ public:
 	Globe();
 	~Globe();
 	void script() override;
+	void render() override;
 };

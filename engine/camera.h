@@ -13,7 +13,7 @@ class camera :
 private:
 	glm::mat4 perspective;	// break this into consituents so i can change zoom
 	
-	const float maxspeed = 2.f;
+	float maxspeed = 2.f;
 	const float sens = .005f;
 	
 public:

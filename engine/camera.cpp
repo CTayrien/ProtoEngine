@@ -81,6 +81,12 @@ void camera::debugmove()
 	d.y += engine::input.down[input_space];
 
 	tform.vel = tform.R * transform::norm(d) * maxspeed;
+
+	if (1 == engine::input.ddown[input_shift])
+		maxspeed *= 2;
+
+	if (d == glm::vec3())
+		maxspeed = 2;
 }
 
 void camera::debugturn()

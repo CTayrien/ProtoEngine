@@ -52,8 +52,10 @@
     <ClInclude Include="objects\rollaball\rollaball.h" />
     <ClInclude Include="objects\satellite\satellite.h" />
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
+    <ClInclude Include="scenes\atoms.h" />
     <ClInclude Include="scenes\demoquat.h" />
     <ClInclude Include="scenes\gravaball.h" />
+    <ClInclude Include="scenes\orbits.h" />
     <ClInclude Include="scenes\pong.h" />
     <ClInclude Include="scenes\wrecksite.h" />
   </ItemGroup>
@@ -86,8 +88,10 @@
     <ClCompile Include="objects\satellite\satellite.cpp" />
     <ClCompile Include="objects\spacecraft\spacecraft.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="scenes\atoms.cpp" />
     <ClCompile Include="scenes\demoquat.cpp" />
     <ClCompile Include="scenes\gravaball.cpp" />
+    <ClCompile Include="scenes\orbits.cpp" />
     <ClCompile Include="scenes\pong.cpp" />
     <ClCompile Include="scenes\wrecksite.cpp" />
   </ItemGroup>

@@ -65,9 +65,9 @@ void engine::gameloop()
 
 		// Process scene		(predicted by users, corrected by server?)
 		timer.t += timer.dt = (float)(glfwGetTime() - timer.t);
+		scene.clean();
 		for (int i = 0; i < scene.nobjs; i++)
 			scene.objects[i]->update();
-		scene.clean();
 
 		// Render sky and scene  (per user - how to handle multiple povs?)
 		glfwSwapBuffers(window.ptr);
@@ -95,12 +95,7 @@ void engine::stop(std::string comment)
 		if (pair.second) pair.second->unload();
 	asset::assets = {};
 	
-	// delete objects from scene
-	for (int i = 0; i < scene.nobjs; i++) {
-		delete scene.objects[i];
-		scene.objects[i] = nullptr;
-	}
-	scene.nobjs = 0;
+	scene.empty();
 
 	glfwTerminate();
 

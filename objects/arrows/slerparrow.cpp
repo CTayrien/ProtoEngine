@@ -35,19 +35,7 @@ void slerparrow::script()
 	glm::quat qb(b->R);
 	glm::quat qt = glm::slerp(qa, qb, t);
 
-	// Set orientation of slerp object "spacecraft"
-	//tform.setforward((glm::vec3)glm::rotate(qt, glm::vec4(0, 0, -1, 1)));
-	//tform.setroll(?);
-	//tform.updatematrix();//upside-down?
-	
 	tform.R = glm::toMat3(qt);
-
-	//tform.modelWorld =
-	//	glm::translate(tform.loc) *
-	//	tform.rotmat *
-	//	glm::scale(tform.scale);		//dont updatematrix because it never got .rot set
-
-
 
 	// derp draws back one quaternion, then adds the other.
 	//float t2 = glm::abs(2 * t - (int)(2 * t));

@@ -12,9 +12,10 @@ public:
 	transform* a;
 	transform* b;
 	transform* qtvector, *qavector, *qbvector;// , *derper, *qdvector;
-	float f = 1.0f / 3.0f;
-	float t = 0.0f;
-	float d = 1.0f;
+	
+	float f = 1.0f / 3.0f;		// slerp frequency (hz)
+	float t = 0.0f;				// current t
+	float d = 1.0f;				// current direction
 	bool go = true;
 
 	slerparrow();

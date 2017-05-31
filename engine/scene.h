@@ -16,6 +16,8 @@ public:
 	
 	// Removes objects with .garbage == true (crashes on scene with 1000 objects when many are deleted in first frame)
 	void clean();
+	void prime();
+	void empty();
 
 	object* back();
 
