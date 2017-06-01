@@ -13,6 +13,7 @@ public:
 
 	particle(type t) {
 		this->t = t;
+		tag = "proton";
 		if (t == proton) {
 			mtl.rgba = { 1,0,0,1 };
 			q = 1;
@@ -42,7 +43,34 @@ public:
 	}
 
 	void script() override{
-		for (size_t i = 2; i < engine::scene.nobjs; i++) {
+		for (size_t i = 2; i < engine::scene.nobjs; i++) 
+		{	
+			/*
+			// particle-player ("pops" n into p+e, but engine crashes spawning two at once)
+			if (!garbage && t == nuetron && collides<SPHERE, SPHERE>(engine::cam)) {
+				this->garbage = true;
+				object* e = engine::scene.spawn(new particle(electron));
+				e->tform.loc = engine::cam.tform.loc - engine::cam.tform.right();
+				e->tform.vel = tform.vel - glm::vec3(1, 0, 0);
+			
+				object* p = engine::scene.spawn(new particle(proton));
+				p->tform.loc = engine::cam.tform.loc + engine::cam.tform.right();
+				p->tform.vel = tform.vel + glm::vec3(1, 0, 0);
+			}/**/
+
+			// particle-wall
+			object* p = engine::scene.objects[i];
+			if (p->tag == "wall") {
+				if (p->collides<BOX, SPHERE>(*this)) {	//wish i had <sphere,box>
+					glm::vec3 dir = engine::scene.objects[i]->tform.forward();
+					float rv = -glm::dot(tform.vel, dir);
+					if (rv < 0) tform.vel += 2.f * rv * dir;
+				}
+
+				continue;
+			}
+
+			// 2 particles
 			particle *o = (particle*)engine::scene.objects[i];
 			if (o == this) continue;
 			if (garbage || o->garbage) continue;
@@ -54,14 +82,13 @@ public:
 			if (collides<SPHERE, SPHERE>(*o)) {
 				// Nuetralize
 				float ke = glm::length(o->tform.vel - tform.vel);
-				if (ke < 1) nuetralize(o);
+				if (ke < 10) nuetralize(o);
 				
 				// Bounce
 				float rv = glm::dot(dir, o->tform.vel - tform.vel);
 				if (rv < 0) {
 					tform.vel += (dir * rv);
-					o->tform.vel -= (dir * rv);
-
+					o->tform.vel -= (dir * rv);	// currently p absorbs too much e's momentum
 				}
 
 				// Resurface
@@ -82,9 +109,12 @@ public:
 #include <ctime>
 void atoms()
 {
+	printf("\nAtoms scene simulates 50 protons and 50 electrons in a box. Collisions can form nuetrons. Fly into them to split them up.");
+	engine::cam.isdebug = true;
+
 	srand(time(0));
 	
-	for (size_t i = 0; i < 200; i++) 
+	for (size_t i = 0; i < 100; i++) 
 	{
 		particle::type t = i % 2 ? particle::proton : particle::electron;
 
@@ -96,4 +126,42 @@ void atoms()
 		engine::scene.spawn(new particle(t));
 		engine::scene.back()->tform.loc = l;
 	}
+
+	object wall;
+	wall.mod = model({ "engine/models/box.dat" });
+	wall.tform.scale = { 100, 100, 1 };
+	wall.tag = "wall";
+	wall.mtl.rgba = { 0, 0, 1, .5 };
+	wall.mtl.adsa = { 1, 0, 0, 32 };
+	object* w;
+
+	//front
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.z = 100;
+	w->tform.setforwardandroll({ 0,0,-1 }, 0);	//is default forward +z? thought it was this...
+	
+	//back
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.z = -100;
+	w->tform.setforwardandroll({0,0,1}, 0);
+
+	//left
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.x = -100;
+	w->tform.setforwardandroll({ 1,0,0 }, 0);
+
+	//right
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.x = 100;
+	w->tform.setforwardandroll({ -1,0,0 }, 0);
+
+	//top
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.y = 100;
+	w->tform.setforwardandroll({ 0,-1,0 }, 0);
+
+	//bottom
+	w = engine::scene.spawn(new object(wall));
+	w->tform.loc.y = -100;
+	w->tform.setforwardandroll({ 0,1,0 }, 0);
 }
