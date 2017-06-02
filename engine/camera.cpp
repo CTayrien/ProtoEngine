@@ -80,13 +80,28 @@ void camera::debugmove()
 	d.y -= engine::input.down[input_ctrl];
 	d.y += engine::input.down[input_space];
 
-	tform.vel = tform.R * transform::norm(d) * maxspeed;
+	//if (d != glm::vec3())
+		tform.vel = tform.R * transform::norm(d) * maxspeed;
+	
+	/*
+	if (engine::input.down[input_shift])
+		maxspeed = pow(maxspeed, 1+engine::timer.dt);
+	
+	float speed = glm::length(tform.vel);
+	// if user not pushing button
+	if (d == glm::vec3()) {
+		if (speed == 0) {
+			maxspeed = 2;	//not moving: reset maxspeed
+		}
+		else {
+			glm::vec3 dir = transform::norm(tform.vel);
+			float t = speed/maxspeed - engine::timer.dt;
+			if (t < 0) t = 0;
 
-	if (1 == engine::input.ddown[input_shift])
-		maxspeed *= 2;
-
-	if (d == glm::vec3())
-		maxspeed = 2;
+			tform.vel = tform.R * glm::mix(dir * maxspeed, glm::vec3(), t);
+		}
+	}
+	/**/
 }
 
 void camera::debugturn()

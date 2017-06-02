@@ -1,4 +1,4 @@
-/* Wrecksite: free open-source prototype sci-fi game in space.
+/* Wrecksite: free open-source prototype sci-fi exploration game in ethereal space.
 Copyright(C) 2017  Cyprian Tayrien
 GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "wrecksite.h"

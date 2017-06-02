@@ -12,6 +12,7 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 #include "atoms.h"
 #include "orbits.h"
 #include "wrecksite.h"
+#include "frenzy.h"
 // Developers: Add more scenes here
 
 // Call a scene building function and then engine::start. Prompt user to choose which scene. Should multithread, start engine first, and put this menu in imgui.
@@ -21,10 +22,11 @@ int main()
 	{
 		{ "Grav-a-ball", &gravaball },
 		{ "Pong", &pong },
-		{ "Demo Qaternions", &demoquat },
+		{ "Demo Quaternions", &demoquat },
 		{ "Atoms", &atoms },
 		{ "Orbits", &orbits },
-		{ "Wrecksite", &wrecksite }
+		{ "Wrecksite", &wrecksite },
+		{ "Frenzy", &frenzy}
 		// Developers: Add more scenes here
 	};
 

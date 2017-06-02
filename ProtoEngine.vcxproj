@@ -54,6 +54,7 @@
     <ClInclude Include="objects\spacecraft\spacecraft.h" />
     <ClInclude Include="scenes\atoms.h" />
     <ClInclude Include="scenes\demoquat.h" />
+    <ClInclude Include="scenes\frenzy.h" />
     <ClInclude Include="scenes\gravaball.h" />
     <ClInclude Include="scenes\orbits.h" />
     <ClInclude Include="scenes\pong.h" />
@@ -90,6 +91,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="scenes\atoms.cpp" />
     <ClCompile Include="scenes\demoquat.cpp" />
+    <ClCompile Include="scenes\frenzy.cpp" />
     <ClCompile Include="scenes\gravaball.cpp" />
     <ClCompile Include="scenes\orbits.cpp" />
     <ClCompile Include="scenes\pong.cpp" />
