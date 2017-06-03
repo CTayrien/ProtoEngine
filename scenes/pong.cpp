@@ -69,12 +69,17 @@ void pong()
 
 	pongball = engine::scene.spawn(new object);
 	pongball->tform.vel.x = 10;
-
+	pongball->mtl.rgba = { .2,.2,.2,1 };
+	
 	pongplayer1 = engine::scene.spawn(new paddle(input_up, input_down, {1,0,0}));
 	pongplayer1->tform.loc.x = 10;
+	pongplayer1->mtl.rgba = { 1,.5,.5,1 };
+	pongplayer1->mtl.adsa = { 1,0,0,32 };
 
 	pongplayer2 = engine::scene.spawn(new paddle(input_w, input_s, { 1,0,0 }));
 	pongplayer2->tform.loc.x = -10;
+	pongplayer2->mtl.rgba = { .5,1,.5,1 };
+	pongplayer2->mtl.adsa = { 1,0,0,32 };
 
 	pongceiling = engine::scene.spawn(new paddle(0, 0, { 0,-1,0 }));
 	pongceiling->tform.loc.y = 8;
@@ -83,4 +88,12 @@ void pong()
 	pongfloor = engine::scene.spawn(new paddle(0, 0, { 0,1,0 }));
 	pongfloor->tform.loc.y = -8;
 	pongfloor->tform.scale = { 20, .1, 5 };
+
+	object* back = engine::scene.spawn(new object);
+	back->mod = model({ "engine/models/box.dat" });
+	back->tform.loc.z = -5;
+	back->tform.scale *= 20;
+	back->tform.scale.z = 1;
+	back->mtl.rgba = { .5,.5,1,1 };
+	back->mtl.adsa = { 1,0,0,32 };
 }

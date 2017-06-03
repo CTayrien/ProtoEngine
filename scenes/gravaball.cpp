@@ -50,4 +50,12 @@ void gravaball() {
 
 	engine::cam.tform.loc.z = 16;
 	engine::cam.setdebug(false);
+
+	object* b = engine::scene.spawn(new object);
+	b->mod = model({ "engine/models/box.dat" });
+	b->tform.scale *= 40;
+	b->tform.scale.z = 1;
+	b->tform.loc.z = -5;
+	b->mtl.adsa = { 1,0,0,32 };
+	b->mtl.rgba = { .9,.9,.9,1 };
 }

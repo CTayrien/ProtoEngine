@@ -80,8 +80,7 @@ void camera::debugmove()
 	d.y -= engine::input.down[input_ctrl];
 	d.y += engine::input.down[input_space];
 
-	//if (d != glm::vec3())
-		tform.vel = tform.R * transform::norm(d) * maxspeed;
+	tform.vel = tform.R * transform::norm(d) * maxspeed;
 	
 	/*
 	if (engine::input.down[input_shift])

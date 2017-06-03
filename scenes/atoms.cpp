@@ -131,7 +131,7 @@ void atoms()
 	wall.mod = model({ "engine/models/box.dat" });
 	wall.tform.scale = { 100, 100, 1 };
 	wall.tag = "wall";
-	wall.mtl.rgba = { 0, 0, 1, .5 };
+	wall.mtl.rgba = { .25, .25, 1, 1 };
 	wall.mtl.adsa = { 1, 0, 0, 32 };
 	object* w;
 
