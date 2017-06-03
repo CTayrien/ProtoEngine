@@ -56,6 +56,6 @@ void gravaball() {
 	b->tform.scale *= 40;
 	b->tform.scale.z = 1;
 	b->tform.loc.z = -5;
-	b->mtl.adsa = { 1,0,0,32 };
-	b->mtl.rgba = { .9,.9,.9,1 };
+	b->mtl.adsa = { 1, 0, 0, 32 };
+	b->mtl.rgba = { .9, .9, .9, 1 };
 }
