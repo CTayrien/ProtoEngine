@@ -91,11 +91,17 @@ void engine::stop(std::string comment)
 	printf("\n%s\n", comment.c_str());
 
 	// assets.unload
-	for (auto& pair : asset::assets)
-		if (pair.second) pair.second->unload();
+	for (auto& pair : asset::assets) {
+		if (pair.second)
+			pair.second->unload();
+	}
+
 	asset::assets = {};
-	
+
 	scene.empty();
+
+	//game should not start. should stop if started.
+	//glfwSetWindowShouldClose(engine::window.ptr, GLFW_TRUE);
 
 	glfwTerminate();
 

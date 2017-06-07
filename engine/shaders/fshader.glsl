@@ -44,4 +44,16 @@ void main()
 	
 	// Color
 	fragColor = vec4(litclr, 1) * texel * mtl[1];
+
+	// Fog (unfortunately, distant black objects appear the color of the fog. i believe this is wrong - the fog scatters incident light - if the background is black, seeing color implies the fog is glowing or i'm seeing scatter (such as why the sky is blue (but it's NOT blue at night-time, and this shader would make the dark side of the moon blue instead of black...))
+	vec3 fogcolor = {.1, .3, .5};
+	float atten = .01;
+	float dist = length( camloc - loc );
+	float fogfactor = clamp( exp(-dist * atten), 0, 1);		
+	
+	vec3 surfcolor = fragColor.rgb;
+	vec3 mixcolor = mix(fogcolor, surfcolor, fogfactor);
+	vec3 darkcolor = min( surfcolor, mixcolor );
+
+	fragColor.rgb = mix(darkcolor, mixcolor, mtl[0][0]);
 }
