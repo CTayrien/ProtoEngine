@@ -21,14 +21,6 @@ public:
 		sway = nsway;
 
 		engine::cam.tform.loc += dsway;
-
-		//deprecated
-		//float density = .3;
-		//float fogcolor[4] = { .1, .5, .9, 1 };
-		//glEnable(GL_FOG);
-		//glFogi(GL_FOG_MODE, GL_EXP2);
-		//glFogfv(GL_FOG_COLOR, fogcolor);
-		//glFogf(GL_FOG_DENSITY, density);
 	}
 	
 	//could render post-process, add blue scaled by depth buffer vals
@@ -77,5 +69,4 @@ void wrecksite()
 	test->mod = model({ "engine/models/box.dat" });
 
 	engine::scene.spawn(new ether);
-
 }
