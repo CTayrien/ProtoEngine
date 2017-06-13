@@ -8,5 +8,6 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 void frenzy()
 {
-	printf("\nFrenzy game.\n");
+	printf("\nFrenzy: free open-source prototype first-person shooter style game. \n");
+	printf("Not yet implemented.\n");
 }
