@@ -65,6 +65,23 @@ void transform::setforwardandroll(glm::vec3 f, float roll)
 	setyawpitchroll(glm::vec3(pitch, yaw, roll));
 }
 
+glm::vec3 projvecplane(glm::vec3 a, glm::vec3 b) {
+	return a - b * glm::dot(a, b);
+}
+
+//void transform::setright(glm::vec3 r)
+//{
+//	// This does not work
+//	// Project y vector onto plane perpendicular to right vector
+//	glm::vec3 up = glm::normalize(projvecplane({ 0,1,0 }, r));
+//
+//	glm::vec3 forward = glm::cross(up, r);
+//
+//	R = {	r.x, r.y, r.z,
+//			up.x, up.y, up.z,
+//			forward.x, forward.y, forward.z };
+//}
+
 //the drot in cam is measured in cam frame
 //the drot in rollaball is in world frame
 // concatenates rotations 
@@ -86,9 +103,9 @@ void transform::drotex(glm::vec3 dyawpitrol)
 	setyawpitchroll(ypr);
 }
 
-glm::mat3 transform::slerp(const transform & a, const transform & b, float t)
+glm::mat3 transform::slerp(const glm::mat3& a, const glm::mat3& b, float t)
 {
-	return glm::toMat3(glm::slerp(glm::quat(a.R), glm::quat(b.R), t));
+	return glm::toMat3(glm::slerp(glm::quat(a), glm::quat(b), t));
 }
 
 glm::mat3 transform::rodrigz(glm::vec3 axis, float angle)

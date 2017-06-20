@@ -6,6 +6,9 @@ GNU General Public License <http://www.gnu.org/licenses/>./**/
 
 #include <iostream>
 
+#include "shoal/shoal.h"
+#include "shark/shark.h"
+
 object *wreck;
 
 class ether : public object {
@@ -23,7 +26,9 @@ public:
 		engine::cam.tform.loc += dsway;
 	}
 	
-	//could render post-process, add blue scaled by depth buffer vals
+	void render() override {
+		//fog is currently in shader, should post-process in overloaded render, add blue scaled by depth buffer vals
+	}
 };
 
 void wrecksite()
@@ -33,11 +38,6 @@ void wrecksite()
 	std::cin.get();
 
 	engine::cam.setdebug(true);
-
-	wreck = new object;
-	engine::scene.spawn(wreck);
-
-	wreck->mod = model({ "engine/models/box.dat" });
 
 	object* planet = engine::scene.spawn(new object);
 	planet->mtl.adsa = { 0, 1, 0, 32 };
@@ -55,18 +55,30 @@ void wrecksite()
 	planet->mtl.adsa = { 1, 0, 0, 32 };
 	planet->mtl.rgba = { 1, 1, .8, 1 };
 	planet->tform.scale *= 50;
-	planet->tform.loc = { 500,500,500 };
+	planet->tform.loc = { 500, 500, 500 };
 
 	planet = engine::scene.spawn(new object);
 	planet->mtl.adsa = { 0, 1, 0, 32 };
 	planet->mtl.rgba = { .5, .5, .1, 1 };
 	planet->tform.scale *= 10;
-	planet->tform.loc = { 0,100,-100 };
-
-	object *test = engine::scene.spawn(new object);
-	test->tform.scale = { 1000,1000,1 };
-	test->tform.loc.z = 100;
-	test->mod = model({ "engine/models/box.dat" });
+	planet->tform.loc = { 0, 100, -100 };
 
 	engine::scene.spawn(new ether);
+
+	// shoal and shark
+	shark* theshark = (shark*) engine::scene.spawn(new shark);
+	theshark->tform.loc = { 10, -10, 10 };
+
+	shoal* theshoal = (shoal*) engine::scene.spawn(new shoal);
+	theshoal->theshark = theshark;
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 4; k++) {
+				theshoal->fishes.push_back((fish*)engine::scene.spawn(new fish));
+				theshoal->fishes.back()->theshoal = theshoal;
+				theshoal->fishes.back()->tform.loc = {(i - 5)*5 , (j - 5) * 5 , (k - 5) * 5 };
+			}
+		}
+	}
 }

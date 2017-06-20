@@ -61,5 +61,5 @@ void main()
 
 	float dist = length( camloc - loc );
 	float ambient = mtl[0][0];
-	//fog(dist, ambient);
+	fog(dist, ambient);
 }

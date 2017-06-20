@@ -13,10 +13,10 @@ class camera :
 private:
 	glm::mat4 perspective;	// break this into consituents so i can change zoom
 	
+public:
 	float maxspeed = 2.f;
 	const float sens = .005f;
 	
-public:
 	camera();
 	~camera() override;
 

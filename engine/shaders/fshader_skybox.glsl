@@ -29,5 +29,5 @@ void main()
 
 	float dist = 1000;
 	float ambient = 0;
-	//fog(dist, ambient);
+	fog(dist, ambient);
 }
