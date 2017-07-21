@@ -6,7 +6,8 @@ Project & Engine Description:
 Create a scene/game using prototype game engine "Proto Engine"
 This engine is designed for easily building prototypes of games.
 Certain functionalities are not available, such as skeletal/spritesheet animation, sound, networking, quaternions, input event handling, etc.
-If dozens of game objects are used, framerate may begin to drop below 60fps on modern hardware.
+If thousands of game objects are used, framerate may begin to drop below 60fps on modern hardware.
+If pairwise interactions are required for dozens of objects, framerate may begin to drop as well.
 
 This project makes use of Open-Source Libraries:
 GLEW: 		glew.sourceforge.net
